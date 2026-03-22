@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[fonts] $*"; }
+warn() { echo "[fonts] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+os_is_mac() { [[ "$(uname -s)" == Darwin ]]; }
+
+eval_brew_shellenv() {
+  local brew_bin
+  if os_is_mac; then
+    brew_bin="/opt/homebrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="/usr/local/bin/brew"
+  else
+    brew_bin="/home/linuxbrew/.linuxbrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="$HOME/.linuxbrew/bin/brew"
+  fi
+  [[ -x "$brew_bin" ]] && eval "$("$brew_bin" shellenv)"
+}
+
+# ── Skip flag ─────────────────────────────────────────────────────────────────
+INSTALL_NERD_FONT="${INSTALL_NERD_FONT:-yes}"
+if [[ "$INSTALL_NERD_FONT" != "yes" ]]; then
+  log "INSTALL_NERD_FONT=${INSTALL_NERD_FONT} — skipping font install."
+  exit 0
+fi
+
+eval_brew_shellenv
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+if os_is_mac; then
+  if ! have brew; then
+    warn "brew not found — cannot install font on macOS."
+    exit 0
+  fi
+
+  if brew list --cask font-jetbrains-mono-nerd-font &>/dev/null; then
+    log "JetBrainsMono Nerd Font already installed via Homebrew cask. Skipping."
+  else
+    log "Tapping homebrew/cask-fonts and installing JetBrainsMono Nerd Font..."
+    brew tap homebrew/cask-fonts 2>/dev/null || true
+    brew install --cask font-jetbrains-mono-nerd-font || \
+      warn "brew install font-jetbrains-mono-nerd-font failed — install manually if needed."
+  fi
+
+  log "Done."
+  exit 0
+fi
+
+# ── Linux ─────────────────────────────────────────────────────────────────────
+FONT_DIR="$HOME/.local/share/fonts"
+FONT_CHECK="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
+
+if [[ -f "$FONT_CHECK" ]]; then
+  log "JetBrainsMono Nerd Font already installed at $FONT_DIR. Skipping."
+  exit 0
+fi
+
+log "Fetching latest Nerd Fonts release info..."
+LATEST_TAG=$(curl -fsSL "https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest" \
+  | grep '"tag_name"' | head -1 | sed 's/.*"tag_name": *"\([^"]*\)".*/\1/') || {
+  warn "Could not fetch Nerd Fonts release info. Skipping font install."
+  exit 0
+}
+
+TARBALL_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${LATEST_TAG}/JetBrainsMono.tar.xz"
+TMPDIR_FONTS="$(mktemp -d)"
+
+cleanup() { rm -rf "$TMPDIR_FONTS"; }
+trap cleanup EXIT
+
+log "Downloading JetBrainsMono Nerd Font ($LATEST_TAG)..."
+if ! curl -fsSL "$TARBALL_URL" -o "$TMPDIR_FONTS/JetBrainsMono.tar.xz"; then
+  warn "Download failed. Skipping font install."
+  exit 0
+fi
+
+log "Extracting..."
+if ! tar -xf "$TMPDIR_FONTS/JetBrainsMono.tar.xz" -C "$TMPDIR_FONTS"; then
+  warn "Extraction failed. Skipping font install."
+  exit 0
+fi
+
+mkdir -p "$FONT_DIR"
+TTF_COUNT=$(find "$TMPDIR_FONTS" -name '*.ttf' | wc -l)
+if [[ "$TTF_COUNT" -eq 0 ]]; then
+  warn "No .ttf files found in archive. Skipping font copy."
+  exit 0
+fi
+
+log "Copying $TTF_COUNT .ttf files to $FONT_DIR..."
+find "$TMPDIR_FONTS" -name '*.ttf' -exec cp {} "$FONT_DIR/" \;
+
+if have fc-cache; then
+  log "Refreshing font cache..."
+  fc-cache -fv "$FONT_DIR" || warn "fc-cache failed — fonts may not be immediately available."
+else
+  warn "fc-cache not found — font cache not refreshed. Install fontconfig or run fc-cache manually."
+fi
+
+log "Done."

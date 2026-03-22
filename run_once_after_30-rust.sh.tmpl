@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[rust] $*"; }
+warn() { echo "[rust] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+load_cargo_env() {
+  [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+}
+
+# ── Install Rust via rustup ───────────────────────────────────────────────────
+load_cargo_env
+
+if have rustup; then
+  log "rustup already installed. Skipping Rust install."
+  load_cargo_env
+elif have cargo; then
+  log "cargo already on PATH. Skipping Rust install."
+else
+  log "Installing Rust via rustup..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
+  load_cargo_env
+fi
+
+# Ensure cargo is on PATH after potential install
+load_cargo_env
+
+if ! have cargo; then
+  warn "cargo not found after install attempt. Skipping eza install."
+  warn "You may need to source ~/.cargo/env or open a new shell."
+  exit 0
+fi
+
+# ── Install eza ───────────────────────────────────────────────────────────────
+if have eza; then
+  log "eza already installed at $(command -v eza). Skipping."
+else
+  log "Installing eza via cargo..."
+  cargo install eza || warn "cargo install eza failed — you can retry manually: cargo install eza"
+fi
+
+log "Done."

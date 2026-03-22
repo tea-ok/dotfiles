@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[tmux] $*"; }
+warn() { echo "[tmux] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+TPM_DIR="$HOME/.tmux/plugins/tpm"
+
+# ── Clone TPM ─────────────────────────────────────────────────────────────────
+if [[ -d "$TPM_DIR" ]]; then
+  log "TPM already present at $TPM_DIR. Skipping."
+else
+  if ! have git; then
+    warn "git not found — cannot clone TPM."
+    exit 0
+  fi
+  log "Cloning TPM into $TPM_DIR..."
+  git clone https://github.com/tmux-plugins/tpm "$TPM_DIR" || \
+    warn "TPM clone failed — run manually: git clone https://github.com/tmux-plugins/tpm $TPM_DIR"
+fi
+
+log "Done."

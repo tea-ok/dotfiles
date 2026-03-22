@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[keyboard] $*"; }
+warn() { echo "[keyboard] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+os_is_mac() { [[ "$(uname -s)" == Darwin ]]; }
+
+# ── macOS: manual instructions only ──────────────────────────────────────────
+if os_is_mac; then
+  log "Caps Lock → Ctrl must be set manually on macOS:"
+  log "  System Settings → Keyboard → Keyboard Shortcuts… → Modifier Keys"
+  log "  Set 'Caps Lock (⇪) key' to 'Control (⌃)'"
+  exit 0
+fi
+
+# ── Linux ─────────────────────────────────────────────────────────────────────
+log "Remapping Caps Lock to Ctrl..."
+
+REMAPPED=false
+
+# Persistent: localectl (systemd, covers X11 and console)
+if have localectl; then
+  if sudo localectl set-x11-keymap "" "" "" ctrl:nocaps 2>/dev/null; then
+    log "Set persistently via localectl (X11 + console)."
+    REMAPPED=true
+  else
+    warn "localectl set-x11-keymap failed — trying other methods."
+  fi
+fi
+
+# GNOME: gsettings (handles Wayland + X11 under GNOME)
+if have gsettings; then
+  SCHEMA="org.gnome.desktop.input-sources"
+  KEY="xkb-options"
+  if gsettings get "$SCHEMA" "$KEY" 2>/dev/null | grep -q "ctrl:nocaps"; then
+    log "GNOME: ctrl:nocaps already present in xkb-options. Skipping."
+    REMAPPED=true
+  elif have python3; then
+    python3 - <<'PYEOF' && log "Set ctrl:nocaps via gsettings (GNOME)." && REMAPPED=true || warn "gsettings update failed."
+import subprocess, ast
+r = subprocess.run(
+    ['gsettings', 'get', 'org.gnome.desktop.input-sources', 'xkb-options'],
+    capture_output=True, text=True)
+try:
+    opts = ast.literal_eval(r.stdout.strip())
+except Exception:
+    opts = []
+if 'ctrl:nocaps' not in opts:
+    opts.append('ctrl:nocaps')
+val = '[' + ', '.join("'" + o + "'" for o in opts) + ']'
+subprocess.run(
+    ['gsettings', 'set', 'org.gnome.desktop.input-sources', 'xkb-options', val],
+    check=True)
+PYEOF
+  else
+    warn "python3 not found — cannot safely merge gsettings xkb-options. Skipping GNOME remapping."
+  fi
+fi
+
+# Current X11 session (temporary, takes effect immediately)
+if [[ -n "${DISPLAY:-}" ]] && have setxkbmap; then
+  if setxkbmap -option ctrl:nocaps 2>/dev/null; then
+    log "Applied to current X11 session via setxkbmap."
+    REMAPPED=true
+  else
+    warn "setxkbmap failed for current session."
+  fi
+fi
+
+if ! $REMAPPED; then
+  warn "Could not automatically remap Caps Lock to Ctrl on this system."
+  warn "You may need to configure this manually in your desktop keyboard settings."
+  warn "The xkb option to use is: ctrl:nocaps"
+fi
+
+log "Done."

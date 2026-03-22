@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[zsh] $*"; }
+warn() { echo "[zsh] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+os_is_mac()    { [[ "$(uname -s)" == Darwin ]]; }
+os_is_ubuntu() { [[ -f /etc/os-release ]] && grep -qi 'ID=ubuntu' /etc/os-release; }
+os_is_atomic() { have rpm-ostree; }
+
+eval_brew_shellenv() {
+  local brew_bin
+  if os_is_mac; then
+    brew_bin="/opt/homebrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="/usr/local/bin/brew"
+  else
+    brew_bin="/home/linuxbrew/.linuxbrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="$HOME/.linuxbrew/bin/brew"
+  fi
+  [[ -x "$brew_bin" ]] && eval "$("$brew_bin" shellenv)"
+}
+
+# ── Load brew shellenv ────────────────────────────────────────────────────────
+eval_brew_shellenv
+
+# ── Install zsh ───────────────────────────────────────────────────────────────
+if have zsh; then
+  log "zsh already installed at $(command -v zsh). Checking default shell..."
+else
+  log "Installing zsh..."
+  if os_is_mac; then
+    brew install zsh
+  elif os_is_ubuntu; then
+    sudo apt-get install -y zsh
+  elif os_is_atomic; then
+    log "Requesting sudo credentials..."
+    sudo -v
+    sudo rpm-ostree install --idempotent --assumeyes zsh || \
+      warn "rpm-ostree install zsh failed — you may need to install it manually and reboot."
+  else
+    if have brew; then
+      brew install zsh
+    else
+      warn "Unknown distro and brew not available — cannot install zsh automatically."
+    fi
+  fi
+fi
+
+# ── Set default shell ─────────────────────────────────────────────────────────
+ZSH_PATH=""
+for candidate in "$(command -v zsh 2>/dev/null)" /usr/bin/zsh /bin/zsh /usr/local/bin/zsh /opt/homebrew/bin/zsh; do
+  if [[ -x "$candidate" ]]; then
+    ZSH_PATH="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$ZSH_PATH" ]]; then
+  warn "Could not find a zsh binary. Skipping default shell change."
+elif [[ "$SHELL" == "$ZSH_PATH" ]]; then
+  log "Default shell is already $ZSH_PATH. Nothing to do."
+else
+  log "Setting default shell to $ZSH_PATH..."
+
+  # Add to /etc/shells if not present
+  if ! grep -qxF "$ZSH_PATH" /etc/shells 2>/dev/null; then
+    log "Adding $ZSH_PATH to /etc/shells..."
+    if echo "$ZSH_PATH" | sudo tee -a /etc/shells > /dev/null; then
+      log "Added."
+    else
+      warn "Could not write to /etc/shells. Run manually: echo '$ZSH_PATH' | sudo tee -a /etc/shells"
+    fi
+  fi
+
+  if chsh -s "$ZSH_PATH"; then
+    log "Default shell changed to $ZSH_PATH."
+    log "NOTE: Shell change takes effect on next login — do not restart the shell now."
+  else
+    warn "chsh failed. Run this manually to change your default shell:"
+    warn "  chsh -s $ZSH_PATH"
+  fi
+fi
+
+log "Done."
