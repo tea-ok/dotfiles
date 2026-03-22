@@ -28,6 +28,7 @@ No GitHub authentication is required — this repo is public.
 | neovim | Editor |
 | fastfetch | System info tool |
 | GitHub CLI (`gh`) | GitHub CLI (auth not configured automatically) |
+| lazygit | Terminal UI for git |
 | Ghostty | Terminal emulator — macOS only |
 | Alacritty | Terminal emulator — Linux GUI systems only |
 
