@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+log()  { echo "[homebrew] $*"; }
+warn() { echo "[homebrew] WARNING: $*" >&2; }
+
+have() { command -v "$1" &>/dev/null; }
+
+os_is_mac()    { [[ "$(uname -s)" == Darwin ]]; }
+os_is_ubuntu() { [[ -f /etc/os-release ]] && grep -qi 'ID=ubuntu' /etc/os-release; }
+os_is_atomic() { have rpm-ostree; }
+
+eval_brew_shellenv() {
+  local brew_bin
+  if os_is_mac; then
+    brew_bin="/opt/homebrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="/usr/local/bin/brew"
+  else
+    brew_bin="/home/linuxbrew/.linuxbrew/bin/brew"
+    [[ -x "$brew_bin" ]] || brew_bin="$HOME/.linuxbrew/bin/brew"
+  fi
+  [[ -x "$brew_bin" ]] && eval "$("$brew_bin" shellenv)"
+}
+
+persist_line() {
+  local file="$1" line="$2"
+  grep -qxF "$line" "$file" 2>/dev/null || echo "$line" >> "$file"
+}
+
+# ── OS detection ─────────────────────────────────────────────────────────────
+if os_is_mac; then
+  log "Detected: macOS"
+elif os_is_ubuntu; then
+  log "Detected: Ubuntu Linux"
+elif os_is_atomic; then
+  log "Detected: atomic Linux (rpm-ostree)"
+else
+  log "Detected: Linux (unsupported distro — will attempt Homebrew install anyway)"
+fi
+
+# ── Linux prereqs ─────────────────────────────────────────────────────────────
+if ! os_is_mac; then
+  log "Requesting sudo credentials for Linux setup..."
+  sudo -v
+
+  if os_is_ubuntu; then
+    log "Installing base dependencies via apt..."
+    sudo apt-get update -qq
+    sudo apt-get install -y \
+      build-essential \
+      ca-certificates \
+      curl \
+      file \
+      fontconfig \
+      git \
+      pkg-config \
+      xz-utils
+  elif os_is_atomic; then
+    warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
+  else
+    warn "Unknown Linux distro. Skipping apt dependencies — ensure build tools are available."
+  fi
+fi
+
+# ── Homebrew install ──────────────────────────────────────────────────────────
+eval_brew_shellenv
+
+if have brew; then
+  log "Homebrew already installed at $(command -v brew). Skipping."
+else
+  log "Installing Homebrew..."
+  NONINTERACTIVE=1 /bin/bash -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval_brew_shellenv
+fi
+
+# ── Persist shellenv ──────────────────────────────────────────────────────────
+if have brew; then
+  BREW_PREFIX="$(brew --prefix)"
+
+  if os_is_mac; then
+    log "Persisting brew shellenv to ~/.zprofile..."
+    persist_line "$HOME/.zprofile" "eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
+  else
+    log "Persisting brew shellenv to ~/.profile and ~/.zprofile..."
+    persist_line "$HOME/.profile"  "eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
+    persist_line "$HOME/.zprofile" "eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
+  fi
+else
+  warn "brew not found after install attempt — shellenv not persisted."
+fi
+
+log "Done."

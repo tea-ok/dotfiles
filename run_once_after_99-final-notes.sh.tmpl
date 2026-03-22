@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+have() { command -v "$1" &>/dev/null; }
+os_is_atomic() { have rpm-ostree; }
+
+cat <<'EOF'
+
+╔══════════════════════════════════════════════════════════════════╗
+║               Bootstrap complete — next steps                   ║
+╚══════════════════════════════════════════════════════════════════╝
+
+1. Refresh your shell
+   Open a new terminal window or log out and log back in.
+   Your default shell may have changed to zsh — it takes effect on
+   the next login.
+
+2. Install tmux plugins
+   Start tmux, then press:  prefix + I  (capital i)
+   TPM will install all plugins listed in ~/.tmux.conf.
+
+EOF
+
+if os_is_atomic; then
+  cat <<'EOF'
+3. Reboot (atomic Linux)
+   This system uses rpm-ostree. If any packages were installed or
+   updated, a reboot is required before they take effect:
+
+     sudo systemctl reboot
+
+EOF
+fi
+
+cat <<'EOF'
+4. Alacritty desktop icon (Linux only)
+   If you see a blank or missing icon for Alacritty in your app
+   launcher, edit the desktop entry and set the correct icon path:
+
+     ~/.local/share/applications/alacritty.desktop
+
+   Set the Icon= field to the .svg bundled with Alacritty, e.g.:
+     Icon=~/.cargo/registry/src/<hash>/alacritty-<ver>/extra/logo/alacritty-term.svg
+
+EOF
