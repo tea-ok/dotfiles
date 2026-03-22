@@ -42,7 +42,7 @@ if ! have brew; then
 fi
 
 # ── Install tools ─────────────────────────────────────────────────────────────
-for tool in chezmoi tmux neovim fastfetch gh lazygit; do
+for tool in chezmoi tmux neovim fastfetch gh lazygit ripgrep; do
   brew_install_if_missing "$tool"
 done
 
