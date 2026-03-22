@@ -96,3 +96,6 @@ fi
 
 # cargo
 export PATH="$HOME/.cargo/bin:$PATH"
+
+# .local/bin to PATH
+export PATH="$HOME/.local/bin:$PATH"
