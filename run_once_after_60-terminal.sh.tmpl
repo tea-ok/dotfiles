@@ -19,11 +19,11 @@ eval_brew_shellenv() {
     brew_bin="/home/linuxbrew/.linuxbrew/bin/brew"
     [[ -x "$brew_bin" ]] || brew_bin="$HOME/.linuxbrew/bin/brew"
   fi
-  [[ -x "$brew_bin" ]] && eval "$("$brew_bin" shellenv)"
+  if [[ -x "$brew_bin" ]]; then eval "$("$brew_bin" shellenv)"; fi
 }
 
 load_cargo_env() {
-  [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+  if [[ -f "$HOME/.cargo/env" ]]; then source "$HOME/.cargo/env"; fi
 }
 
 # ── Env flags ─────────────────────────────────────────────────────────────────
