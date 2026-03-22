@@ -13,8 +13,6 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply tea-ok
 This installs chezmoi (if needed), clones this repo, and applies the dotfiles.
 The bootstrap scripts then run automatically to set up the rest of the environment.
 
-No GitHub authentication is required — this repo is public.
-
 ## What the bootstrap installs
 
 | Component | Notes |
@@ -40,7 +38,6 @@ No GitHub authentication is required — this repo is public.
 
 ## Notes
 
-- The dotfiles repo is public — no GitHub auth is needed for bootstrap.
 - On macOS, **Caps Lock → Ctrl must be set manually**: System Settings → Keyboard → Keyboard Shortcuts → Modifier Keys.
 - After bootstrap, **open a new terminal** (or log out and back in) to pick up shell changes.
 - On atomic Linux, a **reboot** may be required after `rpm-ostree` installs packages.
