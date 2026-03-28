@@ -42,7 +42,7 @@ if ! have brew; then
 fi
 
 # ── Install tools ─────────────────────────────────────────────────────────────
-for tool in chezmoi tmux neovim fastfetch gh lazygit ripgrep markdownlint-cli2; do
+for tool in chezmoi tmux neovim fastfetch gh lazygit ripgrep markdownlint-cli2 unzip; do
   brew_install_if_missing "$tool"
 done
 
