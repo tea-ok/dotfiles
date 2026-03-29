@@ -30,6 +30,7 @@ return {
     "hcl",
     "markdown",
     "markdown_inline",
+    "latex",
   },
   auto_install = true,
 }
