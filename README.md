@@ -24,10 +24,11 @@ The bootstrap scripts then run automatically to set up the rest of the environme
 | [yazi](https://github.com/sxyazi/yazi) | Terminal file manager (via cargo) |
 | [chezmoi](https://chezmoi.io) | Dotfiles manager |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer |
-| [Neovim](https://neovim.io) | Editor |
+| [Neovim](https://neovim.io) | Editor, configured with NvChad + LazyVim |
 | [fastfetch](https://github.com/fastfetch-cli/fastfetch) | System info tool |
 | [GitHub CLI](https://cli.github.com) | GitHub CLI (auth not configured automatically) |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
+| [ripgrep](https://github.com/BurntSushi/ripgrep) | Fast recursive search |
 | [jq](https://jqlang.org) | JSON processor |
 | [fzf](https://github.com/junegunn/fzf) | Fuzzy finder |
 | [zoxide](https://github.com/ajeetdsouza/zoxide) | Smart `cd` replacement |
@@ -49,6 +50,8 @@ These are installed automatically the first time the shell, tmux, or Neovim laun
 | [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | History-based command suggestions |
 | [zsh-completions](https://github.com/zsh-users/zsh-completions) | Additional tab completions |
 
+OMZ snippets loaded: `git`, `sudo`, `aws`, `kubectl`, `kubectx`, `command-not-found`.
+
 **Tmux** — managed by TPM (from `.tmux.conf`):
 
 | Plugin | Notes |
@@ -62,7 +65,26 @@ These are installed automatically the first time the shell, tmux, or Neovim laun
 
 | Component | Notes |
 |---|---|
+| [NvChad](https://nvchad.com) | Neovim UI layer with themes and defaults |
 | [LazyVim](https://www.lazyvim.org) | Neovim configuration framework |
+
+LSP servers auto-installed via Mason: Lua, Bash, HTML, CSS, JSON, YAML, TOML, Markdown, Go, Python, TypeScript, Docker, Terraform, and more.
+
+## Local config & secrets
+
+The bootstrap creates `~/.config/zsh/local.zsh` (if it doesn't already exist) as a
+stub for machine-local configuration. This file is loaded by `.zshrc` but is **not
+tracked by chezmoi or git** — it's the right place for API keys, tokens, and any
+per-machine settings.
+
+```sh
+# ~/.config/zsh/local.zsh
+# export OPENAI_API_KEY=""
+# export ANTHROPIC_API_KEY=""
+# export GITHUB_TOKEN=""
+# export AWS_ACCESS_KEY_ID=""
+# ...
+```
 
 ## Supported platforms
 
@@ -76,6 +98,8 @@ These are installed automatically the first time the shell, tmux, or Neovim laun
 - After bootstrap, **open a new terminal** (or log out and back in) to pick up shell changes.
 - On atomic Linux, a **reboot** may be required after `rpm-ostree` installs packages.
 - The Alacritty `.desktop` icon path may need to be set manually on some systems — see the final bootstrap output for instructions.
+- **`nic`** is a shell function (defined in `~/.config/zsh/functions.zsh`) that creates a named tmux session with a standard 3-pane layout: Neovim, a REPL, and a file browser. Run `nic [name]` to start or attach, `nic ls` to list, `nic kill [name]` to kill.
+- **[opencode](https://opencode.ai)** settings are pre-configured at `~/.config/opencode/opencode.json` (OpenAI models, permission rules, context compaction), but opencode itself must be installed separately.
 
 ## Updating
 
@@ -135,10 +159,10 @@ next `chezmoi update`. Scripts are numbered to control execution order.
 | `run_once_after_15-keyboard.sh.tmpl` | Remaps Caps Lock to Ctrl. On Linux: sets it persistently via `localectl` and `gsettings` (GNOME), and for the current X11 session via `setxkbmap`. On macOS: prints instructions to do it manually in System Settings. |
 | `run_once_after_20-zsh.sh.tmpl` | Installs [zsh](https://www.zsh.org) and sets it as the default shell via `chsh`. |
 | `run_once_after_30-rust.sh.tmpl` | Installs [Rust](https://www.rust-lang.org) via rustup, then installs [eza](https://github.com/eza-community/eza) and [yazi](https://github.com/sxyazi/yazi) via Cargo. |
-| `run_once_after_40-tools.sh.tmpl` | Installs [chezmoi](https://chezmoi.io), [tmux](https://github.com/tmux/tmux), [Neovim](https://neovim.io), [fastfetch](https://github.com/fastfetch-cli/fastfetch), [gh](https://cli.github.com), [lazygit](https://github.com/jesseduffield/lazygit), [jq](https://jqlang.org), [fzf](https://github.com/junegunn/fzf), and [zoxide](https://github.com/ajeetdsouza/zoxide) via Homebrew. |
+| `run_once_after_40-tools.sh.tmpl` | Installs [chezmoi](https://chezmoi.io), [tmux](https://github.com/tmux/tmux), [Neovim](https://neovim.io), [fastfetch](https://github.com/fastfetch-cli/fastfetch), [gh](https://cli.github.com), [lazygit](https://github.com/jesseduffield/lazygit), [ripgrep](https://github.com/BurntSushi/ripgrep), [jq](https://jqlang.org), [fzf](https://github.com/junegunn/fzf), and [zoxide](https://github.com/ajeetdsouza/zoxide) via Homebrew. |
 | `run_once_after_50-fonts.sh.tmpl` | Installs [JetBrains Mono Nerd Font](https://www.jetbrains.com/lp/mono/) (Homebrew cask on macOS, tarball to `~/.local/share/fonts` on Linux). |
 | `run_once_after_60-terminal.sh.tmpl` | Installs [Ghostty](https://ghostty.org) (macOS) or [Alacritty](https://alacritty.org) (Linux GUI). Creates an Alacritty `.desktop` entry on Linux. |
 | `run_once_after_70-tmux.sh.tmpl` | Clones [TPM](https://github.com/tmux-plugins/tpm) to `~/.tmux/plugins/tpm`. |
-| `run_once_after_99-final-notes.sh.tmpl` | Prints manual next steps (refresh shell, install tmux plugins, reboot on atomic Linux). |
+| `run_once_after_99-final-notes.sh.tmpl` | Creates `~/.config/zsh/local.zsh` (secrets stub) if missing, then prints manual next steps (refresh shell, fill in secrets, install tmux plugins, reboot on atomic Linux). |
 
 All scripts are idempotent — they check whether each thing is already installed and skip it if so.
