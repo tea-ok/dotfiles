@@ -25,4 +25,13 @@ if not pcall(vim.lsp.enable, "ts_ls") then
   pcall(vim.lsp.enable, "tsserver")
 end
 
--- read :h vim.lsp.config for changing options of lsp servers 
+-- read :h vim.lsp.config for changing options of lsp servers
+vim.lsp.config("pylsp", {
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = { maxLineLength = 88 },
+      },
+    },
+  },
+})
