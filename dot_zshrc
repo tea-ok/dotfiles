@@ -80,6 +80,9 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+# functions
+[[ -f ~/.config/zsh/functions.zsh ]] && source ~/.config/zsh/functions.zsh
+
 # aliases
 alias ls="eza --icons --group-directories-first"
 alias ll="eza -l --icons"
@@ -103,3 +106,6 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # go 
 export PATH=$PATH:/usr/local/go/bin
+
+# machine-local config (not tracked in chezmoi)
+[[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
