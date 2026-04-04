@@ -24,7 +24,7 @@ The bootstrap scripts then run automatically to set up the rest of the environme
 | [yazi](https://github.com/sxyazi/yazi) | Terminal file manager (via cargo) |
 | [chezmoi](https://chezmoi.io) | Dotfiles manager |
 | [tmux](https://github.com/tmux/tmux) | Terminal multiplexer |
-| [Neovim](https://neovim.io) | Editor, configured with NvChad + LazyVim |
+| [Neovim](https://neovim.io) | Editor, configured with NvChad |
 | [fastfetch](https://github.com/fastfetch-cli/fastfetch) | System info tool |
 | [GitHub CLI](https://cli.github.com) | GitHub CLI (auth not configured automatically) |
 | [lazygit](https://github.com/jesseduffield/lazygit) | Terminal UI for git |
@@ -61,12 +61,19 @@ OMZ snippets loaded: `git`, `sudo`, `aws`, `kubectl`, `kubectx`, `command-not-fo
 | [tmux-yank](https://github.com/tmux-plugins/tmux-yank) | System clipboard integration |
 | [Dracula](https://github.com/dracula/tmux) | Color theme |
 
-**Neovim** — managed by [lazy.nvim](https://github.com/folke/lazy.nvim):
+**Neovim** — [NvChad v2.5](https://nvchad.com) with [lazy.nvim](https://github.com/folke/lazy.nvim):
 
-| Component | Notes |
+| Plugin | Notes |
 |---|---|
-| [NvChad](https://nvchad.com) | Neovim UI layer with themes and defaults |
-| [LazyVim](https://www.lazyvim.org) | Neovim configuration framework |
+| [conform.nvim](https://github.com/stevearc/conform.nvim) | Code formatter |
+| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) | LSP client configuration |
+| [mason.nvim](https://github.com/mason-org/mason.nvim) | LSP/formatter server installer |
+| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting and parsing |
+| [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | Seamless tmux pane navigation |
+| [mini.icons](https://github.com/echasnovski/mini.icons) | Icon provider |
+| [mini.animate](https://github.com/echasnovski/mini.animate) | Smooth scroll and cursor animations |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Rendered markdown in the buffer |
+| [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) | Find and replace UI |
 
 LSP servers auto-installed via Mason: Lua, Bash, HTML, CSS, JSON, YAML, TOML, Markdown, Go, Python, TypeScript, Docker, Terraform, and more.
 
@@ -99,7 +106,7 @@ per-machine settings.
 - On atomic Linux, a **reboot** may be required after `rpm-ostree` installs packages.
 - The Alacritty `.desktop` icon path may need to be set manually on some systems — see the final bootstrap output for instructions.
 - **`nic`** is a shell function (defined in `~/.config/zsh/functions.zsh`) that creates a named tmux session with a standard 3-pane layout: Neovim, a REPL, and a file browser. Run `nic [name]` to start or attach, `nic ls` to list, `nic kill [name]` to kill.
-- **[opencode](https://opencode.ai)** settings are pre-configured at `~/.config/opencode/opencode.json` (OpenAI models, permission rules, context compaction), but opencode itself must be installed separately.
+- **[opencode](https://opencode.ai)** settings are pre-configured at `~/.config/opencode/opencode.json` (model selection, permission rules, context compaction), but opencode itself must be installed separately.
 
 ## Updating
 
