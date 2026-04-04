@@ -1,0 +1,114 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // --- Model selection ---
+  // Used as fallback and by system agents (compaction, summary, etc.)
+  "model": "openai/gpt-5.4-mini",
+  "small_model": "openai/gpt-5.4-mini",
+
+  // --- Provider allowlist ---
+  "enabled_providers": ["openai"],
+
+  // --- Provider options ---
+  "provider": {
+    "openai": {
+      "options": {
+        "timeout": 600000,
+        "chunkTimeout": 30000
+      }
+    },
+    "anthropic": {
+      "options": {
+        "timeout": 600000,
+        "chunkTimeout": 30000
+      }
+    }
+  },
+
+  // --- Agents ---
+  // Tab cycles between plan and build during a session
+  "agent": {
+    "plan": {
+      "model": "openai/gpt-5.4",
+      "reasoningEffort": "high"
+    },
+    "build": {
+      "model": "openai/gpt-5.4-mini",
+      "reasoningEffort": "xhigh"
+    }
+  },
+
+  // --- Permissions ---
+  // Granular bash rules. Last matching rule wins, so "*": "ask" is the catch-all.
+  "permission": {
+    "bash": {
+      "*":              "ask",
+      // Read-only commands: allow without prompting
+      "ls":             "allow",
+      "ls *":           "allow",
+      "cat *":          "allow",
+      "pwd":            "allow",
+      "echo *":         "allow",
+      "which *":        "allow",
+      "env":            "allow",
+      "find *":         "allow",
+      "grep *":         "allow",
+      // Git read-only
+      "git status":     "allow",
+      "git status *":   "allow",
+      "git log":        "allow",
+      "git log *":      "allow",
+      "git diff":       "allow",
+      "git diff *":     "allow",
+      "git show *":     "allow",
+      "git branch":     "allow",
+      "git branch *":   "allow",
+      // Git write: ask before committing, deny push/force operations
+      "git commit *":   "ask",
+      "git push *":     "deny",
+      "git push":       "deny",
+      "git rebase *":   "ask",
+      "git reset *":    "ask",
+      // Destructive: hard deny
+      "rm *":           "deny",
+      "rm -rf *":       "deny"
+    },
+    // Ask before any file edits or writes
+    "edit": "ask",
+    // Deny access to .env files (in addition to the built-in default)
+    "read": {
+      "*":              "allow",
+      "*.env":          "deny",
+      "*.env.*":        "deny",
+      "*.env.example":  "allow"
+    },
+    // Ask if the same tool call repeats 3x with identical input (loop guard)
+    "doom_loop": "ask"
+  },
+
+  // --- Sharing ---
+  "share": "disabled",
+
+  // --- Context compaction ---
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "reserved": 10000
+  },
+
+  // --- Snapshots (enables /undo) ---
+  "snapshot": true,
+
+  // --- Auto-update ---
+  "autoupdate": false,
+
+  // --- Privacy ---
+  "experimental": {
+    "openTelemetry": false
+  },
+
+  // --- File watcher: ignore noisy directories ---
+  "watcher": {
+    "ignore": ["node_modules/**", "dist/**", ".git/**", ".next/**", ".turbo/**"]
+  }
+}
