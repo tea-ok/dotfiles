@@ -7,7 +7,7 @@
   "small_model": "openai/gpt-5.4-mini",
 
   // --- Provider allowlist ---
-  "enabled_providers": ["openai"],
+  "enabled_providers": ["openai", "github-copilot"],
 
   // --- Provider options ---
   "provider": {
@@ -42,65 +42,65 @@
   // Granular bash rules. Last matching rule wins, so "*": "ask" is the catch-all.
   "permission": {
     "bash": {
-      "*":              "ask",
+      "*": "ask",
       // Read-only commands: allow without prompting
-      "ls":             "allow",
-      "ls *":           "allow",
-      "cat *":          "allow",
-      "pwd":            "allow",
-      "echo *":         "allow",
-      "which *":        "allow",
-      "env":            "allow",
-      "find *":         "allow",
-      "grep *":         "allow",
+      "ls": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "pwd": "allow",
+      "echo *": "allow",
+      "which *": "allow",
+      "env": "allow",
+      "find *": "allow",
+      "grep *": "allow",
       // Git read-only
-      "git status":     "allow",
-      "git status *":   "allow",
-      "git log":        "allow",
-      "git log *":      "allow",
-      "git diff":       "allow",
-      "git diff *":     "allow",
-      "git show *":     "allow",
-      "git branch":     "allow",
-      "git branch *":   "allow",
+      "git status": "allow",
+      "git status *": "allow",
+      "git log": "allow",
+      "git log *": "allow",
+      "git diff": "allow",
+      "git diff *": "allow",
+      "git show *": "allow",
+      "git branch": "allow",
+      "git branch *": "allow",
       // Git write: ask before committing, deny push/force/send-pack operations
-      "git commit *":   "ask",
-      "git push *":     "deny",
-      "git push":       "deny",
-      "git send-pack":  "deny",
+      "git commit *": "ask",
+      "git push *": "deny",
+      "git push": "deny",
+      "git send-pack": "deny",
       "git send-pack *": "deny",
-      "git rebase *":   "ask",
-      "git reset *":    "ask",
+      "git rebase *": "ask",
+      "git reset *": "ask",
       // GitHub CLI: deny writes, allow common read-only inspection commands
-      "gh *":           "deny",
-      "gh help*":       "allow",
-      "gh -h*":         "allow",
-      "gh --help*":     "allow",
-      "gh version*":    "allow",
-      "gh -v*":         "allow",
-      "gh --version*":  "allow",
-      "gh * list*":     "allow",
-      "gh * view*":     "allow",
-      "gh * status*":   "allow",
-      "gh * check*":    "allow",
-      "gh * diff*":     "allow",
-      "gh * watch*":    "allow",
-      "gh search*":     "allow",
-      "gh browse*":     "allow",
+      "gh *": "deny",
+      "gh help*": "allow",
+      "gh -h*": "allow",
+      "gh --help*": "allow",
+      "gh version*": "allow",
+      "gh -v*": "allow",
+      "gh --version*": "allow",
+      "gh * list*": "allow",
+      "gh * view*": "allow",
+      "gh * status*": "allow",
+      "gh * check*": "allow",
+      "gh * diff*": "allow",
+      "gh * watch*": "allow",
+      "gh search*": "allow",
+      "gh browse*": "allow",
       "gh * download*": "allow",
-      "gh * clone*":    "allow",
+      "gh * clone*": "allow",
       // Destructive: hard deny
-      "rm *":           "deny",
-      "rm -rf *":       "deny"
+      "rm *": "deny",
+      "rm -rf *": "deny"
     },
     // Ask before any file edits or writes
     "edit": "ask",
     // Deny access to .env files (in addition to the built-in default)
     "read": {
-      "*":              "allow",
-      "*.env":          "deny",
-      "*.env.*":        "deny",
-      "*.env.example":  "allow"
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
     },
     // Ask if the same tool call repeats 3x with identical input (loop guard)
     "doom_loop": "ask"
