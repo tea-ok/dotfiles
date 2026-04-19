@@ -2,16 +2,39 @@
 
 Personal dotfiles managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-## Install
+## Flow 1: Update This Machine
+
+Use this when you want the repo's config on the machine you're sitting at.
 
 ```sh
-git clone <repo-url> ~/.dotfiles
-cd ~/.dotfiles
+git clone https://github.com/tea-ok/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ./install.sh
 ./apply.sh
 ```
 
-If the config already exists in your home directory, use a first pass with:
+If the machine already has a different config in the way, move it aside first:
+
+```sh
+mv ~/.config/nvim ~/.config/nvim.backup
+./apply.sh nvim
+```
+
+## Flow 2: Update The Repo
+
+Use this when the current machine has changes you want to turn into the new source of truth.
+
+```sh
+cd ~/dotfiles
+./apply.sh --adopt nvim
+git diff
+git commit -m "update nvim config"
+git push
+```
+
+If you are editing the repo directly, just change the files under the package directories and commit them normally. Other machines pick the changes up with `git pull` and `./apply.sh`.
+
+If the config already exists in your home directory and you want Stow to import it into the repo, use a first pass with:
 
 ```sh
 ./apply.sh --adopt
@@ -41,9 +64,3 @@ Use `./apply.sh --dry-run` to preview links, `./apply.sh <package>` to apply a s
 ## Local config
 
 `~/.config/zsh/local.zsh` is machine-local and intentionally not tracked. Put secrets and per-machine overrides there.
-
-## Notes
-
-- This repo no longer manages default shell changes or keyboard remapping.
-- `nic` is still defined in `~/.config/zsh/functions.zsh`.
-- `opencode` settings live in `~/.config/opencode/opencode.json`.
