@@ -100,6 +100,9 @@ return {
       })
     end,
     opts = {
+      dashboard = {
+        enabled = true,
+      },
       terminal = {
         win = { position = "float" },
       },
