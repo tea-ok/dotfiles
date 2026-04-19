@@ -57,6 +57,13 @@ return {
   },
 
   {
+    "kylechui/nvim-surround",
+    version = "^4.0.0",
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  {
     "echasnovski/mini.animate",
     version = false,
     lazy = false,
