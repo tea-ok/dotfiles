@@ -1,2 +1,4 @@
-/tests
-dot_config/zsh/local.zsh
+**/.DS_Store
+**/.nvimlog
+zsh/.config/zsh/local.zsh
+/.worktrees/
