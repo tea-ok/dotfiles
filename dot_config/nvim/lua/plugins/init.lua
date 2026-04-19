@@ -82,6 +82,16 @@ return {
   },
 
   {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      terminal = {},
+      lazygit = {},
+    },
+  },
+
+  {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
     ft = { "markdown" },

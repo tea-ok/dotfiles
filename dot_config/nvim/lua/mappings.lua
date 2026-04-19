@@ -24,3 +24,12 @@ map("t", "<C-\\>", "<C-w><cmd>TmuxNavigatePrevious<CR>", { desc = "tmux navigate
 -- grug-far --
 map("n", "<leader>fr", "<cmd>GrugFar<cr>", { desc = "Find & Replace (grug-far)" })
 map("v", "<leader>fr", "<cmd>GrugFar<cr>", { desc = "Find & Replace selection (grug-far)" })
+
+-- snacks.nvim --
+map("n", "<leader>gg", function()
+  Snacks.lazygit()
+end, { desc = "Lazygit (Snacks)" })
+
+map("n", "<leader>tt", function()
+  Snacks.terminal.toggle()
+end, { desc = "Terminal (Snacks)" })
