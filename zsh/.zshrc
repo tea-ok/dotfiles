@@ -107,5 +107,5 @@ export PATH="$HOME/.local/bin:$PATH"
 # go 
 export PATH=$PATH:/usr/local/go/bin
 
-# machine-local config (not tracked in chezmoi)
+# machine-local config (not tracked in version control)
 [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
