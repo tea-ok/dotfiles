@@ -38,6 +38,7 @@ zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
 # snippets
 zinit snippet OMZL::git.zsh
@@ -88,6 +89,10 @@ alias ls="eza --icons --group-directories-first"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
 alias vim="nvim"
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # brew
 if [[ -x /opt/homebrew/bin/brew ]]; then
