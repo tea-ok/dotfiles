@@ -25,6 +25,7 @@ return {
     "gosum",
     "gowork",
     "python",
+    "rust",
     "dockerfile",
     "terraform",
     "hcl",

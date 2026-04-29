@@ -35,6 +35,15 @@ return {
   },
 
   {
+    "mrcjkb/rustaceanvim",
+    version = "^9",
+    lazy = false,
+    init = function()
+      require "configs.rustaceanvim"
+    end,
+  },
+
+  {
     "christoomey/vim-tmux-navigator",
     lazy = false,
     init = function()
