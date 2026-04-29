@@ -16,6 +16,7 @@ local options = {
     zsh = { "shfmt" },
     go = { "gofumpt", "goimports" },
     python = { "ruff_format" },
+    rust = { "rustfmt" },
   },
 
   format_on_save = {
