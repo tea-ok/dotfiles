@@ -335,7 +335,7 @@ EOF
 install_brew_packages() {
   local pkg
 
-  for pkg in stow zsh tmux neovim fastfetch gh lazygit ripgrep jq fzf zoxide eza yazi unzip; do
+  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep jq fzf zoxide eza yazi unzip; do
     brew_install_formula_if_missing "$pkg"
   done
 
@@ -349,6 +349,24 @@ install_brew_packages() {
   fi
 }
 
+ensure_uv_tool_latest() {
+  local pkg="$1"
+
+  if ! have uv; then
+    warn "uv not found — cannot manage $pkg. Install uv and rerun bootstrap."
+    return 0
+  fi
+
+  if have "$pkg"; then
+    log "$pkg already on PATH at $(command -v "$pkg"). Upgrading via uv..."
+    uv tool upgrade "$pkg" || warn "uv tool upgrade $pkg failed — update manually if needed."
+    return 0
+  fi
+
+  log "Installing $pkg via uv..."
+  uv tool install "$pkg@latest" || warn "uv tool install $pkg@latest failed — install manually if needed."
+}
+
 main() {
   if ! os_is_mac; then
     ensure_linux_prereqs
@@ -356,6 +374,8 @@ main() {
 
   ensure_homebrew
   install_brew_packages
+  ensure_uv_tool_latest ruff
+  ensure_uv_tool_latest ty
 
   if os_is_mac; then
     if [[ "${INSTALL_NERD_FONT:-yes}" == "yes" ]]; then
