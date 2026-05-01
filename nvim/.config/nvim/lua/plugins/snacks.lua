@@ -6,8 +6,9 @@ return {
     local group = vim.api.nvim_create_augroup("snacks_solid_floats", { clear = true })
 
     local function apply()
-      vim.api.nvim_set_hl(0, "SnacksSolidFloat", { bg = "#1f2430" })
-      vim.api.nvim_set_hl(0, "SnacksSolidBorder", { fg = "#5c6370", bg = "#1f2430" })
+      local colors = require("base46").get_theme_tb "base_30"
+      vim.api.nvim_set_hl(0, "SnacksSolidFloat", { bg = colors.black })
+      vim.api.nvim_set_hl(0, "SnacksSolidBorder", { fg = "#5c6370", bg = colors.black })
     end
 
     apply()
