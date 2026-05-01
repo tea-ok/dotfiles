@@ -37,6 +37,9 @@ return {
             FloatBorder = "SnacksSolidBorder",
           },
         },
+        keys = {
+          hide_terminal = { "<C-q>", "hide", mode = "t", desc = "Hide terminal" },
+        },
       },
       lazygit = {
         backdrop = 60,

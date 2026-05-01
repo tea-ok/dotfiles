@@ -19,7 +19,6 @@ map("t", "<C-h>", "<C-w><cmd>TmuxNavigateLeft<CR>", { desc = "tmux navigate left
 map("t", "<C-j>", "<C-w><cmd>TmuxNavigateDown<CR>", { desc = "tmux navigate down" })
 map("t", "<C-k>", "<C-w><cmd>TmuxNavigateUp<CR>", { desc = "tmux navigate up" })
 map("t", "<C-l>", "<C-w><cmd>TmuxNavigateRight<CR>", { desc = "tmux navigate right" })
-map("t", "<C-\\>", "<C-w><cmd>TmuxNavigatePrevious<CR>", { desc = "tmux navigate previous" })
 
 -- grug-far --
 map("n", "<leader>fr", "<cmd>GrugFar<cr>", { desc = "Find & Replace (grug-far)" })
