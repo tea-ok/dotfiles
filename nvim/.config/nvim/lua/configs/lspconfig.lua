@@ -10,7 +10,8 @@ local servers = {
   "bashls",
   "marksman",
   "gopls",
-  "pylsp",
+  "ruff",
+  "ty",
   "dockerls",
   "docker_compose_language_service",
   "terraformls",
@@ -25,13 +26,17 @@ if not pcall(vim.lsp.enable, "ts_ls") then
   pcall(vim.lsp.enable, "tsserver")
 end
 
--- read :h vim.lsp.config for changing options of lsp servers
-vim.lsp.config("pylsp", {
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = { maxLineLength = 88 },
-      },
-    },
-  },
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("python_lsp_prefer_ty_hover", { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client == nil then
+      return
+    end
+
+    if client.name == "ruff" then
+      client.server_capabilities.hoverProvider = false
+    end
+  end,
+  desc = "LSP: Prefer ty hover for Python",
 })

@@ -32,8 +32,6 @@ M.ensure_installed = {
   "gopls",
   "goimports",
   "gofumpt",
-  "python-lsp-server",
-  "black",
   "ruff",
   "dockerfile-language-server",
   "docker-compose-language-service",
@@ -53,8 +51,6 @@ M.package_requirements = {
   ["gopls"] = "go",
   ["goimports"] = "go",
   ["gofumpt"] = "go",
-  ["python-lsp-server"] = "python3",
-  ["black"] = "python3",
   ["ruff"] = "python3",
 }
 

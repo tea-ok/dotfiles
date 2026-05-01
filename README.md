@@ -53,9 +53,11 @@ If the config already exists in your home directory and you want Stow to import 
 
 ## Bootstrap
 
-`install.sh` is Homebrew-first and idempotent. It installs `stow` plus the common tools from this setup, creates `~/.config/zsh/local.zsh` if missing, and keeps system-level changes manual.
+`install.sh` is Homebrew-first and idempotent. It installs `stow`, `uv`, and the common tools from this setup, installs `ruff` and `ty` globally via `uv tool install`, creates `~/.config/zsh/local.zsh` if missing, and keeps system-level changes manual.
 
 On Linux it still falls back to the previous non-Brew paths where needed, including Nerd Fonts, Rust/cargo for Alacritty, and TPM.
+
+Because `uv tool` installs executables into `~/.local/bin`, open a new shell after bootstrap before launching Neovim.
 
 ## Apply
 
