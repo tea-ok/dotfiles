@@ -14,6 +14,12 @@ M.base46 = {
 	-- },
 }
 
+M.ui = {
+  statusline = {
+    separator_style = { left = "", right = "" },
+  },
+}
+
 -- M.nvdash = { load_on_startup = true }
 -- M.ui = {
 --       tabufline = {
