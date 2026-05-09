@@ -14,4 +14,5 @@ return {
   require "plugins.snacks",
   require "plugins.render-markdown",
   require "plugins.grug-far",
+  require "plugins.which_key",
 }
