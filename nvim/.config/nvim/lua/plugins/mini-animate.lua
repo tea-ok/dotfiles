@@ -5,20 +5,9 @@ return {
   opts = function()
     local animate = require "mini.animate"
 
-    local not_nvimtree = function(win_id)
-      local buf = vim.api.nvim_win_get_buf(win_id)
-      return vim.bo[buf].filetype ~= "NvimTree"
-    end
-
     return {
-      open = {
-        enable = true,
-        winconfig = animate.gen_winconfig.static { predicate = not_nvimtree },
-      },
-      close = {
-        enable = true,
-        winconfig = animate.gen_winconfig.static { predicate = not_nvimtree },
-      },
+      open = { enable = false },
+      close = { enable = false },
       cursor = { enable = false },
       scroll = {
         enable = true,
