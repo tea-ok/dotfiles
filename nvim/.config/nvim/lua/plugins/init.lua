@@ -15,4 +15,5 @@ return {
   require "plugins.render-markdown",
   require "plugins.grug-far",
   require "plugins.which_key",
+  require "plugins.nvimtree",
 }
