@@ -8,6 +8,15 @@ return {
   },
 
   config = function()
+    vim.diagnostic.config({
+      virtual_text = true, -- set to false to hide inline error text
+
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+      float = { border = "rounded" },
+    })
+
     vim.api.nvim_create_autocmd('LspAttach', {
       desc = 'LSP actions',
       callback = function(event)
@@ -26,46 +35,51 @@ return {
       end,
     })
 
-    require("mason").setup({
-      ensure_installed = {},
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    vim.lsp.config("*", { capabilities = capabilities })
+
+    require("mason").setup({})
+    require("mason-lspconfig").setup({
+      ensure_installed = { "ruff" },
     })
 
-    require("mason-lspconfig").setup({
-      handlers = {
-        function(server_name)
-          require("lspconfig")[server_name].setup({})
-        end,
-      },
-    })
+    if vim.fn.executable("ty") == 1 then
+      vim.lsp.config("ty", {
+        cmd = { "ty", "server" },
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", ".git" },
+      })
+      vim.lsp.enable("ty")
+    end
 
     local cmp = require("cmp")
 
     local kind_icons = {
-      Text = "",
-      Method = "m",
-      Function = "",
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
       Constructor = "",
-      Field = "",
-      Variable = "",
-      Class = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
       Interface = "",
       Module = "",
-      Property = "",
-      Unit = "",
-      Value = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
       Enum = "",
-      Keyword = "",
+      Keyword = "󰌋",
       Snippet = "",
-      Color = "",
-      File = "",
-      Reference = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
       Folder = "",
       EnumMember = "",
-      Constant = "",
-      Struct = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
       Event = "",
-      Operator = "",
-      TypeParameter = "",
+      Operator = "󰆕",
+      TypeParameter = "󰊄",
     }
 
     cmp.setup({
