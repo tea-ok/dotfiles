@@ -9,10 +9,10 @@ return {
 
   config = function()
     vim.diagnostic.config({
-      virtual_text = true, -- set to false to hide inline error text
-
+      virtual_text = false,
+      virtual_lines = { current_line = true }, -- show inline text only on the cursor line
       signs = true,
-      underline = true,
+      underline = { severity = vim.diagnostic.severity.ERROR }, -- only underline errors, not warnings
       update_in_insert = false,
       float = { border = "rounded" },
     })
