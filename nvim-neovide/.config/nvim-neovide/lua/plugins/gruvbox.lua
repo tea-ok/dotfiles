@@ -2,8 +2,12 @@ return {
   "ellisonleao/gruvbox.nvim",
   lazy = false,
   priority = 1000,
-  config = function()
+  opts = {
+    contrast = "soft",
+  },
+  config = function(_, opts)
     vim.o.background = "dark"
+    require("gruvbox").setup(opts)
     vim.cmd([[colorscheme gruvbox]])
   end,
 }
