@@ -73,6 +73,13 @@ Language servers are managed with `:Mason`.
 | `p` | Paste without overwriting clipboard |
 | `J` / `K` | Move selected block down/up (visual-block) |
 
+## Snacks
+
+| Key | Action |
+|-----|--------|
+| `Space tt` | Open terminal |
+| `Space gg` | Open lazygit |
+
 ## Terminal mode
 
 | Key | Action |
