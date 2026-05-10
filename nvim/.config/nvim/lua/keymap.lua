@@ -17,6 +17,7 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 
+
 keymap("n", "<C-Up>", ":resize +1<CR>", opts)
 keymap("n", "<C-Down>", ":resize -1<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -1<CR>", opts)
