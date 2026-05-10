@@ -1,5 +1,23 @@
 return {
   "stevearc/conform.nvim",
-  -- event = 'BufWritePre', -- uncomment for format on save
-  opts = require "configs.conform",
+  event = { "BufWritePre" },
+  cmd = { "ConformInfo" },
+  keys = {
+    {
+      "<leader>fm",
+      function()
+        require("conform").format({ async = true })
+      end,
+      desc = "Format buffer",
+    },
+  },
+  opts = {
+    formatters_by_ft = {
+      python = { "ruff_format" },
+    },
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_format = "fallback",
+    },
+  },
 }

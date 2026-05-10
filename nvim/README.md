@@ -1,4 +1,4 @@
-# nvim-neovide keybinds
+# nvim keybinds
 
 Leader key is `Space`.
 
@@ -8,6 +8,7 @@ Leader key is `Space`.
 |-----|--------|
 | `Ctrl+h/j/k/l` | Move between splits |
 | `Shift+h` / `Shift+l` | Previous / next buffer |
+| `Space x` | Close buffer |
 | `Ctrl+d` / `Ctrl+u` | Scroll half-page down/up (cursor stays centered) |
 
 ## Splits
@@ -23,7 +24,25 @@ Leader key is `Space`.
 |-----|--------|
 | `Space e` | Toggle file tree |
 
-Inside the tree, default nvim-tree binds apply: `Enter` to open, `a` to create, `d` to delete, `r` to rename, `R` to refresh.
+Inside the tree:
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `o` | Open file |
+| `Ctrl+v` | Open in vertical split |
+| `Ctrl+x` | Open in horizontal split |
+| `Ctrl+t` | Open in new tab |
+| `a` | Create file or directory (trailing `/` = directory) |
+| `d` | Delete |
+| `r` | Rename |
+| `x` | Cut |
+| `c` | Copy |
+| `p` | Paste |
+| `y` | Copy filename |
+| `H` | Toggle hidden files |
+| `R` | Refresh |
+| `q` | Close tree |
+| `g?` | Show all keybinds |
 
 ## Telescope (fuzzy finder)
 
