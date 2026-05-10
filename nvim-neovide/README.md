@@ -32,7 +32,7 @@ Inside the tree, default nvim-tree binds apply: `Enter` to open, `a` to create, 
 | `Space ff` | Find files |
 | `Space fh` | Find files (including hidden) |
 | `Space fg` | Git files |
-| `Space fr` | Live grep |
+| `Space fw` | Live grep |
 | `Space fb` | Open buffers |
 
 Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+c` / `Esc` to close.
@@ -72,6 +72,22 @@ Language servers are managed with `:Mason`.
 | `Alt+j` / `Alt+k` | Move selected lines down/up |
 | `p` | Paste without overwriting clipboard |
 | `J` / `K` | Move selected block down/up (visual-block) |
+
+## Formatting (conform.nvim)
+
+| Key | Action |
+|-----|--------|
+| `Space fm` | Format buffer |
+
+Format on save is enabled. Uses LSP formatting as fallback when no formatter is configured.
+
+## Surround (nvim-surround)
+
+| Key | Action |
+|-----|--------|
+| `ys{motion}{char}` | Add surround (e.g. `ysiw"` wraps word in quotes) |
+| `ds{char}` | Delete surround (e.g. `ds"`) |
+| `cs{old}{new}` | Change surround (e.g. `cs"'`) |
 
 ## Snacks
 
