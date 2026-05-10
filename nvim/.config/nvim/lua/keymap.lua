@@ -31,15 +31,11 @@ keymap("n", "Q", "<nop>", opts)
 keymap("n", "<Esc>", ":noh<CR>", opts)
 
 -- Visual --
-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Visual Block --
 keymap("x", "J", ":move '>+1<CR>gv=gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv=gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv=gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv=gv", opts)
 keymap("x", "p", '"_dP', opts)
 
 -- Terminal --
