@@ -1,7 +1,7 @@
 local options = {
   backup = false,
   clipboard = "unnamedplus",
-  cmdheight = 1,
+  cmdheight = 0,
   completeopt = { "menuone", "noselect" } ,
   conceallevel = 0,
   fileencoding = "utf-8",
@@ -55,3 +55,6 @@ vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
 
 vim.opt.shortmess:append "c"
+
+vim.o.laststatus = 3
+vim.o.statusline = "%!v:lua.require('stl')()"
