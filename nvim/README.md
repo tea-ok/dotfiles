@@ -15,8 +15,11 @@ Leader key is `Space`.
 
 | Key | Action |
 |-----|--------|
-| `Ctrl+↑/↓` | Resize split horizontally |
-| `Ctrl+←/→` | Resize split vertically |
+| `Ctrl+w v` | Open vertical split (same file) |
+| `Ctrl+w s` | Open horizontal split (same file) |
+| `Ctrl+w o` | Close all other splits |
+| `Ctrl+↑/↓` | Resize split taller/shorter |
+| `Ctrl+←/→` | Resize split wider/narrower |
 
 ## File tree (nvim-tree)
 
@@ -54,7 +57,7 @@ Inside the tree:
 | `Space fw` | Live grep |
 | `Space fb` | Open buffers |
 
-Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+c` / `Esc` to close.
+Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+v` to open in vertical split, `Ctrl+x` for horizontal split, `Ctrl+c` / `Esc` to close.
 
 ## LSP (active when a language server is attached)
 
@@ -68,8 +71,8 @@ Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+c` / 
 | `go` | Go to type definition |
 | `gr` | References |
 | `gs` | Signature help |
-| `F2` | Rename symbol |
-| `F4` | Code actions |
+| `Space rn` | Rename symbol |
+| `Space ca` | Code actions |
 
 Language servers are managed with `:Mason`.
 
@@ -88,9 +91,8 @@ Language servers are managed with `:Mason`.
 
 | Key | Action |
 |-----|--------|
-| `Alt+j` / `Alt+k` | Move selected lines down/up |
 | `p` | Paste without overwriting clipboard |
-| `J` / `K` | Move selected block down/up (visual-block) |
+| `J` / `K` | Move selected block down/up (enter visual-block with `Ctrl+v`) |
 
 ## Formatting (conform.nvim)
 
@@ -127,3 +129,37 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 |---------|--------|
 | `:Lazy` | Open lazy.nvim UI |
 | `:Mason` | Open Mason LSP installer |
+
+---
+
+## Workflows
+
+### Opening files side by side
+
+**From the file tree:** `Space e` to open the tree, navigate to the first file and press `Enter`, then navigate to the second file and press `Ctrl+v` to open it in a vertical split beside the first. `Space e` again to close the tree.
+
+**From Telescope:** `Space ff` to search, press `Enter` on the first file to open it, then `Space ff` again and this time press `Ctrl+v` on the second file to open it in a split.
+
+**Splitting a file you already have open:** `Ctrl+w v` to duplicate it into a vertical split, then `Space ff` or `gd` to navigate to something else in one pane while keeping context in the other.
+
+### Jumping to a definition without losing your place
+
+Press `gd` on a symbol to jump to its definition. Use `Ctrl+o` to jump back. If you want to keep both visible at once, split first: `Ctrl+w v` then `gd` in the new pane — your original file stays open on the left.
+
+### Exploring references
+
+`gr` opens a Telescope picker with every reference to the symbol under the cursor. Navigate with `Ctrl+j/k`, press `Enter` to jump or `Ctrl+v` to open the reference in a split alongside what you're currently editing.
+
+### Terminal alongside code
+
+`Space tt` toggles a terminal at the bottom. `Ctrl+j` moves into the terminal, `Ctrl+k` moves back up to the editor. The terminal stays running in the background when toggled off — toggle it back on with `Space tt` and your session is still there.
+
+### Typical Rust session
+
+1. Open the project root in nvim.
+2. `Space e` to browse the file tree, open the file you want.
+3. Edit — completions and inlay hints come from rust-analyzer automatically.
+4. `Space k` on an error to read the diagnostic. `Space ca` for quick fixes.
+5. `gd` to jump to a definition; `Ctrl+o` to come back.
+6. `Space fm` to format (or just save — format-on-save is on).
+7. `Space gg` to open lazygit for committing.

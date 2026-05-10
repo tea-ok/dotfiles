@@ -30,8 +30,8 @@ return {
         vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
         vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
         vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        vim.keymap.set('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
+        vim.keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
       end,
     })
 
@@ -41,6 +41,9 @@ return {
     require("mason").setup({})
     require("mason-lspconfig").setup({
       ensure_installed = { "ruff" },
+      automatic_enable = {
+        exclude = { "rust_analyzer" }, -- managed by rustup, rustaceanvim finds it automatically
+      },
     })
 
     if vim.fn.executable("ty") == 1 then
