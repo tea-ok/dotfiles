@@ -43,3 +43,18 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- Neovide clipboard (Cmd+C/V) --
+if vim.g.neovide then
+    vim.keymap.set({ "n", "v" }, "<D-c>", '"+y', opts)
+    vim.keymap.set({ "n", "v" }, "<D-v>", '"+p', opts)
+    vim.keymap.set("i", "<D-v>", "<C-r><C-o>+", opts)
+    vim.keymap.set("t", "<D-v>", function()
+        local clip = vim.fn.getreg("+")
+        local channel = vim.b.terminal_job_id
+        if channel then
+            vim.api.nvim_chan_send(channel, clip)
+        end
+    end, opts)
+    vim.keymap.set("t", "<D-c>", "<C-\\><C-N>", opts)
+end
