@@ -89,6 +89,7 @@ alias ls="eza --icons --group-directories-first"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
 alias vim="nvim"
+alias cat="bat"
 
 # Shell integrations
 eval "$(fzf --zsh)"

@@ -107,8 +107,11 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 | Key | Action |
 |-----|--------|
 | `ys{motion}{char}` | Add surround (e.g. `ysiw"` wraps word in quotes) |
+| `S{char}` | Surround visual selection |
 | `ds{char}` | Delete surround (e.g. `ds"`) |
 | `cs{old}{new}` | Change surround (e.g. `cs"'`) |
+
+**Bracket spacing:** opening brackets (`(`, `{`, `[`) add inner spaces — e.g. `S(` → `( foo )`. Use the closing bracket (`)`、`}`、`]`) to surround without spaces — e.g. `S)` → `(foo)`.
 
 ## Snacks
 
