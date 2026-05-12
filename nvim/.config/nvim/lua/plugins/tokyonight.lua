@@ -3,7 +3,7 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    style = "night",
+    style = "storm",
     on_highlights = function(hl, c)
       -- Statusline base
       hl.StatusLine   = { fg = c.fg_dark,  bg = c.bg_dark }
