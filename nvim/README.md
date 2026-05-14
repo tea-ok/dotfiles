@@ -10,6 +10,7 @@ Leader key is `Space`.
 | `[b` / `]b` | Previous / next buffer |
 | `H` / `L` | Start / end of line |
 | `Space x` | Close buffer |
+| `Ctrl+o` / `Ctrl+i` | Jump back / forward |
 | `Ctrl+d` / `Ctrl+u` | Scroll half-page down/up (cursor stays centered) |
 
 ## Splits
@@ -18,6 +19,7 @@ Leader key is `Space`.
 |-----|--------|
 | `Ctrl+w v` | Open vertical split (same file) |
 | `Ctrl+w s` | Open horizontal split (same file) |
+| `Ctrl+w q` | Close current split |
 | `Ctrl+w o` | Close all other splits |
 | `Ctrl+↑/↓` | Resize split taller/shorter |
 | `Ctrl+←/→` | Resize split wider/narrower |
@@ -134,37 +136,3 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 |---------|--------|
 | `:Lazy` | Open lazy.nvim UI |
 | `:Mason` | Open Mason LSP installer |
-
----
-
-## Workflows
-
-### Opening files side by side
-
-**From the file tree:** `Space e` to open the tree, navigate to the first file and press `Enter`, then navigate to the second file and press `Ctrl+v` to open it in a vertical split beside the first. `Space e` again to close the tree.
-
-**From Telescope:** `Space ff` to search, press `Enter` on the first file to open it, then `Space ff` again and this time press `Ctrl+v` on the second file to open it in a split.
-
-**Splitting a file you already have open:** `Ctrl+w v` to duplicate it into a vertical split, then `Space ff` or `gd` to navigate to something else in one pane while keeping context in the other.
-
-### Jumping to a definition without losing your place
-
-Press `gd` on a symbol to jump to its definition. Use `Ctrl+o` to jump back. If you want to keep both visible at once, split first: `Ctrl+w v` then `gd` in the new pane — your original file stays open on the left.
-
-### Exploring references
-
-`gr` opens a Telescope picker with every reference to the symbol under the cursor. Navigate with `Ctrl+j/k`, press `Enter` to jump or `Ctrl+v` to open the reference in a split alongside what you're currently editing.
-
-### Terminal alongside code
-
-`Space tt` toggles a floating terminal. `Space th` opens the same terminal style in a horizontal split at the bottom. `Ctrl+j` moves into the terminal, `Ctrl+k` moves back up to the editor. The terminal stays running in the background when toggled off — toggle it back on with the same key and your session is still there.
-
-### Typical Rust session
-
-1. Open the project root in nvim.
-2. `Space e` to browse the file tree, open the file you want.
-3. Edit — completions and inlay hints come from rust-analyzer automatically.
-4. `Space k` on an error to read the diagnostic. `Space ca` for quick fixes.
-5. `gd` to jump to a definition; `Ctrl+o` to come back.
-6. `Space fm` to format (or just save — format-on-save is on).
-7. `Space gg` to open lazygit for committing.
