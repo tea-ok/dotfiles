@@ -63,6 +63,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `zsh/` | `~/.zshrc`, `~/.p10k.zsh`, `~/.config/zsh/functions.zsh` |
 | `tmux/` | `~/.tmux.conf` |
 | `nvim/` | `~/.config/nvim/` |
+| `neovide/` | `~/.config/neovide/config.toml` |
 | `vim/` | `~/.exrc`, `~/.vimrc` |
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `alacritty/` | `~/.config/alacritty/alacritty.toml` |

@@ -13,6 +13,15 @@ Leader key is `Space`.
 | `Ctrl+o` / `Ctrl+i` | Jump back / forward |
 | `Ctrl+d` / `Ctrl+u` | Scroll half-page down/up (cursor stays centered) |
 
+## Tabs
+
+| Key | Action |
+|-----|--------|
+| `gt` / `gT` | Next / previous tab |
+| `Ctrl+w T` | Move current split into its own tab |
+| `:tabnew` | Open a new tab |
+| `:tabclose` | Close current tab |
+
 ## Splits
 
 | Key | Action |
@@ -123,6 +132,26 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 | `Space tt` | Open floating terminal |
 | `Space th` | Open horizontal terminal |
 | `Space gg` | Open lazygit |
+
+## Sessions
+
+| Key | Action |
+|-----|--------|
+| `Space ss` | Search saved workspace sessions |
+| `Space sl` | Restore workspace session |
+| `Space sw` | Save workspace session |
+| `Space st` | Toggle workspace autosave |
+
+Inside the session picker:
+
+| Key | Action |
+|-----|--------|
+| `Enter` | Restore selected session |
+| `Ctrl+d` / `dd` | Delete selected session |
+| `Ctrl+s` | Switch to alternate session |
+| `Ctrl+y` | Copy selected session path |
+
+Sessions are saved per project/workdir. Opening Neovim in a directory without a saved session starts clean; use `Space ss` to switch to another saved session when you want one.
 
 ## Terminal mode
 

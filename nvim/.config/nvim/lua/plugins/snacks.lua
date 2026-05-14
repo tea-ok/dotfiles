@@ -4,6 +4,9 @@ return {
   lazy = false,
   opts = {
     lazygit = { enabled = true },
+    picker = {
+      enabled = true,
+    },
     terminal = {
       win = { style = "terminal", position = "float", border = "rounded" },
     },
