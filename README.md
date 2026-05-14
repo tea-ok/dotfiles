@@ -65,6 +65,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `nvim/` | `~/.config/nvim/` |
 | `neovide/` | `~/.config/neovide/config.toml` |
 | `vim/` | `~/.exrc`, `~/.vimrc` |
+| `ideavim/` | `~/.ideavimrc` |
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `alacritty/` | `~/.config/alacritty/alacritty.toml` |
 | `ghostty/` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
