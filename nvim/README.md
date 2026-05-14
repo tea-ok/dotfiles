@@ -118,7 +118,8 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 
 | Key | Action |
 |-----|--------|
-| `Space tt` | Open terminal |
+| `Space tt` | Open floating terminal |
+| `Space th` | Open horizontal terminal |
 | `Space gg` | Open lazygit |
 
 ## Terminal mode
@@ -156,7 +157,7 @@ Press `gd` on a symbol to jump to its definition. Use `Ctrl+o` to jump back. If 
 
 ### Terminal alongside code
 
-`Space tt` toggles a terminal at the bottom. `Ctrl+j` moves into the terminal, `Ctrl+k` moves back up to the editor. The terminal stays running in the background when toggled off — toggle it back on with `Space tt` and your session is still there.
+`Space tt` toggles a floating terminal. `Space th` opens the same terminal style in a horizontal split at the bottom. `Ctrl+j` moves into the terminal, `Ctrl+k` moves back up to the editor. The terminal stays running in the background when toggled off — toggle it back on with the same key and your session is still there.
 
 ### Typical Rust session
 
