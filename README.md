@@ -20,6 +20,22 @@ mv ~/.config/nvim ~/.config/nvim.backup
 ./apply.sh nvim
 ```
 
+## Flow 1.5: Portable `vi` Over SSH
+
+Use this when the remote machine has `git` and `vi`, but you do not want to install Stow, Neovim, or any plugins.
+
+```sh
+git clone --depth 1 https://github.com/tea-ok/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./install-vi.sh
+```
+
+That installs a small portable config to `~/.exrc` and `~/.vimrc`. If you prefer plain files instead of symlinks, use:
+
+```sh
+./install-vi.sh --copy
+```
+
 ## Flow 2: Update The Repo
 
 Use this when the current machine has changes you want to turn into the new source of truth.
@@ -47,6 +63,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `zsh/` | `~/.zshrc`, `~/.p10k.zsh`, `~/.config/zsh/functions.zsh` |
 | `tmux/` | `~/.tmux.conf` |
 | `nvim/` | `~/.config/nvim/` |
+| `vim/` | `~/.exrc`, `~/.vimrc` |
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `alacritty/` | `~/.config/alacritty/alacritty.toml` |
 | `ghostty/` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
