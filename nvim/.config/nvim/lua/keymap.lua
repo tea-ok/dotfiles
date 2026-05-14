@@ -23,12 +23,15 @@ keymap("n", "<C-Down>", ":resize -1<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -1<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +1<CR>", opts)
 
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "]b", ":bnext<CR>", opts)
+keymap("n", "[b", ":bprevious<CR>", opts)
 keymap("n", "<leader>x", "<cmd>lua Snacks.bufdelete()<CR>", opts)
 
 keymap("n", "Q", "<nop>", opts)
 keymap("n", "<Esc>", ":noh<CR>", opts)
+
+vim.keymap.set({ "n", "x", "o" }, "H", "^", opts)
+vim.keymap.set({ "n", "x", "o" }, "L", "$", opts)
 
 -- Visual --
 keymap("v", "p", '"_dP', opts)

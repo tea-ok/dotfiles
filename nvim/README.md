@@ -7,7 +7,8 @@ Leader key is `Space`.
 | Key | Action |
 |-----|--------|
 | `Ctrl+h/j/k/l` | Move between splits |
-| `Shift+h` / `Shift+l` | Previous / next buffer |
+| `[b` / `]b` | Previous / next buffer |
+| `H` / `L` | Start / end of line |
 | `Space x` | Close buffer |
 | `Ctrl+d` / `Ctrl+u` | Scroll half-page down/up (cursor stays centered) |
 
