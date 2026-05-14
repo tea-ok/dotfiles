@@ -88,6 +88,12 @@ Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+v` to
 
 Language servers are managed with `:Mason`.
 
+## Rust
+
+| Key | Action |
+|-----|--------|
+| `Space ra` | Rust code actions / Clippy suggestions |
+
 ## Completion (nvim-cmp)
 
 | Key | Action |
@@ -98,6 +104,15 @@ Language servers are managed with `:Mason`.
 | `Ctrl+b` / `Ctrl+f` | Scroll docs up/down |
 | `Enter` | Confirm (only if explicitly selected) |
 | `Ctrl+e` | Abort |
+
+## Comments
+
+| Key | Action |
+|-----|--------|
+| `gcc` | Toggle comment on current line |
+| `gc{motion}` | Toggle comment over a motion |
+| `gc` | Toggle comment on selected lines in visual mode |
+| `/` | Toggle comments on selected lines in visual mode |
 
 ## Text manipulation (visual / visual-block mode)
 
