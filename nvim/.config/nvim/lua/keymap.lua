@@ -35,6 +35,7 @@ vim.keymap.set({ "n", "x", "o" }, "L", "$", opts)
 
 -- Visual --
 keymap("v", "p", '"_dP', opts)
+vim.keymap.set("x", "/", "<ESC><CMD>lua require('Comment.api').locked('toggle.linewise')(vim.fn.visualmode())<CR>", { silent = true, desc = "Toggle comment" })
 
 -- Visual Block --
 keymap("x", "J", ":move '>+1<CR>gv=gv", opts)
