@@ -114,6 +114,31 @@ Language servers are managed with `:Mason`.
 | `gc` | Toggle comment on selected lines in visual mode |
 | `/` | Toggle comments on selected lines in visual mode |
 
+## Multi-line editing
+
+### LSP rename
+`Space rn` renames a symbol everywhere it's used — across the whole project, scope-aware. Prefer this over find-and-replace for variable/function names when an LSP is attached.
+
+### Visual block mode
+`Ctrl+v` enters visual-block mode. Select a column across multiple consecutive lines, then:
+
+| Key | Action |
+|-----|--------|
+| `I` | Insert text before the selection on all lines |
+| `A` | Append text after the selection on all lines |
+| `d` / `x` | Delete the selected column |
+| `r{char}` | Replace selected column with a character |
+
+Type your text, then `Esc` — it applies to all selected lines.
+
+### `gn` + dot-repeat (targeted edits)
+1. `/foo` — search for the pattern
+2. `cgn` — change the next match (edit, then `Esc`)
+3. `.` — repeat on the next match; `n` to skip
+
+### Find and replace in file
+`:%s/old/new/gc` — `g` replaces all occurrences, `c` asks for confirmation on each.
+
 ## Text manipulation (visual / visual-block mode)
 
 | Key | Action |

@@ -6,7 +6,7 @@ die() { printf '[apply] ERROR: %s\n' "$*" >&2; exit 1; }
 have() { command -v "$1" >/dev/null 2>&1; }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty)
+DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty ideavim)
 PACKAGES=()
 DRY_RUN=0
 ADOPT=0
