@@ -1,4 +1,19 @@
 nic() {
+  if [[ "$1" == "ls" ]]; then
+    tmux list-sessions 2>/dev/null || echo "No tmux sessions."
+    return
+  fi
+
+  if [[ "$1" == "kill" ]]; then
+    local target="${2:-$(tmux display-message -p '#S' 2>/dev/null)}"
+    if [[ -z "$target" ]]; then
+      echo "Usage: nic kill [session]"
+      return 1
+    fi
+    tmux kill-session -t "$target" && echo "Killed session: $target"
+    return
+  fi
+
   local session_name="${1:-$(basename "$PWD")}"
   local dir="$PWD"
 
