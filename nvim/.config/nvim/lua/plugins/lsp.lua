@@ -93,12 +93,8 @@ return {
 
     cmp.setup({
       window = {
-        completion = cmp.config.window.bordered({
-          border = rounded_border,
-        }),
-        documentation = cmp.config.window.bordered({
-          border = rounded_border,
-        }),
+        completion = { border = "none" },
+        documentation = { border = "none" },
       },
 
       sources = {
@@ -116,7 +112,7 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         },
-        ["<CR>"] = cmp.mapping.confirm { select = false },
+        ["<CR>"] = cmp.mapping.confirm { select = true },
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()

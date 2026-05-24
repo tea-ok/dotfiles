@@ -5,6 +5,14 @@ return {
   priority = 1000,
   opts = {
     flavour = "frappe",
+    integrations = {
+      cmp = true,
+      nvimtree = true,
+      gitsigns = true,
+      telescope = { enabled = true },
+      treesitter = true,
+      mason = true,
+    },
     highlight_overrides = {
       frappe = function(c)
         return {
