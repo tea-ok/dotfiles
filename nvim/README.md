@@ -6,12 +6,16 @@ Leader key is `Space`.
 
 | Key | Action |
 |-----|--------|
-| `Ctrl+h/j/k/l` | Move between splits |
+| `Ctrl+h/j/k/l` | Move between splits (also works across tmux panes) |
 | `[b` / `]b` | Previous / next buffer |
 | `H` / `L` | Start / end of line |
 | `Space x` | Close buffer |
 | `Ctrl+o` / `Ctrl+i` | Jump back / forward |
 | `Ctrl+d` / `Ctrl+u` | Scroll half-page down/up (cursor stays centered) |
+| `]d` / `[d` | Next / previous diagnostic |
+| `]c` / `[c` | Next / previous git hunk |
+| `]m` / `[m` | Next / previous function start |
+| `]]` / `[[` | Next / previous class start |
 
 ## Tabs
 
@@ -59,6 +63,19 @@ Inside the tree:
 | `q` | Close tree |
 | `g?` | Show all keybinds |
 
+## Flash (jump navigation)
+
+Type `s` followed by two characters to jump anywhere on screen with labelled targets.
+
+| Key | Mode | Action |
+|-----|------|--------|
+| `s` | normal / visual / operator | Jump to any position (2-char search + label) |
+| `S` | normal / operator | Jump to a treesitter node |
+| `r` | operator | Remote flash — apply operator on distant location without moving |
+| `R` | operator / visual | Treesitter search across buffer |
+
+**Examples:** `ysf"` — surround a flash target with quotes. `df<label>` — delete up to a jump target.
+
 ## Telescope (fuzzy finder)
 
 | Key | Action |
@@ -87,6 +104,28 @@ Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+v` to
 | `Space ca` | Code actions |
 
 Language servers are managed with `:Mason`.
+
+## Treesitter text objects
+
+Work in visual and operator-pending mode — combine with any operator (`d`, `y`, `c`, `v`, etc.).
+
+| Key | Action |
+|-----|--------|
+| `af` / `if` | Around / inside function |
+| `ac` / `ic` | Around / inside class |
+| `aa` / `ia` | Around / inside argument |
+
+`lookahead` is on — if the cursor isn't inside a text object it jumps forward to the next one.
+
+**Examples:** `daf` — delete whole function. `via` — select an argument. `cif` — change function body.
+
+## Git hunks (gitsigns)
+
+| Key | Action |
+|-----|--------|
+| `]c` / `[c` | Next / previous hunk |
+| `Space hp` | Preview hunk inline |
+| `Space hr` | Reset hunk to HEAD |
 
 ## Rust
 

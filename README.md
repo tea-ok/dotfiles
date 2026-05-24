@@ -9,8 +9,11 @@ Use this when you want the repo's config on the machine you're sitting at.
 ```sh
 git clone https://github.com/tea-ok/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./install.sh
-./apply.sh
+./install.sh        # installs tools, tree-sitter-cli, TPM
+./apply.sh          # creates stow symlinks
+# open a new shell so PATH includes ~/.cargo/bin and ~/.local/bin
+nvim                # lazy.nvim auto-installs plugins + treesitter parsers on first launch
+                    # restart nvim once after the initial sync completes
 ```
 
 If the machine already has a different config in the way, move it aside first:
@@ -72,11 +75,18 @@ If the config already exists in your home directory and you want Stow to import 
 
 ## Bootstrap
 
-`install.sh` is Homebrew-first and idempotent. It installs `stow`, `uv`, and the common tools from this setup, installs `ruff` and `ty` globally via `uv tool install`, creates `~/.config/zsh/local.zsh` if missing, and keeps system-level changes manual.
+`install.sh` is Homebrew-first and idempotent. It installs:
 
-On Linux it still falls back to the previous non-Brew paths where needed, including Nerd Fonts, Rust/cargo for Alacritty, and TPM.
+- `stow`, `neovim`, `tmux`, `lazygit`, `stylua`, and the rest of the common CLI tools via Homebrew
+- `ruff` and `ty` globally via `uv tool install`
+- `rustup` + `cargo` (used to build Alacritty on Linux and to install `tree-sitter-cli`)
+- `tree-sitter-cli` via cargo — required by nvim-treesitter v1 to compile language parsers
+- TPM (tmux plugin manager)
+- `~/.config/zsh/local.zsh` stub if missing
 
-Because `uv tool` installs executables into `~/.local/bin`, open a new shell after bootstrap before launching Neovim.
+On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
+
+Because `uv tool` installs into `~/.local/bin` and cargo installs into `~/.cargo/bin`, open a new shell after bootstrap before launching Neovim.
 
 ## Apply
 

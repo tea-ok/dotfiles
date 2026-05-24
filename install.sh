@@ -290,6 +290,23 @@ EOF
   log "Desktop entry created at $desktop_file"
 }
 
+ensure_tree_sitter_cli() {
+  load_cargo_env
+
+  if have tree-sitter; then
+    log "tree-sitter CLI already on PATH at $(command -v tree-sitter). Skipping."
+    return 0
+  fi
+
+  if ! have cargo; then
+    warn "cargo not found — cannot install tree-sitter-cli. Neovim treesitter parsers will need manual installation via :TSUpdate inside nvim."
+    return 0
+  fi
+
+  log "Installing tree-sitter-cli via cargo (required by nvim-treesitter v1 for parser compilation)..."
+  cargo install tree-sitter-cli || warn "cargo install tree-sitter-cli failed — run manually if needed."
+}
+
 ensure_tpm() {
   local tpm_dir="$HOME/.tmux/plugins/tpm"
 
@@ -335,7 +352,7 @@ EOF
 install_brew_packages() {
   local pkg
 
-  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide; do
+  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua; do
     brew_install_formula_if_missing "$pkg"
   done
 
@@ -397,6 +414,8 @@ main() {
     install_terminal_linux
   fi
 
+  ensure_rustup
+  ensure_tree_sitter_cli
   ensure_tpm
   ensure_local_zsh_stub
 
@@ -406,8 +425,11 @@ Bootstrap complete.
 
 Next steps:
   1. Run ./apply.sh to create stow-managed symlinks.
-  2. Open a new shell so updated PATH entries are loaded.
-  3. Start tmux and press prefix + I to install TPM plugins.
+  2. Open a new shell so updated PATH/cargo env is loaded.
+  3. Run nvim — lazy.nvim will auto-install all plugins on first launch.
+     Treesitter parsers (rust, lua, python, etc.) will compile automatically.
+     Restart nvim once after the initial sync is done.
+  4. Start tmux and press prefix + I to install TPM plugins.
 
 EOF
 }

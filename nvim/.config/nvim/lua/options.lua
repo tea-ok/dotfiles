@@ -40,6 +40,11 @@ for k, v in pairs(options) do
     vim.opt[k] = v
 end
 
+-- Briefly highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank() end,
+})
+
 vim.api.nvim_create_augroup("FileTypeSpecific", { clear = true })
 
 vim.api.nvim_create_autocmd("FileType", {
