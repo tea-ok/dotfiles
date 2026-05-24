@@ -172,6 +172,7 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 | `Space tt` | Open floating terminal |
 | `Space th` | Open horizontal terminal |
 | `Space gg` | Open lazygit |
+| `Space z` | Toggle zen mode |
 
 ## Sessions
 

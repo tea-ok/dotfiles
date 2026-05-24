@@ -5,4 +5,4 @@ background-blur-radius = 5
 font-size = 20
 custom-shader = shaders/cursor_warp.glsl
 custom-shader-animation = always
-theme = TokyoNight Night
+theme = Catppuccin Frappe
