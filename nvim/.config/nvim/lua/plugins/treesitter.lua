@@ -33,7 +33,6 @@ return {
       indent = { enable = true },
     })
 
-    -- nvim-treesitter-textobjects v2 requires explicit keymaps
     require("nvim-treesitter-textobjects").setup({
       select = { lookahead = true },
       move  = { set_jumps = true },
@@ -41,6 +40,11 @@ return {
 
     local sel  = require("nvim-treesitter-textobjects.select")
     local move = require("nvim-treesitter-textobjects.move")
+
+    local function has_parser()
+      local ok, parser = pcall(vim.treesitter.get_parser, 0)
+      return ok and parser ~= nil
+    end
 
     -- Text object selects (visual + operator-pending)
     local select_maps = {
@@ -53,13 +57,23 @@ return {
     }
     for key, query in pairs(select_maps) do
       vim.keymap.set({ "x", "o" }, key, function()
+        if not has_parser() then
+          vim.notify("No treesitter parser for this filetype (run :TSInstall " .. vim.bo.filetype .. ")", vim.log.levels.WARN)
+          return
+        end
         sel.select_textobject(query, "textobjects")
       end, { desc = "Textobject " .. key })
     end
 
     -- Motion keymaps (normal + visual + operator-pending)
     local function nxo(lhs, fn, desc)
-      vim.keymap.set({ "n", "x", "o" }, lhs, fn, { desc = desc })
+      vim.keymap.set({ "n", "x", "o" }, lhs, function()
+        if not has_parser() then
+          vim.notify("No treesitter parser for this filetype (run :TSInstall " .. vim.bo.filetype .. ")", vim.log.levels.WARN)
+          return
+        end
+        fn()
+      end, { desc = desc })
     end
 
     -- _end variants (]M, [M, ][, []) omitted: bug in this version of the plugin
