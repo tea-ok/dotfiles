@@ -18,6 +18,8 @@ return {
       rust   = { lsp_format = "first" },
       -- Lua: use stylua if available, otherwise LSP
       lua    = { "stylua", lsp_format = "fallback" },
+      -- Go: use LSP (gopls runs gofmt + organizes imports)
+      go     = { lsp_format = "first" },
     },
     -- format_after_save is async-friendly; LSP may not be ready on first save
     -- with format_on_save (sync). Using after_save lets the LSP attach first.

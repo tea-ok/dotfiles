@@ -352,7 +352,7 @@ EOF
 install_brew_packages() {
   local pkg
 
-  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua; do
+  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua go; do
     brew_install_formula_if_missing "$pkg"
   done
 
@@ -382,6 +382,21 @@ ensure_uv_tool_latest() {
 
   log "Installing $pkg via uv..."
   uv tool install "$pkg@latest" || warn "uv tool install $pkg@latest failed — install manually if needed."
+}
+
+ensure_gopls() {
+  if have gopls; then
+    log "gopls already on PATH at $(command -v gopls). Skipping."
+    return 0
+  fi
+
+  if ! have go; then
+    warn "go not found — cannot install gopls. Install Go first."
+    return 0
+  fi
+
+  log "Installing gopls via go install..."
+  go install golang.org/x/tools/gopls@latest || warn "go install gopls failed — install manually: go install golang.org/x/tools/gopls@latest"
 }
 
 main() {
@@ -416,6 +431,7 @@ main() {
 
   ensure_rustup
   ensure_tree_sitter_cli
+  ensure_gopls
   ensure_tpm
   ensure_local_zsh_stub
 
