@@ -72,6 +72,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `alacritty/` | `~/.config/alacritty/alacritty.toml` |
 | `ghostty/` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
+| `zed/` | `~/.config/zed/settings.json`, `~/.config/zed/keymap.json` |
 
 ## Bootstrap
 

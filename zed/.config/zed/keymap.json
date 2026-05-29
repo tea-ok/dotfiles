@@ -1,0 +1,64 @@
+// Zed keybindings — vim mode overrides to match Neovim setup.
+//
+// Zed's vim mode already handles most standard motions. These bindings
+// cover the custom mappings from keymap.lua and plugin keybinds.
+[
+  {
+    // H/L -> ^ / $ in all vim modes (normal, visual, operator-pending).
+    // Overrides Zed's default H/L (top/bottom of screen).
+    "context": "VimControl && !menu",
+    "bindings": {
+      "shift-h": "vim::FirstNonWhitespace",
+      "shift-l": "vim::EndOfLine",
+    },
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      // Terminal — maps to <leader>tt / <leader>th
+      "space t t": "terminal_panel::ToggleFocus",
+      "space t h": "terminal_panel::ToggleFocus",
+
+      // Git panel — Zed's equivalent of <leader>gg (lazygit)
+      "space g g": "git_panel::ToggleFocus",
+
+      // Zen mode — <leader>z
+      "space z": "workspace::ToggleCenteredLayout",
+
+      // Close buffer — <leader>x
+      "space x": "pane::CloseActiveItem",
+
+      // Buffer navigation — ]b / [b
+      "] b": "pane::ActivateNextItem",
+      "[ b": "pane::ActivatePreviousItem",
+
+      // Diagnostic navigation — ]d / [d
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+
+      // File explorer — <leader>e
+      "space e": "project_panel::ToggleFocus",
+
+      // Disable ex mode (null = unbind the key entirely)
+      "shift-q": null,
+    },
+  },
+  {
+    // Visual J/K → move selected lines down/up, matching x-mode J/K in Neovim.
+    // Overrides J (join lines) in visual mode — that's rarely needed there.
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "shift-j": "editor::MoveLineDown",
+      "shift-k": "editor::MoveLineUp",
+    },
+  },
+  {
+    // Terminal context — bindings active when the terminal panel has focus.
+    // space t t only fires in vim normal mode (editor focus), so ctrl-\ is
+    // needed to hide the terminal from within it.
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-\\": "terminal_panel::ToggleFocus",
+    },
+  },
+]
