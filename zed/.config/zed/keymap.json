@@ -36,6 +36,11 @@
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPreviousDiagnostic",
 
+      // Fuzzy find — <leader>ff / <leader>fw / <leader>fb
+      "space f f": "file_finder::Toggle",
+      "space f w": "workspace::NewSearch",
+      "space f b": "tab_switcher::Toggle",
+
       // Split navigation — ctrl-h/j/k/l (mirrors vim-tmux-navigator)
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
@@ -52,10 +57,12 @@
   {
     // Visual J/K → move selected lines down/up, matching x-mode J/K in Neovim.
     // Overrides J (join lines) in visual mode — that's rarely needed there.
+    // Visual / → toggle comments, matching Comment.nvim x-mode binding.
     "context": "vim_mode == visual && !menu",
     "bindings": {
       "shift-j": "editor::MoveLineDown",
       "shift-k": "editor::MoveLineUp",
+      "/": "editor::ToggleComments",
     },
   },
   {
