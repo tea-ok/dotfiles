@@ -65,11 +65,13 @@
     // Visual J/K → move selected lines down/up, matching x-mode J/K in Neovim.
     // Overrides J (join lines) in visual mode — that's rarely needed there.
     // Visual / → toggle comments, matching Comment.nvim x-mode binding.
+    // Visual S → surround selection (mirrors nvim-surround; overrides substitute).
     "context": "vim_mode == visual && !menu",
     "bindings": {
       "shift-j": "editor::MoveLineDown",
       "shift-k": "editor::MoveLineUp",
       "/": "editor::ToggleComments",
+      "shift-s": "vim::PushAddSurrounds",
     },
   },
   {
