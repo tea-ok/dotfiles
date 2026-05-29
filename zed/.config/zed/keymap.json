@@ -36,6 +36,13 @@
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPreviousDiagnostic",
 
+      // LSP — match Neovim bindings from lsp.lua
+      // (gd, gD, gi, gr, K already match Zed's vim defaults)
+      "space r n": "editor::Rename",
+      "space c a": "editor::ToggleCodeActions",
+      "g o": "editor::GoToTypeDefinition",
+      "space k": "editor::Hover",
+
       // Fuzzy find — <leader>ff / <leader>fw / <leader>fb
       "space f f": "file_finder::Toggle",
       "space f w": "workspace::NewSearch",
