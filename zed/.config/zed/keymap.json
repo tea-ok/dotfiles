@@ -36,6 +36,12 @@
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPreviousDiagnostic",
 
+      // Split navigation — ctrl-h/j/k/l (mirrors vim-tmux-navigator)
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
       // File explorer — <leader>e
       "space e": "project_panel::ToggleFocus",
 
