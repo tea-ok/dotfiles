@@ -75,6 +75,17 @@
     },
   },
   {
+    // Completion menu — Tab/Shift-Tab to cycle, Enter to confirm.
+    // Mirrors nvim-cmp: tab cycles next, shift-tab cycles previous,
+    // CR selects (select = true so Enter picks even without explicit navigation).
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "tab": "editor::ContextMenuNext",
+      "shift-tab": "editor::ContextMenuPrevious",
+      "enter": "editor::ConfirmCompletion",
+    },
+  },
+  {
     // Terminal context — bindings active when the terminal panel has focus.
     // space t t only fires in vim normal mode (editor focus), so ctrl-\ is
     // needed to hide the terminal from within it.
