@@ -48,9 +48,9 @@ Inside the tree:
 | Key | Action |
 |-----|--------|
 | `Enter` / `o` | Open file |
-| `Ctrl+v` | Open in vertical split |
-| `Ctrl+x` | Open in horizontal split |
-| `Ctrl+t` | Open in new tab |
+| `s` | Open in vertical split |
+| `i` | Open in horizontal split |
+| `t` | Open in new tab |
 | `a` | Create file or directory (trailing `/` = directory) |
 | `d` | Delete |
 | `r` | Rename |
@@ -133,7 +133,7 @@ Work in visual and operator-pending mode — combine with any operator (`d`, `y`
 |-----|--------|
 | `Space ra` | Rust code actions / Clippy suggestions |
 
-## Completion (nvim-cmp)
+## Completion (blink.cmp)
 
 | Key | Action |
 |-----|--------|
