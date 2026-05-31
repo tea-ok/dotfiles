@@ -6,7 +6,7 @@ return {
   opts = {
     flavour = "frappe",
     integrations = {
-      cmp = true,
+      blink_cmp = true,
       nvimtree = true,
       gitsigns = true,
       telescope = { enabled = true },
@@ -36,7 +36,7 @@ return {
     },
   },
   config = function(_, opts)
-    -- opts.transparent_background = not vim.g.neovide
+    opts.transparent_background = not vim.g.neovide
     require("catppuccin").setup(opts)
     vim.cmd.colorscheme("catppuccin")
   end,
