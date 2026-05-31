@@ -51,7 +51,7 @@ zinit snippet OMZP::command-not-found
 
 # load completions
 autoload -U compinit && compinit
-zinit cdreplay -q 
+zinit cdreplay -q
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -110,8 +110,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # .local/bin to PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-# go 
+# go
 export PATH=$PATH:/usr/local/go/bin
+export PATH="$HOME/go/bin:$PATH"
 
 # machine-local config (not tracked in version control)
 [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh

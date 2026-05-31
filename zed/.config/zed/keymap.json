@@ -16,8 +16,8 @@
     "context": "vim_mode == normal && !menu",
     "bindings": {
       // Terminal — maps to <leader>tt / <leader>th
-      "space t t": "terminal_panel::ToggleFocus",
-      "space t h": "terminal_panel::ToggleFocus",
+      "space t t": "terminal_panel::Toggle",
+      "space t h": "terminal_panel::Toggle",
 
       // Git panel — Zed's equivalent of <leader>gg (lazygit)
       "space g g": "git_panel::ToggleFocus",
@@ -91,7 +91,7 @@
     // needed to hide the terminal from within it.
     "context": "Terminal",
     "bindings": {
-      "ctrl-\\": "terminal_panel::ToggleFocus",
+      "ctrl-\\": "terminal_panel::Toggle",
     },
   },
 ]
