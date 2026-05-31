@@ -352,7 +352,7 @@ EOF
 install_brew_packages() {
   local pkg
 
-  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua go; do
+  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua go prettier markdownlint-cli2; do
     brew_install_formula_if_missing "$pkg"
   done
 
