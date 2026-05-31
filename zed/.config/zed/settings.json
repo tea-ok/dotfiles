@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
   "cli_default_open_behavior": "new_window",
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
@@ -22,8 +23,8 @@
   "base_keymap": "Emacs",
   "icon_theme": {
     "mode": "system",
-    "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Frappé",
   },
   "telemetry": {
     "diagnostics": true,
@@ -33,8 +34,8 @@
   "ui_font_size": 22,
   "buffer_font_size": 20,
   "theme": {
-    "mode": "system",
-    "light": "One Light",
-    "dark": "Catppuccin Frappé",
+    "mode": "dark",
+    "light": "Catppuccin Latte (Blur)",
+    "dark": "Catppuccin Frappé (Blur) [Light]",
   },
 }
