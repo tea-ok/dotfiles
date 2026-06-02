@@ -208,8 +208,6 @@ Format on save is enabled. Uses LSP formatting as fallback when no formatter is 
 
 | Key | Action |
 |-----|--------|
-| `Space tt` | Open floating terminal |
-| `Space th` | Open horizontal terminal |
 | `Space gg` | Open lazygit |
 | `Space z` | Toggle zen mode |
 
@@ -232,12 +230,6 @@ Inside the session picker:
 | `Ctrl+y` | Copy selected session path |
 
 Sessions are saved per project/workdir. Opening Neovim in a directory without a saved session starts clean; use `Space ss` to switch to another saved session when you want one.
-
-## Terminal mode
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+h/j/k/l` | Exit terminal and move to that split |
 
 ## Plugin management
 
