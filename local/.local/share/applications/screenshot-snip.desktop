@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Screenshot Snip
+Comment=Drag to capture a region of the screen
+Exec=/home/taavi/.local/bin/screenshot-snip
+Icon=applets-screenshooter
+Terminal=false
+Categories=Graphics;Utility;
+Keywords=screenshot;snip;capture;screen;
+StartupNotify=false

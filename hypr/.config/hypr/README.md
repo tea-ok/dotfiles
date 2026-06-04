@@ -33,6 +33,7 @@ The script lives in `scripts/start-session.sh`.
 - `Super + Q`: open Ghostty
 - `Super + R`: open app launcher (`wofi`)
 - `Super + E`: open Dolphin
+- `Super + F`: toggle fullscreen
 - `Super + M`: logout / shutdown helper
 - `Super + Shift + C`: close focused window
 - `Super + Shift + V`: toggle floating
@@ -89,4 +90,20 @@ If the wallpaper does not update immediately:
 ```sh
 pkill hyprpaper
 hyprpaper &
+```
+
+## Open the current folder from terminal
+
+Mac-style `open .` is not built in by default here.
+
+Use:
+
+```sh
+dolphin .
+```
+
+or:
+
+```sh
+xdg-open .
 ```

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+save_dir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
+mkdir -p "$save_dir"
+
+timestamp="$(date +%Y-%m-%d_%H-%M-%S)"
+output_file="$save_dir/screenshot_${timestamp}.png"
+
+selection="$(slurp)"
+[[ -n "$selection" ]] || exit 1
+
+grim -g "$selection" "$output_file"
+
+copied_note=""
+if command -v wl-copy >/dev/null 2>&1; then
+  wl-copy < "$output_file"
+  copied_note=" and copied to clipboard"
+fi
+
+if command -v notify-send >/dev/null 2>&1; then
+  notify-send "Screenshot saved" "${output_file}${copied_note}"
+fi

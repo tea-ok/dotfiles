@@ -96,7 +96,10 @@ ensure_linux_prereqs() {
     log "Installing Arch desktop packages via pacman..."
     sudo pacman -S --needed --noconfirm \
       fzf \
+      grim \
       pavucontrol \
+      slurp \
+      wl-clipboard \
       zoxide
   elif os_is_atomic; then
     warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
@@ -359,7 +362,7 @@ EOF
 install_brew_packages() {
   local pkg
 
-  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat neovide stylua go prettier markdownlint-cli2; do
+  for pkg in stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat btop neovide stylua go prettier markdownlint-cli2; do
     brew_install_formula_if_missing "$pkg"
   done
 

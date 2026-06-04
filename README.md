@@ -75,6 +75,9 @@ If the config already exists in your home directory and you want Stow to import 
 | `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
 | `hypr/` | `~/.config/hypr/` |
 | `waybar/` | `~/.config/waybar/` |
+| `htop/` | `~/.config/htop/` |
+| `btop/` | `~/.config/btop/` |
+| `local/` | `~/.local/bin/`, `~/.local/share/applications/` |
 | `keyd/` | `/etc/keyd/default.conf` |
 | `zed/` | `~/.config/zed/settings.json`, `~/.config/zed/keymap.json` |
 
@@ -89,7 +92,7 @@ If the config already exists in your home directory and you want Stow to import 
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 
-On Arch, `install.sh` also installs `pavucontrol`, `fzf`, and `zoxide` via `pacman`.
+On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, and `zoxide` via `pacman`.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
