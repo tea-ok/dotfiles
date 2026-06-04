@@ -6,7 +6,8 @@ die() { printf '[apply] ERROR: %s\n' "$*" >&2; exit 1; }
 have() { command -v "$1" >/dev/null 2>&1; }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty ideavim zed vim)
+DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty hypr waybar ideavim zed vim)
+ROOT_PACKAGES=(keyd)
 PACKAGES=()
 DRY_RUN=0
 ADOPT=0
@@ -63,7 +64,17 @@ done
 
 for pkg in "${PACKAGES[@]}"; do
   log "Applying $pkg"
-  stow_args=(--dir="$REPO_ROOT" --target="$HOME" --restow)
+  target="$HOME"
+  for root_pkg in "${ROOT_PACKAGES[@]}"; do
+    if [[ "$pkg" == "$root_pkg" ]]; then
+      target="/"
+      break
+    fi
+  done
+  if [[ "$target" == "/" && "${EUID:-$(id -u)}" -ne 0 ]]; then
+    die "Package $pkg targets / and must be applied with sudo."
+  fi
+  stow_args=(--dir="$REPO_ROOT" --target="$target" --restow)
   if (( DRY_RUN )); then
     stow_args+=(--no --verbose=2)
   fi

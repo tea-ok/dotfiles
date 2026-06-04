@@ -11,6 +11,7 @@ git clone https://github.com/tea-ok/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh        # installs tools, tree-sitter-cli, TPM
 ./apply.sh          # creates stow symlinks
+sudo ./apply.sh keyd  # applies the system keyd config
 # open a new shell so PATH includes ~/.cargo/bin and ~/.local/bin
 nvim                # lazy.nvim auto-installs plugins + treesitter parsers on first launch
                     # restart nvim once after the initial sync completes
@@ -71,7 +72,10 @@ If the config already exists in your home directory and you want Stow to import 
 | `ideavim/` | `~/.ideavimrc` |
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `alacritty/` | `~/.config/alacritty/alacritty.toml` |
-| `ghostty/` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` |
+| `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
+| `hypr/` | `~/.config/hypr/` |
+| `waybar/` | `~/.config/waybar/` |
+| `keyd/` | `/etc/keyd/default.conf` |
 | `zed/` | `~/.config/zed/settings.json`, `~/.config/zed/keymap.json` |
 
 ## Bootstrap
@@ -92,6 +96,12 @@ Because `uv tool` installs into `~/.local/bin` and cargo installs into `~/.cargo
 ## Apply
 
 Use `./apply.sh --dry-run` to preview links, `./apply.sh <package>` to apply a subset, and `./apply.sh --adopt` once if you already have live config files in place.
+
+Packages target `~` by default. `keyd/` targets `/`, so apply it with:
+
+```sh
+sudo ./apply.sh keyd
+```
 
 ## Local config
 

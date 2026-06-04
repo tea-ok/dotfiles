@@ -1,0 +1,97 @@
+@import "frappe.css";
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    min-height: 0;
+    color: @text;
+}
+
+window#waybar {
+    background-color: alpha(@base, 0.92);
+    border-bottom: 2px solid alpha(@surface2, 0.85);
+}
+
+tooltip {
+    background: @mantle;
+    border: 1px solid @surface2;
+}
+
+#workspaces,
+#window,
+#tray,
+#clock,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature {
+    background-color: @surface0;
+    margin: 6px 4px;
+    padding: 2px 10px;
+}
+
+#workspaces {
+    padding: 2px 4px;
+}
+
+#workspaces button {
+    background: transparent;
+    color: @subtext1;
+    padding: 0 6px;
+}
+
+#workspaces button:hover {
+    background: @surface1;
+    box-shadow: inherit;
+}
+
+#workspaces button.active {
+    background: @mauve;
+    color: @base;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    color: @base;
+}
+
+#window {
+    color: @lavender;
+}
+
+#clock {
+    background-color: @blue;
+    color: @base;
+}
+
+#pulseaudio {
+    background-color: @teal;
+    color: @base;
+}
+
+#network {
+    background-color: @green;
+    color: @base;
+}
+
+#cpu {
+    background-color: @peach;
+    color: @base;
+}
+
+#memory {
+    background-color: @yellow;
+    color: @base;
+}
+
+#temperature {
+    background-color: @maroon;
+    color: @base;
+}
+
+#tray {
+    background-color: @surface1;
+}
