@@ -89,6 +89,8 @@ If the config already exists in your home directory and you want Stow to import 
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 
+On Arch, `install.sh` also installs `pavucontrol`, `fzf`, and `zoxide` via `pacman`.
+
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
 Because `uv tool` installs into `~/.local/bin` and cargo installs into `~/.cargo/bin`, open a new shell after bootstrap before launching Neovim.

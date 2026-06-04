@@ -8,6 +8,7 @@ have() { command -v "$1" >/dev/null 2>&1; }
 
 os_is_mac() { [[ "$(uname -s)" == Darwin ]]; }
 os_is_ubuntu() { [[ -f /etc/os-release ]] && grep -qi '^ID=ubuntu' /etc/os-release; }
+os_is_arch() { [[ -f /etc/os-release ]] && grep -qi '^ID=arch' /etc/os-release; }
 os_is_atomic() { have rpm-ostree; }
 
 eval_brew_shellenv() {
@@ -91,6 +92,12 @@ ensure_linux_prereqs() {
       git \
       pkg-config \
       xz-utils
+  elif os_is_arch; then
+    log "Installing Arch desktop packages via pacman..."
+    sudo pacman -S --needed --noconfirm \
+      fzf \
+      pavucontrol \
+      zoxide
   elif os_is_atomic; then
     warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
   else
