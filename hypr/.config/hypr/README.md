@@ -77,6 +77,14 @@ The current wallpaper is:
 
 Hyprpaper loads it for both monitors through `hyprpaper.conf`.
 
+## Appearance and animation
+
+The current animation tuning in `config/appearance.lua` was adapted from:
+
+- `ilyamiro/nixos-configuration`
+- `config/sessions/hyprland/config/settings.conf`
+- https://github.com/ilyamiro/nixos-configuration/blob/master/config/sessions/hyprland/config/settings.conf
+
 ## Reloading
 
 After config edits:
