@@ -76,6 +76,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `hypr/` | `~/.config/hypr/` |
 | `waybar/` | `~/.config/waybar/` |
 | `rofi/` | `~/.config/rofi/` |
+| `theme/` | `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`, `~/.config/kdeglobals` |
 | `htop/` | `~/.config/htop/` |
 | `btop/` | `~/.config/btop/` |
 | `local/` | `~/.local/bin/`, `~/.local/share/applications/` |
@@ -93,7 +94,7 @@ If the config already exists in your home directory and you want Stow to import 
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 
-On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, and `zoxide` via `pacman`.
+On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, and `papirus-icon-theme` via `pacman`.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Neovide
+GenericName=Text Editor
+Comment=Neovim GUI
+Exec=env PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/bin:/usr/bin:/bin /home/linuxbrew/.linuxbrew/bin/neovide
+Icon=nvim
+Terminal=false
+Categories=Utility;TextEditor;Development;
+Keywords=neovim;neovide;nvim;editor;
+StartupNotify=true

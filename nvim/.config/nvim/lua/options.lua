@@ -36,6 +36,18 @@ local options = {
   sidescrolloff = 4,
 }
 
+if vim.g.neovide then
+  local sysname = vim.uv and vim.uv.os_uname().sysname or vim.loop.os_uname().sysname
+
+  if sysname == "Linux" then
+    vim.o.guifont = "JetBrainsMono Nerd Font:h13"
+    vim.g.neovide_opacity = 0.95
+    vim.g.neovide_normal_opacity = 0.95
+  else
+    vim.o.guifont = "JetBrainsMono Nerd Font:h20"
+  end
+end
+
 for k, v in pairs(options) do
     vim.opt[k] = v
 end

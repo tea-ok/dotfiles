@@ -36,6 +36,8 @@ return function(ctx)
                 size = 3,
                 passes = 1,
                 vibrancy = 0.1696,
+                ignore_opacity = false,
+                xray = true,
             },
         },
         animations = {

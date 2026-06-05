@@ -5,6 +5,7 @@ return {
 	priority = 1000,
 	opts = {
 		flavour = "frappe",
+		transparent_background = true,
 		integrations = {
 			blink_cmp = true,
 			nvimtree = true,
@@ -15,7 +16,15 @@ return {
 		},
 		highlight_overrides = {
 			frappe = function(c)
+				local transparent_bg = vim.g.neovide and c.base or "NONE"
+
 				return {
+					Normal = { bg = transparent_bg },
+					NormalNC = { bg = transparent_bg },
+					NormalFloat = { bg = transparent_bg },
+					FloatBorder = { bg = transparent_bg },
+					SignColumn = { bg = transparent_bg },
+					EndOfBuffer = { bg = transparent_bg },
 					StatusLine = { fg = c.text, bg = c.mantle },
 					StatusLineNC = { fg = c.overlay0, bg = c.mantle },
 					StlBase = { fg = c.text, bg = c.mantle },
@@ -36,7 +45,6 @@ return {
 		},
 	},
 	config = function(_, opts)
-		opts.transparent_background = not vim.g.neovide
 		require("catppuccin").setup(opts)
 		vim.cmd.colorscheme("catppuccin")
 	end,

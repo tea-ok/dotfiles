@@ -1,1 +1,8 @@
+configuration {
+    modi: "drun,run";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    drun-display-format: "{icon} {name}";
+}
+
 @theme "~/.config/rofi/themes/spotlight-dark-frappe.rasi"
