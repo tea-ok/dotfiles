@@ -75,6 +75,7 @@ If the config already exists in your home directory and you want Stow to import 
 | `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
 | `hypr/` | `~/.config/hypr/` |
 | `waybar/` | `~/.config/waybar/` |
+| `rofi/` | `~/.config/rofi/` |
 | `htop/` | `~/.config/htop/` |
 | `btop/` | `~/.config/btop/` |
 | `local/` | `~/.local/bin/`, `~/.local/share/applications/` |

@@ -30,12 +30,13 @@ The script lives in `scripts/start-session.sh`.
 
 ## Main shortcuts
 
-- `Super + Q`: open Ghostty
-- `Super + R`: open app launcher (`wofi`)
+- `Super + T`: open Ghostty
+- `Super + Space`: open app launcher (`rofi drun`)
+- `Super + Shift + Space`: open command launcher (`rofi run`)
 - `Super + E`: open Dolphin
 - `Super + F`: toggle fullscreen
 - `Super + M`: logout / shutdown helper
-- `Super + Shift + C`: close focused window
+- `Super + Q`: close focused window
 - `Super + Shift + V`: toggle floating
 - `Super + P`: toggle pseudo-tiling
 - `Super + J`: toggle split direction in dwindle

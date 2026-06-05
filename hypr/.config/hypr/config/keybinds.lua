@@ -2,15 +2,16 @@ return function(ctx)
     local apps = ctx.apps
     local main_mod = "SUPER"
 
-    hl.bind(main_mod .. " + Q", hl.dsp.exec_cmd(apps.terminal))
+    hl.bind(main_mod .. " + T", hl.dsp.exec_cmd(apps.terminal))
     hl.bind(main_mod .. " + C", hl.dsp.send_shortcut({ mods = "CTRL", key = "C" }))
     hl.bind(main_mod .. " + V", hl.dsp.send_shortcut({ mods = "CTRL", key = "V" }))
-    hl.bind(main_mod .. " + SHIFT + C", hl.dsp.window.close())
+    hl.bind(main_mod .. " + Q", hl.dsp.window.close())
     hl.bind(main_mod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
     hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(apps.file_manager))
     hl.bind(main_mod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
     hl.bind(main_mod .. " + SHIFT + V", hl.dsp.window.float({ action = "toggle" }))
-    hl.bind(main_mod .. " + R", hl.dsp.exec_cmd(apps.menu))
+    hl.bind(main_mod .. " + SPACE", hl.dsp.exec_cmd(apps.menu))
+    hl.bind(main_mod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("rofi -show run"))
     hl.bind(main_mod .. " + P", hl.dsp.window.pseudo())
     hl.bind(main_mod .. " + J", hl.dsp.layout("togglesplit"))
 
