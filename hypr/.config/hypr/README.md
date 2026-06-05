@@ -9,6 +9,7 @@ This folder is your live Hyprland config on Arch. `~/.config/hypr` is symlinked 
 - `lib/apps.lua`: app commands used by the config
 - `scripts/start-session.sh`: startup workspace and window layout
 - `hyprpaper.conf`: wallpaper config
+- `hyprlock.conf`: lock screen config
 - `themes/`: Catppuccin palette files
 - `wallpapers/`: tracked wallpapers
 
@@ -35,6 +36,7 @@ The script lives in `scripts/start-session.sh`.
 - `Super + Shift + Space`: open command launcher (`rofi run`)
 - `Super + E`: open Dolphin
 - `Super + F`: toggle fullscreen
+- `Super + L`: lock with `hyprlock`
 - `Super + M`: logout / shutdown helper
 - `Super + Q`: close focused window
 - `Super + Shift + V`: toggle floating

@@ -92,12 +92,12 @@
     },
     "custom/lock": {
         "tooltip": false,
-        "on-click": "loginctl lock-session",
+        "on-click": "pidof hyprlock >/dev/null 2>&1 || hyprlock",
         "format": ""
     },
     "custom/power": {
         "tooltip": false,
-        "on-click": "hyprctl dispatch exit",
+        "on-click": "session-power",
         "format": ""
     }
 }

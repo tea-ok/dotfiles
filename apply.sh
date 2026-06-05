@@ -4,6 +4,20 @@ set -euo pipefail
 log() { printf '[apply] %s\n' "$*"; }
 die() { printf '[apply] ERROR: %s\n' "$*" >&2; exit 1; }
 have() { command -v "$1" >/dev/null 2>&1; }
+resolve_stow() {
+  local candidate
+  for candidate in \
+    "${STOW_BIN:-}" \
+    "$(command -v stow 2>/dev/null || true)" \
+    /home/linuxbrew/.linuxbrew/bin/stow \
+    /usr/local/bin/stow \
+    /opt/homebrew/bin/stow \
+    /usr/bin/stow
+  do
+    [[ -n "$candidate" && -x "$candidate" ]] && printf '%s\n' "$candidate" && return 0
+  done
+  return 1
+}
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty hypr waybar rofi theme htop btop local ideavim zed vim)
@@ -56,7 +70,7 @@ if [[ ${#PACKAGES[@]} -eq 0 ]]; then
   PACKAGES=("${DEFAULT_PACKAGES[@]}")
 fi
 
-have stow || die "stow is required. Run ./install.sh first."
+STOW_BIN="$(resolve_stow)" || die "stow is required. Run ./install.sh first."
 
 for pkg in "${PACKAGES[@]}"; do
   [[ -d "$REPO_ROOT/$pkg" ]] || die "Missing package directory: $pkg"
@@ -81,7 +95,7 @@ for pkg in "${PACKAGES[@]}"; do
   if (( ADOPT )); then
     stow_args+=(--adopt)
   fi
-  stow "${stow_args[@]}" "$pkg"
+  "$STOW_BIN" "${stow_args[@]}" "$pkg"
 done
 
 log "Done."

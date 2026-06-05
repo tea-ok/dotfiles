@@ -97,8 +97,12 @@ ensure_linux_prereqs() {
     sudo pacman -S --needed --noconfirm \
       fzf \
       grim \
+      hyprshutdown \
       papirus-icon-theme \
       pavucontrol \
+      qt5-quickcontrols2 \
+      qt6-declarative \
+      qt6-svg \
       slurp \
       wl-clipboard \
       zoxide

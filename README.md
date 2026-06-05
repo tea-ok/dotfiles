@@ -94,7 +94,7 @@ If the config already exists in your home directory and you want Stow to import 
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 
-On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, and `papirus-icon-theme` via `pacman`.
+On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, `papirus-icon-theme`, `hyprshutdown`, `qt5-quickcontrols2`, `qt6-declarative`, and `qt6-svg` via `pacman`.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 

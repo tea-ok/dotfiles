@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec hyprshutdown --top-label "Shutting down..." --post-cmd "systemctl poweroff"
