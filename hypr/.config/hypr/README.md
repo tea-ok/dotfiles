@@ -1,24 +1,24 @@
-# Hyprland Notes
+# Hyprland notes
 
-This folder is your live Hyprland config on Arch. `~/.config/hypr` is symlinked here from `~/dotfiles`.
+This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfiles`.
 
-## Files
+## Layout
 
-- `hyprland.lua`: entrypoint that loads the module tree
+- `hyprland.lua`: main entrypoint
 - `config/`: monitors, autostart, appearance, input, keybinds, rules
-- `lib/apps.lua`: app commands used by the config
-- `scripts/start-session.sh`: startup workspace and window layout
+- `lib/apps.lua`: shared app commands
+- `scripts/start-session.sh`: startup workspace layout
 - `hyprpaper.conf`: wallpaper config
 - `hyprlock.conf`: lock screen config
 - `themes/`: Catppuccin palette files
 - `wallpapers/`: tracked wallpapers
 
-## Monitor layout
+## Monitors
 
 - `DP-5` is the left `1920x1080` monitor
 - `DP-4` is the main `2560x1440` monitor
 
-## Startup layout
+## Startup
 
 On login, the session script tries to do this:
 
@@ -26,8 +26,7 @@ On login, the session script tries to do this:
 - workspace `1` on the main monitor with:
   - one Firefox window
   - two Ghostty windows
-
-The script lives in `scripts/start-session.sh`.
+- starts `swaync`, `waybar`, and `hyprpaper`
 
 ## Main shortcuts
 
@@ -52,14 +51,14 @@ The script lives in `scripts/start-session.sh`.
 - `Super + Left Click Drag`: move window
 - `Super + Right Click Drag`: resize window
 
-## Clipboard behavior
+## Clipboard
 
-You changed this to feel more Mac-like:
+This is set up to feel more Mac-like:
 
 - `Super + C`: send `Ctrl + C`
 - `Super + V`: send `Ctrl + V`
 
-That works well in common Linux apps, but it is a Hyprland-level shortcut translation, not a full keyboard-layer remap.
+This works in common Linux apps, but it is still a Hyprland shortcut translation, not a full keyboard-layer remap.
 
 ## Scratchpad
 
@@ -74,15 +73,15 @@ That works well in common Linux apps, but it is a Hyprland-level shortcut transl
 
 ## Wallpaper
 
-The current wallpaper is:
+Current wallpaper:
 
 - `wallpapers/wallhaven-k828w6.jpg`
 
-Hyprpaper loads it for both monitors through `hyprpaper.conf`.
+Hyprpaper loads it on both monitors through `hyprpaper.conf`.
 
-## Appearance and animation
+## Appearance
 
-The current animation tuning in `config/appearance.lua` was adapted from:
+Animation tuning in `config/appearance.lua` was adapted from:
 
 - `ilyamiro/nixos-configuration`
 - `config/sessions/hyprland/config/settings.conf`
@@ -103,7 +102,7 @@ pkill hyprpaper
 hyprpaper &
 ```
 
-## Open the current folder from terminal
+## Open the current folder
 
 Mac-style `open .` is not built in by default here.
 

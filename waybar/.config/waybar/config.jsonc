@@ -12,7 +12,7 @@
         "backlight",
         "battery",
         "clock",
-        "tray",
+        "custom/notification",
         "custom/lock",
         "custom/power"
     ],
@@ -20,10 +20,6 @@
         "disable-scroll": true,
         "sort-by-name": true,
         "format": " {name} "
-    },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
     },
     "custom/music": {
         "format": "  {}",
@@ -33,6 +29,27 @@
         "exec": "playerctl metadata --format='{{ title }}' 2>/dev/null",
         "on-click": "playerctl play-pause",
         "max-length": 50
+    },
+    "custom/notification": {
+        "tooltip": true,
+        "return-type": "json",
+        "format": "<span size='16pt'>{icon}</span>",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂜",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+        },
+        "exec-if": "command -v swaync-client >/dev/null 2>&1",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "on-click-middle": "swaync-client -C -sw",
+        "escape": true
     },
     "clock": {
         "timezone": "Europe/Helsinki",

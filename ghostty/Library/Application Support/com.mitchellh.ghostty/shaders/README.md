@@ -1,8 +1,14 @@
-# Cursor shaders for ghostty
+# Ghostty cursor shaders
 
-**cloned straight from https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders**
+This folder was copied from:
 
-## WARNING: These are extremely customizable
+- https://github.com/sahaj-b/ghostty-cursor-shaders
+
+I am keeping the upstream notes here because the shader options are not self-explanatory.
+
+## Note
+
+These shaders are very customizable.
 
 ## Demos
 
@@ -19,7 +25,7 @@
 ## Trails
 - [cursor_warp.glsl](cursor_warp.glsl): Neovide-like cursor trail, most customizable shader
 - [cursor_sweep.glsl](cursor_sweep.glsl): Animated trail that shrinks from previous to current cursor position
-- [cursor_tail.glsl](cursor_tail.glsl): Comet-like trail, mimicing kitty terminal's cursor_trail effect
+- [cursor_tail.glsl](cursor_tail.glsl): Comet-like trail, mimicking kitty terminal's `cursor_trail` effect
 
 ## Pulse/Boom effects
 - These trigger on cursor mode changes (block to line or vice versa, looks cool on changing modes in vim)
@@ -34,7 +40,7 @@
 
 ## Usage
 
-1. Clone the repo into your ghostty shaders directory:
+1. Put the shader files in the Ghostty shaders directory:
 ```bash
 git clone https://github.com/sahaj-b/ghostty-cursor-shaders ~/.config/ghostty/shaders
 ```
@@ -45,16 +51,16 @@ custom-shader = shaders/yourshader1.glsl
 custom-shader = shaders/yourshader2.glsl
 # ...
 ```
-Replace `yourshader` with the name of any shader file (e.g., `cursor_sweep`, `ripple_cursor`, etc.)
+Replace `yourshader` with the name of any shader file, for example `cursor_sweep` or `ripple_cursor`.
 
 
 ## Customization
-- All shaders has customizable parameters (like color, duration, size, thickness, etc) etc at the top of each file. You can adjust
-- Also, all files has various **Easing Functions** to choose from.
-  - these function control the animation curve of the effects, you can make them elasitcy, springy, smooth, linear, etc by changing the easing function
-  - in trail shaders, you can comment/uncomment the easing functions in the code
-  - in pulse/boom shaders, you can comment/uncomment the lines in the `ANIMATION` section
-  - you can also add your own easing functions if you want
+- Every shader has adjustable parameters at the top of the file: color, duration, size, thickness, and so on.
+- Each file also has easing function choices.
+  - These control the animation curve.
+  - In trail shaders, comment or uncomment the easing functions in the code.
+  - In pulse and boom shaders, comment or uncomment the lines in the `ANIMATION` section.
+  - Adding a custom easing function is straightforward if needed.
 
 ### Example (faded warp + ripple)
 ```glsl
@@ -86,7 +92,8 @@ Inspired by [Neovide](https://neovide.dev/) cursor animations and [KroneCorylus/
 ## License
 MIT
 
-## Why use branching(if/else) instead of branchless math
-- coz we are dealing with **uniform branching** here, which has **NO DIVERGENCE**.
-- ie, all fragments will take the same branch path, so no performance penalty on modern GPUs
-- Branchless math would force GPU to calculate animations every single frame, even when there is no need
+## Why use branching (`if`/`else`) instead of branchless math
+
+- This uses uniform branching, so there is no divergence penalty.
+- All fragments take the same branch path.
+- Branchless math would force the GPU to evaluate animations every frame, even when nothing is happening.

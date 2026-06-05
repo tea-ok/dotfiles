@@ -104,6 +104,7 @@ ensure_linux_prereqs() {
       qt6-declarative \
       qt6-svg \
       slurp \
+      swaync \
       wl-clipboard \
       zoxide
   elif os_is_atomic; then
@@ -191,118 +192,6 @@ install_nerd_font_linux() {
   else
     warn "fc-cache not found — font cache not refreshed. Install fontconfig or run fc-cache manually."
   fi
-}
-
-install_terminal_linux() {
-  local desktop_dir desktop_file icon_path candidate expanded
-
-  if [[ "${INSTALL_GUI_TERMINAL:-auto}" == "no" ]]; then
-    log "INSTALL_GUI_TERMINAL=no — skipping terminal emulator install."
-    return 0
-  fi
-
-  if [[ "${INSTALL_GUI_TERMINAL:-auto}" == "auto" ]]; then
-    if [[ -n "${SSH_CONNECTION:-}" || -n "${SSH_CLIENT:-}" || -n "${SSH_TTY:-}" ]]; then
-      log "Headless SSH session detected. Skipping terminal emulator install."
-      return 0
-    fi
-    if [[ -z "${DISPLAY:-}" && -z "${WAYLAND_DISPLAY:-}" ]]; then
-      log "No GUI display detected. Skipping terminal emulator install."
-      return 0
-    fi
-  fi
-
-  if have alacritty; then
-    log "Alacritty already on PATH at $(command -v alacritty). Skipping build."
-  else
-    if os_is_ubuntu; then
-      log "Installing Alacritty build dependencies via apt..."
-      sudo apt-get install -y \
-        cmake \
-        pkg-config \
-        libfreetype6-dev \
-        libfontconfig1-dev \
-        libxcb-xfixes0-dev \
-        libxkbcommon-dev \
-        python3 \
-        desktop-file-utils || warn "Some apt deps may have failed — Alacritty build might fail."
-    fi
-
-    ensure_rustup
-
-    if ! have cargo; then
-      warn "cargo not found — cannot build Alacritty. Install Rust first."
-      return 0
-    fi
-
-    log "Installing Alacritty via cargo..."
-    cargo install alacritty || {
-      warn "cargo install alacritty failed — install manually if needed."
-      return 0
-    }
-  fi
-
-  if [[ "${INSTALL_ALACRITTY_DESKTOP:-yes}" != "yes" ]]; then
-    log "INSTALL_ALACRITTY_DESKTOP=${INSTALL_ALACRITTY_DESKTOP} — skipping desktop entry."
-    return 0
-  fi
-
-  if ! have alacritty; then
-    warn "alacritty not on PATH — skipping .desktop file creation."
-    return 0
-  fi
-
-  desktop_dir="$HOME/.local/share/applications"
-  desktop_file="$desktop_dir/alacritty.desktop"
-
-  if [[ -f "$desktop_file" ]]; then
-    log "Desktop entry already exists at $desktop_file. Skipping (preserving any manual edits)."
-    return 0
-  fi
-
-  icon_path=""
-  for candidate in \
-    "$HOME/.cargo/registry/src"/*/alacritty-*/extra/logo/alacritty-term.svg \
-    "$HOME/.cargo/registry/src"/*/alacritty-*/extra/logo/alacritty.svg \
-    /usr/share/pixmaps/Alacritty.svg \
-    /usr/share/pixmaps/alacritty.svg \
-    /usr/share/icons/hicolor/scalable/apps/Alacritty.svg \
-    /usr/share/icons/hicolor/scalable/apps/alacritty.svg; do
-    for expanded in $candidate; do
-      if [[ -f "$expanded" ]]; then
-        icon_path="$expanded"
-        break 2
-      fi
-    done
-  done
-
-  if [[ -n "$icon_path" ]]; then
-    log "Found Alacritty icon at: $icon_path"
-  else
-    warn "Could not auto-detect Alacritty icon path."
-    warn "The .desktop file will be created with an empty Icon= field."
-    warn "Edit $desktop_file and set the correct Icon= path manually."
-  fi
-
-  mkdir -p "$desktop_dir"
-  log "Writing $desktop_file..."
-  cat >"$desktop_file" <<EOF
-[Desktop Entry]
-Type=Application
-Name=Alacritty
-Exec=alacritty
-Icon=${icon_path}
-Terminal=false
-Categories=System;TerminalEmulator;
-StartupWMClass=Alacritty
-EOF
-
-  if have update-desktop-database; then
-    update-desktop-database "$desktop_dir" 2>/dev/null || \
-      warn "update-desktop-database failed — desktop entry may not be immediately visible."
-  fi
-
-  log "Desktop entry created at $desktop_file"
 }
 
 ensure_tree_sitter_cli() {
@@ -440,8 +329,6 @@ main() {
 
   if os_is_mac; then
     log "Ghostty is handled via Homebrew cask on macOS."
-  else
-    install_terminal_linux
   fi
 
   ensure_rustup

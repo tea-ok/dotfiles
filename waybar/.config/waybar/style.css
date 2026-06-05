@@ -36,11 +36,11 @@ window#waybar {
 }
 
 #custom-music,
-#tray,
 #backlight,
 #clock,
 #battery,
 #pulseaudio,
+#custom-notification,
 #custom-lock,
 #custom-power {
   background-color: @surface0;
@@ -86,6 +86,13 @@ window#waybar {
   border-radius: 1rem;
 }
 
+#custom-notification {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: 1rem;
+  color: @lavender;
+}
+
 #custom-lock {
   border-radius: 1rem 0 0 1rem;
   color: @lavender;
@@ -95,9 +102,4 @@ window#waybar {
   margin-right: 1rem;
   border-radius: 0 1rem 1rem 0;
   color: @red;
-}
-
-#tray {
-  margin-right: 1rem;
-  border-radius: 1rem;
 }

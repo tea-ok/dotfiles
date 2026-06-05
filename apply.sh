@@ -20,7 +20,7 @@ resolve_stow() {
 }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode alacritty ghostty hypr waybar rofi theme htop btop local ideavim zed vim)
+DEFAULT_PACKAGES=(zsh tmux nvim neovide opencode ghostty hypr waybar rofi swaync theme htop btop local ideavim zed vim)
 ROOT_PACKAGES=(keyd)
 PACKAGES=()
 DRY_RUN=0

@@ -1,4 +1,4 @@
-# nvim keybinds
+# Neovim notes
 
 Leader key is `Space`.
 
@@ -37,7 +37,7 @@ Leader key is `Space`.
 | `Ctrl+↑/↓` | Resize split taller/shorter |
 | `Ctrl+←/→` | Resize split wider/narrower |
 
-## File tree (nvim-tree)
+## File tree
 
 | Key | Action |
 |-----|--------|
@@ -63,7 +63,7 @@ Inside the tree:
 | `q` | Close tree |
 | `g?` | Show all keybinds |
 
-## Flash (jump navigation)
+## Flash
 
 Type `s` followed by two characters to jump anywhere on screen with labelled targets.
 
@@ -76,7 +76,7 @@ Type `s` followed by two characters to jump anywhere on screen with labelled tar
 
 **Examples:** `ysf"` — surround a flash target with quotes. `df<label>` — delete up to a jump target.
 
-## Telescope (fuzzy finder)
+## Telescope
 
 | Key | Action |
 |-----|--------|
@@ -88,7 +88,7 @@ Type `s` followed by two characters to jump anywhere on screen with labelled tar
 
 Inside Telescope: `Ctrl+j/k` or arrows to navigate, `Enter` to open, `Ctrl+v` to open in vertical split, `Ctrl+x` for horizontal split, `Ctrl+c` / `Esc` to close.
 
-## LSP (active when a language server is attached)
+## LSP
 
 | Key | Action |
 |-----|--------|
@@ -119,7 +119,7 @@ Work in visual and operator-pending mode — combine with any operator (`d`, `y`
 
 **Examples:** `daf` — delete whole function. `via` — select an argument. `cif` — change function body.
 
-## Git hunks (gitsigns)
+## Git hunks
 
 | Key | Action |
 |-----|--------|
@@ -133,7 +133,7 @@ Work in visual and operator-pending mode — combine with any operator (`d`, `y`
 |-----|--------|
 | `Space ra` | Rust code actions / Clippy suggestions |
 
-## Completion (blink.cmp)
+## Completion
 
 | Key | Action |
 |-----|--------|
@@ -178,14 +178,14 @@ Type your text, then `Esc` — it applies to all selected lines.
 ### Find and replace in file
 `:%s/old/new/gc` — `g` replaces all occurrences, `c` asks for confirmation on each.
 
-## Text manipulation (visual / visual-block mode)
+## Text manipulation
 
 | Key | Action |
 |-----|--------|
 | `p` | Paste without overwriting clipboard |
 | `J` / `K` | Move selected block down/up (enter visual-block with `Ctrl+v`) |
 
-## Formatting (conform.nvim)
+## Formatting
 
 | Key | Action |
 |-----|--------|
@@ -193,7 +193,7 @@ Type your text, then `Esc` — it applies to all selected lines.
 
 Format on save is enabled. Uses LSP formatting as fallback when no formatter is configured.
 
-## Surround (nvim-surround)
+## Surround
 
 | Key | Action |
 |-----|--------|
