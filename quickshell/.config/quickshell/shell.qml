@@ -40,6 +40,7 @@ ShellRoot {
     property var groupedNotificationItems: []
     property var expandedNotificationGroups: []
     property var animatedPopupUids: []
+    property string primaryMonitorName: "DP-4"
 
     property var lastCpuIdle: 0
     property var lastCpuTotal: 0
@@ -134,6 +135,22 @@ ShellRoot {
     function notificationGroupIcon(group) {
         const item = group.items.find(item => item.appIcon !== "")
         return item ? item.appIcon : ""
+    }
+
+    function barScreens() {
+        const fallback = []
+
+        for (let i = 0; i < Quickshell.screens.length; i++) {
+            const screen = Quickshell.screens[i]
+            if (i === 0) {
+                fallback.push(screen)
+            }
+            if (screen.name === primaryMonitorName) {
+                return [screen]
+            }
+        }
+
+        return fallback
     }
 
     component CaelestiaSpatialAnim: NumberAnimation {
@@ -304,7 +321,7 @@ ShellRoot {
     }
 
     Variants {
-        model: Quickshell.screens
+        model: root.barScreens()
 
         PanelWindow {
             id: panelWindow

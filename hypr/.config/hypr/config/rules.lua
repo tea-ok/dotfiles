@@ -1,5 +1,11 @@
 return function(_)
     hl.workspace_rule({
+        workspace = "1",
+        monitor = "DP-4",
+        persistent = true,
+    })
+
+    hl.workspace_rule({
         workspace = "4",
         monitor = "DP-5",
         persistent = true,

@@ -7,7 +7,8 @@ This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfil
 - `hyprland.lua`: main entrypoint
 - `config/`: monitors, autostart, appearance, input, keybinds, rules
 - `lib/apps.lua`: shared app commands
-- `scripts/start-session.sh`: startup workspace layout
+- `scripts/start-session.sh`: runs the startup layout helper
+- `scripts/start-session.lua`: startup workspace layout
 - `hyprpaper.conf`: wallpaper config
 - `hyprlock.conf`: lock screen config
 - `hypridle.conf`: idle timers
@@ -26,8 +27,9 @@ On login, the session script tries to do this:
 
 - workspace `4` on the left monitor with one Firefox window
 - workspace `1` on the main monitor with:
-  - one Firefox window
-  - two Ghostty windows
+  - an empty Ghostty terminal on the left half
+  - Ghostty running `fastfetch` on the top right
+  - Ghostty running `btop` on the bottom right
 - starts `hypridle`, `quickshell`, and `hyprpaper`
 
 ## Idle
