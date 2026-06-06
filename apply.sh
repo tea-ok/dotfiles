@@ -4,6 +4,15 @@ set -euo pipefail
 log() { printf '[apply] %s\n' "$*"; }
 die() { printf '[apply] ERROR: %s\n' "$*" >&2; exit 1; }
 have() { command -v "$1" >/dev/null 2>&1; }
+os_is_mac() { [[ "$(uname -s)" == Darwin ]]; }
+canonical_path() {
+  local path="$1"
+  if have realpath; then
+    realpath "$path"
+  else
+    readlink -f "$path"
+  fi
+}
 resolve_stow() {
   local candidate
   for candidate in \
@@ -17,6 +26,72 @@ resolve_stow() {
     [[ -n "$candidate" && -x "$candidate" ]] && printf '%s\n' "$candidate" && return 0
   done
   return 1
+}
+
+package_find_roots() {
+  local pkg="$1"
+
+  case "$pkg" in
+    ghostty)
+      if os_is_mac; then
+        printf '%s\n' "Library"
+      else
+        printf '%s\n' ".config"
+      fi
+      ;;
+    *)
+      printf '%s\n' "."
+      ;;
+  esac
+}
+
+package_stow_args() {
+  local pkg="$1"
+
+  case "$pkg" in
+    ghostty)
+      if os_is_mac; then
+        printf '%s\n' "--ignore=^\\.config($|/)"
+      else
+        printf '%s\n' "--ignore=^Library($|/)"
+      fi
+      ;;
+  esac
+}
+
+normalize_matching_symlinks() {
+  local pkg="$1" target="$2"
+  local rel rel_path link_path source_path resolved_link resolved_source root root_path
+  declare -A seen=()
+
+  while IFS= read -r root; do
+    root_path="$REPO_ROOT/$pkg"
+    [[ "$root" == "." ]] || root_path="$root_path/$root"
+    [[ -d "$root_path" ]] || continue
+
+    while IFS= read -r rel; do
+      rel_path="$rel"
+      while [[ -n "$rel_path" && "$rel_path" != "." ]]; do
+        if [[ -z "${seen[$rel_path]:-}" ]]; then
+          seen["$rel_path"]=1
+          link_path="$target/$rel_path"
+          source_path="$REPO_ROOT/$pkg/$rel_path"
+
+          if [[ -L "$link_path" && -e "$source_path" ]]; then
+            resolved_link="$(canonical_path "$link_path" 2>/dev/null || true)"
+            resolved_source="$(canonical_path "$source_path" 2>/dev/null || true)"
+            if [[ -n "$resolved_link" && "$resolved_link" == "$resolved_source" ]]; then
+              log "Removing pre-existing symlink $link_path"
+              rm "$link_path"
+            fi
+          fi
+        fi
+
+        [[ "$rel_path" == */* ]] || break
+        rel_path="${rel_path%/*}"
+      done
+    done < <(cd "$REPO_ROOT/$pkg" && find "$root" -mindepth 1 \( -type f -o -type l \) -printf '%P\n')
+  done < <(package_find_roots "$pkg")
 }
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -88,7 +163,11 @@ for pkg in "${PACKAGES[@]}"; do
   if [[ "$target" == "/" && "${EUID:-$(id -u)}" -ne 0 ]]; then
     die "Package $pkg targets / and must be applied with sudo."
   fi
+  normalize_matching_symlinks "$pkg" "$target"
   stow_args=(--dir="$REPO_ROOT" --target="$target" --restow)
+  while IFS= read -r extra_arg; do
+    [[ -n "$extra_arg" ]] && stow_args+=("$extra_arg")
+  done < <(package_stow_args "$pkg")
   if (( DRY_RUN )); then
     stow_args+=(--no --verbose=2)
   fi

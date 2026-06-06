@@ -97,6 +97,7 @@ ensure_linux_prereqs() {
     sudo pacman -S --needed --noconfirm \
       fzf \
       grim \
+      hypridle \
       hyprshutdown \
       papirus-icon-theme \
       pavucontrol \

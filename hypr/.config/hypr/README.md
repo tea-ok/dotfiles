@@ -10,6 +10,7 @@ This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfil
 - `scripts/start-session.sh`: startup workspace layout
 - `hyprpaper.conf`: wallpaper config
 - `hyprlock.conf`: lock screen config
+- `hypridle.conf`: idle timers
 - `themes/`: Catppuccin palette files
 - `wallpapers/`: tracked wallpapers
 
@@ -26,7 +27,17 @@ On login, the session script tries to do this:
 - workspace `1` on the main monitor with:
   - one Firefox window
   - two Ghostty windows
-- starts `swaync`, `waybar`, and `hyprpaper`
+- starts `hypridle`, `swaync`, `waybar`, and `hyprpaper`
+
+## Idle
+
+Current idle flow:
+
+- after `10m`: lock the session
+- after `15m`: turn displays off
+- after `30m`: suspend
+
+On resume, displays are turned back on.
 
 ## Main shortcuts
 
@@ -100,6 +111,13 @@ If the wallpaper does not update immediately:
 ```sh
 pkill hyprpaper
 hyprpaper &
+```
+
+If you change idle settings:
+
+```sh
+pkill hypridle
+hypridle &
 ```
 
 ## Open the current folder

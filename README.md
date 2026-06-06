@@ -36,7 +36,7 @@ mv ~/.config/nvim ~/.config/nvim.backup
 | `ideavim/` | `~/.ideavimrc` |
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
-| `hypr/` | `~/.config/hypr/` |
+| `hypr/` | `~/.config/hypr/` including `hyprlock.conf`, `hypridle.conf`, and wallpaper config |
 | `waybar/` | `~/.config/waybar/` |
 | `rofi/` | `~/.config/rofi/` |
 | `theme/` | `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`, `~/.config/kdeglobals` |
@@ -57,7 +57,7 @@ mv ~/.config/nvim ~/.config/nvim.backup
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 
-On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, `papirus-icon-theme`, `hyprshutdown`, `qt5-quickcontrols2`, `qt6-declarative`, and `qt6-svg` via `pacman`.
+On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, `papirus-icon-theme`, `hypridle`, `hyprshutdown`, `qt5-quickcontrols2`, `qt6-declarative`, and `qt6-svg` via `pacman`.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
