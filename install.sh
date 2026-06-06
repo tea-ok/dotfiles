@@ -105,7 +105,6 @@ ensure_linux_prereqs() {
       qt6-declarative \
       qt6-svg \
       slurp \
-      swaync \
       wl-clipboard \
       zoxide
   elif os_is_atomic; then

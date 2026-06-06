@@ -61,6 +61,8 @@ On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontro
 
 `quickshell` itself is not in this bootstrap script right now. On this machine it is installed separately as `quickshell-git` from the AUR.
 
+Notifications now come from Quickshell itself. `swaync` is no longer part of the active setup.
+
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
 Because `uv tool` installs into `~/.local/bin` and cargo installs into `~/.cargo/bin`, open a new shell after bootstrap before launching Neovim.
