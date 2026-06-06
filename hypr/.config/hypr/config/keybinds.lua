@@ -9,17 +9,17 @@ return function(ctx)
     hl.bind(main_mod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"))
     hl.bind(main_mod .. " + E", hl.dsp.exec_cmd(apps.file_manager))
     hl.bind(main_mod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
-    hl.bind(main_mod .. " + L", hl.dsp.exec_cmd(apps.lock))
+    hl.bind(main_mod .. " + SHIFT + L", hl.dsp.exec_cmd(apps.lock))
     hl.bind(main_mod .. " + SHIFT + V", hl.dsp.window.float({ action = "toggle" }))
     hl.bind(main_mod .. " + SPACE", hl.dsp.exec_cmd(apps.menu))
     hl.bind(main_mod .. " + SHIFT + SPACE", hl.dsp.exec_cmd("rofi -show run"))
     hl.bind(main_mod .. " + P", hl.dsp.window.pseudo())
-    hl.bind(main_mod .. " + J", hl.dsp.layout("togglesplit"))
+    hl.bind(main_mod .. " + I", hl.dsp.layout("togglesplit"))
 
-    hl.bind(main_mod .. " + left", hl.dsp.focus({ direction = "left" }))
-    hl.bind(main_mod .. " + right", hl.dsp.focus({ direction = "right" }))
-    hl.bind(main_mod .. " + up", hl.dsp.focus({ direction = "up" }))
-    hl.bind(main_mod .. " + down", hl.dsp.focus({ direction = "down" }))
+    hl.bind(main_mod .. " + H", hl.dsp.focus({ direction = "left" }))
+    hl.bind(main_mod .. " + L", hl.dsp.focus({ direction = "right" }))
+    hl.bind(main_mod .. " + K", hl.dsp.focus({ direction = "up" }))
+    hl.bind(main_mod .. " + J", hl.dsp.focus({ direction = "down" }))
 
     for i = 1, 10 do
         local key = i % 10

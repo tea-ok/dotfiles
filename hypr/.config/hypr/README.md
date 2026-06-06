@@ -46,16 +46,19 @@ On resume, displays are turned back on.
 - `Super + Shift + Space`: open command launcher (`rofi run`)
 - `Super + E`: open Dolphin
 - `Super + F`: toggle fullscreen
-- `Super + L`: lock with `hyprlock`
+- `Super + Shift + L`: lock with `hyprlock`
 - `Super + M`: logout / shutdown helper
 - `Super + Q`: close focused window
-- `Super + Shift + V`: toggle floating
+- `Super + Shift + V`: toggle floating / tiled
 - `Super + P`: toggle pseudo-tiling
-- `Super + J`: toggle split direction in dwindle
+- `Super + I`: toggle split direction in dwindle
+- `Super + J`: move focus down
+- `Super + K`: move focus up
+- `Super + L`: move focus right
 
 ## Navigation
 
-- `Super + Left/Right/Up/Down`: move focus
+- `Super + H/J/K/L`: move focus left/down/up/right
 - `Super + 1..0`: switch workspace `1..10`
 - `Super + Shift + 1..0`: move focused window to workspace `1..10`
 - `Super + Mouse Wheel`: cycle workspaces
