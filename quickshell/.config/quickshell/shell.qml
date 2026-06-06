@@ -10,6 +10,7 @@ import QtQuick.Layouts
 ShellRoot {
     id: root
 
+    // Catpuccin frappe.
     property color colBg: "#303446"
     property color colFg: "#c6d0f5"
     property color colMuted: "#737994"
@@ -37,9 +38,14 @@ ShellRoot {
     property var activeNotificationItems: []
     property var popupNotificationItems: []
     property var groupedNotificationItems: []
+    property var expandedNotificationGroups: []
+    property var animatedPopupUids: []
 
     property var lastCpuIdle: 0
     property var lastCpuTotal: 0
+
+    property int animExpressiveDefaultSpatial: 500
+    property var easingExpressiveDefaultSpatial: [0.38, 1.21, 0.22, 1, 1, 1]
 
     function syncNotifications() {
         activeNotificationItems = notificationItems.filter(item => !item.closed)
@@ -99,6 +105,47 @@ ShellRoot {
             popup: false
         } : item)
         syncNotifications()
+    }
+
+    function isNotificationGroupExpanded(appName) {
+        return expandedNotificationGroups.indexOf(appName) >= 0
+    }
+
+    function toggleNotificationGroup(appName) {
+        if (isNotificationGroupExpanded(appName)) {
+            expandedNotificationGroups = expandedNotificationGroups.filter(name => name !== appName)
+        } else {
+            expandedNotificationGroups = [appName].concat(expandedNotificationGroups)
+        }
+    }
+
+    function clearNotificationGroup(appName) {
+        for (const item of notificationItems.filter(item => !item.closed && ((item.appName && item.appName !== "" ? item.appName : "Notifications") === appName))) {
+            closeNotification(item.uid)
+        }
+    }
+
+    function clearAllNotifications() {
+        for (const item of notificationItems.filter(item => !item.closed)) {
+            closeNotification(item.uid)
+        }
+    }
+
+    function notificationGroupIcon(group) {
+        const item = group.items.find(item => item.appIcon !== "")
+        return item ? item.appIcon : ""
+    }
+
+    component CaelestiaSpatialAnim: NumberAnimation {
+        duration: root.animExpressiveDefaultSpatial
+        easing.type: Easing.BezierSpline
+        easing.bezierCurve: root.easingExpressiveDefaultSpatial
+    }
+
+    component CaelestiaColorAnim: ColorAnimation {
+        duration: root.animExpressiveDefaultSpatial
+        easing.type: Easing.BezierSpline
+        easing.bezierCurve: root.easingExpressiveDefaultSpatial
     }
 
     Process {
@@ -247,7 +294,7 @@ ShellRoot {
                 popup: true
             }
 
-            notificationItems = [item, ...notificationItems]
+            notificationItems = [item].concat(notificationItems)
             syncNotifications()
 
             if (!root.notificationCenterOpen) {
@@ -484,241 +531,433 @@ ShellRoot {
                 anchor.window: panelWindow
                 anchor.rect.x: panelWindow.width - implicitWidth - 12
                 anchor.rect.y: panelWindow.height + 8
-                implicitWidth: 380
-                implicitHeight: 460
+                implicitWidth: 390
+                implicitHeight: 500
                 visible: (root.notificationCenterOpen || root.notificationCenterClosing) && root.notificationCenterScreen === panelWindow.screen
                 color: "transparent"
 
                 Rectangle {
-                    anchors.fill: parent
-                    radius: 10
+                    id: centerCard
+                    property bool active: root.notificationCenterOpen && root.notificationCenterScreen === panelWindow.screen
+                    property real slideX: width + 5
+
+                    width: parent.width
+                    height: parent.height
+                    radius: 12
                     color: root.colBg
                     border.width: 1
-                    border.color: root.colMuted
-                    opacity: root.notificationCenterOpen && root.notificationCenterScreen === panelWindow.screen ? 1 : 0
-                    scale: root.notificationCenterOpen && root.notificationCenterScreen === panelWindow.screen ? 1 : 0.985
-                    y: root.notificationCenterOpen && root.notificationCenterScreen === panelWindow.screen ? 0 : -6
+                    border.color: root.colOverlay
+                    clip: true
+                    x: slideX
 
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 210
-                            easing.type: Easing.OutCubic
+                    Component.onCompleted: {
+                        slideX = width + 5
+                        if (active) {
+                            Qt.callLater(() => {
+                                slideX = 0
+                            })
                         }
                     }
 
-                    Behavior on scale {
-                        NumberAnimation {
-                            duration: 170
-                            easing.type: Easing.OutCubic
-                        }
+                    onActiveChanged: {
+                        slideX = active ? 0 : width + 5
                     }
 
-                    Behavior on y {
-                        NumberAnimation {
-                            duration: 170
-                            easing.type: Easing.OutCubic
-                        }
+                    Behavior on slideX {
+                        CaelestiaSpatialAnim {}
                     }
 
                     ColumnLayout {
                         anchors.fill: parent
-                        anchors.margins: 14
-                        spacing: 10
+                        anchors.margins: 12
+                        spacing: 8
 
                         RowLayout {
                             Layout.fillWidth: true
+                            Layout.leftMargin: 4
+                            Layout.rightMargin: 4
+                            Layout.preferredHeight: 28
 
                             Text {
-                                text: "Notifications"
-                                color: root.colFg
+                                text: root.activeNotificationItems.length > 0
+                                    ? root.activeNotificationItems.length + " notification" + (root.activeNotificationItems.length === 1 ? "" : "s")
+                                    : "Notifications"
+                                color: root.colMuted
                                 font.pixelSize: root.fontSize
+                                font.family: root.fontFamily
+                                font.bold: true
+                                Layout.fillWidth: true
+                                elide: Text.ElideRight
+                            }
+
+                            Rectangle {
+                                visible: root.activeNotificationItems.length > 0
+                                Layout.preferredWidth: clearText.implicitWidth + 18
+                                Layout.preferredHeight: 26
+                                radius: 999
+                                color: clearMouse.containsMouse ? root.colOverlay : root.colSurface
+
+                                Text {
+                                    id: clearText
+                                    anchors.centerIn: parent
+                                    text: "Clear"
+                                    color: root.colFg
+                                    font.pixelSize: root.fontSize - 2
+                                    font.family: root.fontFamily
+                                    font.bold: true
+                                }
+
+                                MouseArea {
+                                    id: clearMouse
+                                    anchors.fill: parent
+                                    hoverEnabled: true
+                                    onClicked: root.clearAllNotifications()
+                                }
+                            }
+                        }
+
+                        Item {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            clip: true
+
+                            Text {
+                                anchors.centerIn: parent
+                                visible: root.activeNotificationItems.length === 0
+                                text: "No notifications"
+                                color: root.colMuted
+                                font.pixelSize: root.fontSize + 1
                                 font.family: root.fontFamily
                                 font.bold: true
                             }
 
-                            Item { Layout.fillWidth: true }
-
-                            Text {
-                                text: root.activeNotificationItems.length > 0
-                                    ? root.activeNotificationItems.length.toString()
-                                    : ""
-                                color: root.colMuted
-                                font.pixelSize: root.fontSize - 1
-                                font.family: root.fontFamily
-                            }
-                        }
-
-                        Rectangle {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            radius: 8
-                            color: root.colSurface
-
-                            Flickable {
+                            ListView {
+                                id: centerList
                                 anchors.fill: parent
-                                anchors.margins: 10
                                 clip: true
-                                contentHeight: notificationColumn.implicitHeight
+                                spacing: 8
+                                interactive: contentHeight > height
+                                boundsBehavior: Flickable.StopAtBounds
+                                model: root.groupedNotificationItems
 
-                                Column {
-                                    id: notificationColumn
-                                    width: parent.width
-                                    spacing: 8
+                                add: Transition {
+                                    CaelestiaSpatialAnim {
+                                        property: "x"
+                                        from: centerList.width
+                                        to: 0
+                                    }
+                                }
 
-                                    Text {
-                                        visible: root.activeNotificationItems.length === 0
-                                        width: parent.width
-                                        text: "No notifications"
-                                        color: root.colMuted
-                                        font.pixelSize: root.fontSize
-                                        font.family: root.fontFamily
-                                        horizontalAlignment: Text.AlignHCenter
+                                remove: Transition {
+                                    CaelestiaSpatialAnim {
+                                        property: "x"
+                                        to: centerList.width
+                                    }
+                                }
+
+                                move: Transition {
+                                    CaelestiaSpatialAnim {
+                                        property: "y"
+                                    }
+                                }
+
+                                displaced: Transition {
+                                    CaelestiaSpatialAnim {
+                                        property: "y"
+                                    }
+                                }
+
+                                delegate: MouseArea {
+                                    id: groupWrapper
+
+                                    required property var modelData
+                                    property var group: modelData
+                                    property bool expanded: root.isNotificationGroupExpanded(group.appName)
+                                    property real startY: 0
+
+                                    width: centerList.width
+                                    implicitHeight: groupCard.implicitHeight
+                                    hoverEnabled: true
+                                    acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+                                    preventStealing: true
+                                    drag.target: groupWrapper
+                                    drag.axis: Drag.XAxis
+
+                                    onPressed: event => {
+                                        startY = event.y
+                                        if (event.button === Qt.RightButton) {
+                                            root.toggleNotificationGroup(group.appName)
+                                        } else if (event.button === Qt.MiddleButton) {
+                                            root.clearNotificationGroup(group.appName)
+                                        }
                                     }
 
-                                    Repeater {
-                                        model: root.groupedNotificationItems
+                                    onPositionChanged: event => {
+                                        if (pressed && Math.abs(event.y - startY) > 28) {
+                                            const shouldExpand = event.y > startY
+                                            if (shouldExpand !== root.isNotificationGroupExpanded(group.appName)) {
+                                                root.toggleNotificationGroup(group.appName)
+                                            }
+                                        }
+                                    }
 
-                                        Rectangle {
-                                            required property var modelData
-                                            property var group: modelData
+                                    onReleased: {
+                                        if (Math.abs(x) > width * 0.35) {
+                                            root.clearNotificationGroup(group.appName)
+                                        }
+                                        x = 0
+                                    }
 
-                                            width: notificationColumn.width
-                                            radius: 10
-                                            color: root.colOverlay
-                                            border.width: 1
-                                            border.color: root.colMuted
-                                            implicitHeight: groupLayout.implicitHeight + 16
+                                    Behavior on x {
+                                        CaelestiaSpatialAnim {}
+                                    }
 
-                                            ColumnLayout {
-                                                id: groupLayout
-                                                anchors.fill: parent
-                                                anchors.margins: 8
-                                                spacing: 8
+                                    Rectangle {
+                                        id: groupCard
 
-                                                RowLayout {
-                                                    Layout.fillWidth: true
+                                        width: parent.width
+                                        radius: 12
+                                        color: root.colSurface
+                                        border.width: 1
+                                        border.color: groupWrapper.expanded ? root.colPurple : root.colOverlay
+                                        implicitHeight: groupContent.implicitHeight + 18
+                                        clip: true
 
-                                                    Text {
-                                                        text: group.appName
-                                                        color: root.colBlue
-                                                        font.pixelSize: root.fontSize - 1
-                                                        font.family: root.fontFamily
-                                                        font.bold: true
-                                                        Layout.fillWidth: true
-                                                        elide: Text.ElideRight
+                                        Behavior on implicitHeight {
+                                            CaelestiaSpatialAnim {}
+                                        }
+
+                                        Behavior on border.color {
+                                            CaelestiaColorAnim {}
+                                        }
+
+                                        ColumnLayout {
+                                            id: groupContent
+                                            anchors.left: parent.left
+                                            anchors.right: parent.right
+                                            anchors.top: parent.top
+                                            anchors.margins: 9
+                                            spacing: groupWrapper.expanded ? 8 : 3
+
+                                            Behavior on spacing {
+                                                CaelestiaSpatialAnim {}
+                                            }
+
+                                            RowLayout {
+                                                Layout.fillWidth: true
+                                                spacing: 9
+
+                                                Rectangle {
+                                                    Layout.preferredWidth: 34
+                                                    Layout.preferredHeight: 34
+                                                    radius: 999
+                                                    color: root.notificationGroupIcon(group) !== "" ? root.colOverlay : root.colBg
+
+                                                    Loader {
+                                                        anchors.centerIn: parent
+                                                        active: root.notificationGroupIcon(group) !== ""
+
+                                                        sourceComponent: IconImage {
+                                                            implicitSize: 20
+                                                            source: Quickshell.iconPath(root.notificationGroupIcon(group))
+                                                        }
                                                     }
 
-                                                    Rectangle {
-                                                        radius: 999
-                                                        color: root.colSurface
-                                                        implicitWidth: groupCountText.implicitWidth + 12
-                                                        implicitHeight: groupCountText.implicitHeight + 6
-
-                                                        Text {
-                                                            id: groupCountText
-                                                            anchors.centerIn: parent
-                                                            text: group.items.length.toString()
-                                                            color: root.colFg
-                                                            font.pixelSize: root.fontSize - 2
-                                                            font.family: root.fontFamily
-                                                            font.bold: true
-                                                        }
+                                                    Text {
+                                                        anchors.centerIn: parent
+                                                        visible: root.notificationGroupIcon(group) === ""
+                                                        text: ""
+                                                        color: root.colPurple
+                                                        font.pixelSize: root.fontSize
+                                                        font.family: root.fontFamily
                                                     }
                                                 }
 
                                                 ColumnLayout {
                                                     Layout.fillWidth: true
-                                                    spacing: 6
+                                                    spacing: 0
 
-                                                    Repeater {
-                                                        model: group.items
+                                                    Text {
+                                                        Layout.fillWidth: true
+                                                        text: group.appName
+                                                        color: root.colFg
+                                                        font.pixelSize: root.fontSize
+                                                        font.family: root.fontFamily
+                                                        font.bold: true
+                                                        elide: Text.ElideRight
+                                                    }
 
-                                                        Rectangle {
-                                                            required property var modelData
-                                                            property var notif: modelData
+                                                    Text {
+                                                        Layout.fillWidth: true
+                                                        text: group.items[0]?.summary ?? "Notification"
+                                                        color: root.colMuted
+                                                        font.pixelSize: root.fontSize - 2
+                                                        font.family: root.fontFamily
+                                                        elide: Text.ElideRight
+                                                    }
+                                                }
 
+                                                Rectangle {
+                                                    Layout.preferredWidth: countLabel.implicitWidth + 16
+                                                    Layout.preferredHeight: 26
+                                                    radius: 999
+                                                    color: root.colOverlay
+
+                                                    Text {
+                                                        id: countLabel
+                                                        anchors.centerIn: parent
+                                                        text: group.items.length
+                                                        color: root.colFg
+                                                        font.pixelSize: root.fontSize - 2
+                                                        font.family: root.fontFamily
+                                                        font.bold: true
+                                                    }
+
+                                                    MouseArea {
+                                                        anchors.fill: parent
+                                                        onClicked: root.toggleNotificationGroup(group.appName)
+                                                    }
+                                                }
+
+                                                Text {
+                                                    text: "⌄"
+                                                    color: root.colMuted
+                                                    font.pixelSize: root.fontSize + 2
+                                                    font.family: root.fontFamily
+                                                    rotation: groupWrapper.expanded ? 180 : 0
+
+                                                    Behavior on rotation {
+                                                        CaelestiaSpatialAnim {}
+                                                    }
+
+                                                    MouseArea {
+                                                        anchors.fill: parent
+                                                        onClicked: root.toggleNotificationGroup(group.appName)
+                                                    }
+                                                }
+                                            }
+
+                                            Repeater {
+                                                model: groupWrapper.expanded ? group.items : group.items.slice(0, 2)
+
+                                                delegate: Rectangle {
+                                                    id: notifCard
+
+                                                    required property var modelData
+                                                    property var notif: modelData
+
+                                                    Layout.fillWidth: true
+                                                    radius: 8
+                                                    color: groupWrapper.expanded ? root.colBg : "transparent"
+                                                    border.width: groupWrapper.expanded ? 1 : 0
+                                                    border.color: root.colOverlay
+                                                    implicitHeight: notifLayout.implicitHeight + (groupWrapper.expanded ? 16 : 0)
+                                                    clip: true
+
+                                                    Behavior on implicitHeight {
+                                                        CaelestiaSpatialAnim {}
+                                                    }
+
+                                                    ColumnLayout {
+                                                        id: notifLayout
+                                                        anchors.left: parent.left
+                                                        anchors.right: parent.right
+                                                        anchors.top: parent.top
+                                                        anchors.margins: groupWrapper.expanded ? 8 : 0
+                                                        spacing: groupWrapper.expanded ? 6 : 2
+
+                                                        RowLayout {
                                                             Layout.fillWidth: true
-                                                            radius: 8
-                                                            color: root.colSurface
-                                                            border.width: 1
-                                                            border.color: root.colMuted
-                                                            implicitHeight: notificationLayout.implicitHeight + 16
 
-                                                            ColumnLayout {
-                                                                id: notificationLayout
-                                                                anchors.fill: parent
-                                                                anchors.margins: 8
-                                                                spacing: 6
+                                                            Text {
+                                                                Layout.fillWidth: true
+                                                                text: notif.summary || "Notification"
+                                                                color: root.colFg
+                                                                font.pixelSize: root.fontSize - (groupWrapper.expanded ? 0 : 1)
+                                                                font.family: root.fontFamily
+                                                                font.bold: true
+                                                                elide: groupWrapper.expanded ? Text.ElideNone : Text.ElideRight
+                                                                wrapMode: groupWrapper.expanded ? Text.WordWrap : Text.NoWrap
+                                                                maximumLineCount: groupWrapper.expanded ? 3 : 1
+                                                            }
 
-                                                                RowLayout {
-                                                                    Layout.fillWidth: true
+                                                            Text {
+                                                                visible: groupWrapper.expanded
+                                                                text: "✕"
+                                                                color: root.colMuted
+                                                                font.pixelSize: root.fontSize
+                                                                font.family: root.fontFamily
 
-                                                                    Text {
-                                                                        text: notif.summary || "Notification"
-                                                                        color: root.colFg
-                                                                        font.pixelSize: root.fontSize
-                                                                        font.family: root.fontFamily
-                                                                        font.bold: true
-                                                                        wrapMode: Text.Wrap
-                                                                        Layout.fillWidth: true
-                                                                    }
-
-                                                                    Text {
-                                                                        text: "✕"
-                                                                        color: root.colMuted
-                                                                        font.pixelSize: root.fontSize
-                                                                        font.family: root.fontFamily
-
-                                                                        MouseArea {
-                                                                            anchors.fill: parent
-                                                                            onClicked: root.closeNotification(notif.uid)
-                                                                        }
-                                                                    }
+                                                                MouseArea {
+                                                                    anchors.fill: parent
+                                                                    onClicked: root.closeNotification(notif.uid)
                                                                 }
+                                                            }
+                                                        }
+
+                                                        Text {
+                                                            visible: groupWrapper.expanded && notif.body !== ""
+                                                            Layout.fillWidth: true
+                                                            text: notif.body
+                                                            color: root.colMuted
+                                                            font.pixelSize: root.fontSize - 1
+                                                            font.family: root.fontFamily
+                                                            wrapMode: Text.WordWrap
+                                                            textFormat: Text.PlainText
+                                                        }
+
+                                                        RowLayout {
+                                                            visible: groupWrapper.expanded && notif.actions.length > 0
+                                                            Layout.fillWidth: true
+                                                            spacing: 6
+
+                                                            Rectangle {
+                                                                radius: 6
+                                                                color: root.colSurface
+                                                                implicitWidth: closeActionText.implicitWidth + 14
+                                                                implicitHeight: closeActionText.implicitHeight + 8
 
                                                                 Text {
-                                                                    visible: notif.body !== ""
-                                                                    Layout.fillWidth: true
-                                                                    text: notif.body
+                                                                    id: closeActionText
+                                                                    anchors.centerIn: parent
+                                                                    text: "Close"
                                                                     color: root.colFg
-                                                                    font.pixelSize: root.fontSize - 1
+                                                                    font.pixelSize: root.fontSize - 2
                                                                     font.family: root.fontFamily
-                                                                    wrapMode: Text.Wrap
-                                                                    textFormat: Text.PlainText
+                                                                    font.bold: true
                                                                 }
 
-                                                                RowLayout {
-                                                                    visible: notif.actions.length > 0
-                                                                    Layout.fillWidth: true
-                                                                    spacing: 6
+                                                                MouseArea {
+                                                                    anchors.fill: parent
+                                                                    onClicked: root.closeNotification(notif.uid)
+                                                                }
+                                                            }
 
-                                                                    Repeater {
-                                                                        model: notif.actions
+                                                            Repeater {
+                                                                model: notif.actions
 
-                                                                        Rectangle {
-                                                                            required property var modelData
-                                                                            property var action: modelData
+                                                                Rectangle {
+                                                                    required property var modelData
+                                                                    property var action: modelData
 
-                                                                            radius: 6
-                                                                            color: root.colPurple
-                                                                            implicitWidth: actionText.implicitWidth + 14
-                                                                            implicitHeight: actionText.implicitHeight + 8
+                                                                    radius: 6
+                                                                    color: root.colPurple
+                                                                    implicitWidth: actionText.implicitWidth + 14
+                                                                    implicitHeight: actionText.implicitHeight + 8
 
-                                                                            Text {
-                                                                                id: actionText
-                                                                                anchors.centerIn: parent
-                                                                                text: action.text
-                                                                                color: root.colBg
-                                                                                font.pixelSize: root.fontSize - 2
-                                                                                font.family: root.fontFamily
-                                                                                font.bold: true
-                                                                            }
+                                                                    Text {
+                                                                        id: actionText
+                                                                        anchors.centerIn: parent
+                                                                        text: action.text
+                                                                        color: root.colBg
+                                                                        font.pixelSize: root.fontSize - 2
+                                                                        font.family: root.fontFamily
+                                                                        font.bold: true
+                                                                    }
 
-                                                                            MouseArea {
-                                                                                anchors.fill: parent
-                                                                                onClicked: action.invoke()
-                                                                            }
-                                                                        }
+                                                                    MouseArea {
+                                                                        anchors.fill: parent
+                                                                        onClicked: action.invoke()
                                                                     }
                                                                 }
                                                             }
@@ -735,7 +974,7 @@ ShellRoot {
                 }
 
                 Timer {
-                    interval: 180
+                    interval: root.animExpressiveDefaultSpatial
                     running: root.notificationCenterClosing
                     repeat: false
                     onTriggered: {
@@ -770,18 +1009,14 @@ ShellRoot {
                         model: root.popupNotificationItems
 
                         move: Transition {
-                            NumberAnimation {
+                            CaelestiaSpatialAnim {
                                 property: "y"
-                                duration: 320
-                                easing.type: Easing.OutCubic
                             }
                         }
 
                         displaced: Transition {
-                            NumberAnimation {
+                            CaelestiaSpatialAnim {
                                 property: "y"
-                                duration: 320
-                                easing.type: Easing.OutCubic
                             }
                         }
 
@@ -793,9 +1028,20 @@ ShellRoot {
                             required property string summary
                             required property string body
                             required property string appName
+                            property bool shouldAnimateEntry: root.animatedPopupUids.indexOf(uid) < 0
 
                             width: toastList.width
                             implicitHeight: toastCard.implicitHeight
+
+                            Component.onCompleted: {
+                                if (shouldAnimateEntry) {
+                                    root.animatedPopupUids = [uid].concat(root.animatedPopupUids)
+                                    toastCard.x = toastCard.width
+                                    toastEnterAnim.start()
+                                } else {
+                                    toastCard.x = 0
+                                }
+                            }
 
                             ListView.onRemove: removeAnim.start()
 
@@ -814,22 +1060,20 @@ ShellRoot {
                                 }
                                 PropertyAction {
                                     target: toastWrapper
-                                    property: "implicitHeight"
-                                    value: 0
+                                    property: "z"
+                                    value: 1
                                 }
-                                NumberAnimation {
-                                    target: toastCard
-                                    property: "x"
-                                    to: toastCard.width * 2
-                                    duration: 260
-                                    easing.type: Easing.OutCubic
-                                }
-                                NumberAnimation {
-                                    target: toastCard
-                                    property: "opacity"
-                                    to: 0
-                                    duration: 220
-                                    easing.type: Easing.OutCubic
+                                ParallelAnimation {
+                                    CaelestiaSpatialAnim {
+                                        target: toastCard
+                                        property: "x"
+                                        to: toastCard.width * 2
+                                    }
+                                    CaelestiaSpatialAnim {
+                                        target: toastWrapper
+                                        property: "implicitHeight"
+                                        to: 0
+                                    }
                                 }
                                 PropertyAction {
                                     target: toastWrapper
@@ -846,24 +1090,17 @@ ShellRoot {
                                 border.width: 1
                                 border.color: root.colMuted
                                 implicitHeight: toastLayout.implicitHeight + 16
-                                x: width
-                                opacity: 1
+                                x: 0
 
-                                Component.onCompleted: x = 0
-
-                                Behavior on x {
-                                    NumberAnimation {
-                                        duration: 360
-                                        easing.type: Easing.OutBack
-                                        easing.overshoot: 1.22
-                                    }
+                                CaelestiaSpatialAnim {
+                                    id: toastEnterAnim
+                                    target: toastCard
+                                    property: "x"
+                                    to: 0
                                 }
 
                                 Behavior on implicitHeight {
-                                    NumberAnimation {
-                                        duration: 240
-                                        easing.type: Easing.OutCubic
-                                    }
+                                    CaelestiaSpatialAnim {}
                                 }
 
                                 Timer {
