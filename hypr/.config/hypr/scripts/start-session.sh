@@ -4,7 +4,7 @@ set -euo pipefail
 main_monitor="DP-4"
 side_monitor="DP-5"
 main_workspace="1"
-side_workspace="2"
+side_workspace="4"
 
 sleep 1
 

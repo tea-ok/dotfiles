@@ -1,4 +1,10 @@
 return function(_)
+    hl.workspace_rule({
+        workspace = "4",
+        monitor = "DP-5",
+        persistent = true,
+    })
+
     hl.window_rule({
         name = "suppress-maximize-events",
         match = { class = ".*" },

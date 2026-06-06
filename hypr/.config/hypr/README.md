@@ -18,12 +18,13 @@ This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfil
 
 - `DP-5` is the left `1920x1080` monitor
 - `DP-4` is the main `2560x1440` monitor
+- workspace `4` is pinned to `DP-5`
 
 ## Startup
 
 On login, the session script tries to do this:
 
-- workspace `2` on the left monitor with one Firefox window
+- workspace `4` on the left monitor with one Firefox window
 - workspace `1` on the main monitor with:
   - one Firefox window
   - two Ghostty windows
