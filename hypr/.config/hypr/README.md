@@ -28,7 +28,7 @@ On login, the session script tries to do this:
 - workspace `1` on the main monitor with:
   - one Firefox window
   - two Ghostty windows
-- starts `hypridle`, `swaync`, `waybar`, and `hyprpaper`
+- starts `hypridle`, `swaync`, `quickshell`, and `hyprpaper`
 
 ## Idle
 

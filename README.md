@@ -37,7 +37,7 @@ mv ~/.config/nvim ~/.config/nvim.backup
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
 | `hypr/` | `~/.config/hypr/` including `hyprlock.conf`, `hypridle.conf`, and wallpaper config |
-| `waybar/` | `~/.config/waybar/` |
+| `quickshell/` | `~/.config/quickshell/` |
 | `rofi/` | `~/.config/rofi/` |
 | `theme/` | `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`, `~/.config/kdeglobals` |
 | `htop/` | `~/.config/htop/` |
@@ -58,6 +58,8 @@ mv ~/.config/nvim ~/.config/nvim.backup
 - `~/.config/zsh/local.zsh` stub if missing
 
 On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, `papirus-icon-theme`, `hypridle`, `hyprshutdown`, `qt5-quickcontrols2`, `qt6-declarative`, and `qt6-svg` via `pacman`.
+
+`quickshell` itself is not in this bootstrap script right now. On this machine it is installed separately as `quickshell-git` from the AUR.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
