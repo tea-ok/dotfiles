@@ -106,7 +106,8 @@ ensure_linux_prereqs() {
       qt6-svg \
       slurp \
       wl-clipboard \
-      zoxide
+      zoxide \
+      discord
   elif os_is_atomic; then
     warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
   else

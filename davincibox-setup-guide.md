@@ -1,7 +1,7 @@
 # Davincibox Setup Notes
 
 Brief setup for DaVinci Resolve using davincibox:
-https://github.com/zelikos/davincibox
+<https://github.com/zelikos/davincibox>
 
 ## 1. Prerequisites
 
@@ -12,7 +12,7 @@ command -v podman
 command -v toolbox
 ```
 
-Download the Linux installer from Blackmagic:
+Download the Linux installer from Blackmagic (should be a .zip containing this):
 
 ```text
 DaVinci_Resolve_<version>_Linux.run

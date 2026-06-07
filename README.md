@@ -56,12 +56,9 @@ mv ~/.config/nvim ~/.config/nvim.backup
 - `tree-sitter-cli` via cargo — required by nvim-treesitter v1 to compile language parsers
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
-
-On Arch, `install.sh` also installs `grim`, `slurp`, `wl-clipboard`, `pavucontrol`, `fzf`, `zoxide`, `papirus-icon-theme`, `hypridle`, `hyprshutdown`, `qt5-quickcontrols2`, `qt6-declarative`, and `qt6-svg` via `pacman`.
+- on Arch, a few more packages are installed via pacman
 
 `quickshell` itself is not in this bootstrap script right now. On this machine it is installed separately as `quickshell-git` from the AUR.
-
-Notifications now come from Quickshell itself. `swaync` is no longer part of the active setup.
 
 On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
 
