@@ -54,27 +54,39 @@ RowLayout {
         Layout.rightMargin: 8
     }
 
-    Text {
-        text: hyprState.activeWindow
-        color: theme.colPurple
-        font.pixelSize: theme.fontSize
-        font.family: theme.fontFamily
-        font.bold: true
+    Item {
         Layout.fillWidth: true
-        Layout.leftMargin: 8
-        elide: Text.ElideRight
-        maximumLineCount: 1
-    }
+        implicitHeight: windowRow.implicitHeight
 
-    Text {
-        visible: hyprState.magicVisible
-        text: "MAGIC"
-        color: theme.colPurple
-        font.pixelSize: theme.fontSize
-        font.family: theme.fontFamily
-        font.bold: true
-        Layout.leftMargin: 8
-        Layout.rightMargin: 8
+        Row {
+            id: windowRow
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 8
+
+            Text {
+                id: activeWindowLabel
+                width: Math.min(implicitWidth, Math.max(0, parent.parent.width - (magicLabel.visible ? magicLabel.implicitWidth + windowRow.spacing + windowRow.anchors.leftMargin : windowRow.anchors.leftMargin)))
+                text: hyprState.activeWindow
+                color: theme.colPurple
+                font.pixelSize: theme.fontSize
+                font.family: theme.fontFamily
+                font.bold: true
+                elide: Text.ElideRight
+                maximumLineCount: 1
+            }
+
+            Text {
+                id: magicLabel
+                visible: hyprState.magicVisible
+                text: "MAGIC"
+                color: theme.colBlue
+                font.pixelSize: theme.fontSize
+                font.family: theme.fontFamily
+                font.bold: true
+            }
+        }
     }
 
     SystemIndicators {
