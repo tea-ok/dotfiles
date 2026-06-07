@@ -32,16 +32,6 @@ RowLayout {
         theme: parent.theme
     }
 
-    Text {
-        text: hyprState.magicVisible ? "MAGIC" : "NORMAL"
-        color: hyprState.magicVisible ? theme.colPurple : theme.colMuted
-        font.pixelSize: theme.fontSize
-        font.family: theme.fontFamily
-        font.bold: true
-        Layout.leftMargin: 8
-        Layout.rightMargin: 4
-    }
-
     VSeparator {
         theme: parent.theme
         Layout.leftMargin: 8
@@ -74,6 +64,17 @@ RowLayout {
         Layout.leftMargin: 8
         elide: Text.ElideRight
         maximumLineCount: 1
+    }
+
+    Text {
+        visible: hyprState.magicVisible
+        text: "MAGIC"
+        color: theme.colPurple
+        font.pixelSize: theme.fontSize
+        font.family: theme.fontFamily
+        font.bold: true
+        Layout.leftMargin: 8
+        Layout.rightMargin: 8
     }
 
     SystemIndicators {
