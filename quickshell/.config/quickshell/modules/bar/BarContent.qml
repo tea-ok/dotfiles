@@ -32,6 +32,16 @@ RowLayout {
         theme: parent.theme
     }
 
+    Text {
+        text: hyprState.magicVisible ? "MAGIC" : "NORMAL"
+        color: hyprState.magicVisible ? theme.colPurple : theme.colMuted
+        font.pixelSize: theme.fontSize
+        font.family: theme.fontFamily
+        font.bold: true
+        Layout.leftMargin: 8
+        Layout.rightMargin: 4
+    }
+
     VSeparator {
         theme: parent.theme
         Layout.leftMargin: 8

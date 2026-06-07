@@ -107,7 +107,8 @@ ensure_linux_prereqs() {
       slurp \
       wl-clipboard \
       zoxide \
-      discord
+      discord \
+      toolbox \
   elif os_is_atomic; then
     warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
   else

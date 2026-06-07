@@ -9,6 +9,7 @@ Item {
     property string activeWindow: "Window"
     property string currentLayout: "Tiled"
     property string primaryMonitorName: "DP-4"
+    property bool magicVisible: false
 
     function barScreens() {
         const fallback = []
@@ -52,11 +53,23 @@ Item {
         Component.onCompleted: running = true
     }
 
+    Process {
+        id: magicProc
+        command: ["sh", "-c", "hyprctl monitors -j | jq -r 'if any(.[]; .specialWorkspace.name == \"magic\" or .specialWorkspace.name == \"special:magic\") then \"1\" else \"0\" end'"]
+        stdout: SplitParser {
+            onRead: data => {
+                hyprState.magicVisible = data && data.trim() === "1"
+            }
+        }
+        Component.onCompleted: running = true
+    }
+
     Connections {
         target: Hyprland
         function onRawEvent() {
             windowProc.running = true
             layoutProc.running = true
+            magicProc.running = true
         }
     }
 
@@ -67,6 +80,7 @@ Item {
         onTriggered: {
             windowProc.running = true
             layoutProc.running = true
+            magicProc.running = true
         }
     }
 }
