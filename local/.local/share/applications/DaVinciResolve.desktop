@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=DaVinci Resolve
+GenericName=DaVinci Resolve
+Comment=Revolutionary new tools for editing, visual effects, color correction and professional audio post production, all in a single application!
+Path=/home/taavi
+Exec=/usr/bin/toolbox run -c davincibox /usr/bin/run-davinci /opt/resolve/bin/resolve %u
+Terminal=false
+MimeType=application/x-resolveproj;
+Icon=/home/taavi/.local/share/resolve/graphics/DV_Resolve.png
+StartupNotify=true
+Name[en_US]=DaVinci Resolve
+StartupWMClass=resolve

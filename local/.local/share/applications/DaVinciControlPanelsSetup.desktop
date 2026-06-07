@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=DaVinci Control Panels Setup
+GenericName=DaVinci Control Panels Setup
+Path=/home/taavi
+Exec=/usr/bin/toolbox run -c davincibox /usr/bin/run-davinci "/opt/resolve/DaVinci Control Panels Setup/DaVinci Control Panels Setup"
+Terminal=false
+Icon=/home/taavi/.local/share/resolve/graphics/DV_Panels.png
+Name[en_US]=DaVinci Control Panels Setup
+StartupWMClass=DaVinci Control Panels Setup

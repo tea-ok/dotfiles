@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Capture Logs
+GenericName=Capture Logs
+Path=/home/taavi
+Exec=/usr/bin/toolbox run -c davincibox /usr/bin/run-davinci /opt/resolve/scripts/script.getlogs.v4
+Terminal=false
+Icon=applications-system
+Name[en_US]=DaVinci Resolve Capture Logs

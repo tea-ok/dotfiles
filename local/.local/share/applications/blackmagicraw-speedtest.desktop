@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Blackmagic RAW Speed Test
+Icon=blackmagicraw-speedtest
+Path=/home/taavi
+Exec=/usr/bin/toolbox run -c davincibox /usr/bin/run-davinci /opt/resolve/BlackmagicRAWSpeedTest/BlackmagicRAWSpeedTest  %f
+Terminal=false
+Categories=Video
+StartupWMClass=Blackmagic RAW Speed Test
