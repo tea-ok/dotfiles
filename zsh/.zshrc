@@ -86,6 +86,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # aliases
 alias ls="eza --icons --group-directories-first"
+alias tree="eza --tree --level=2 --icons --git"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
 alias vim="nvim"
