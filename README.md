@@ -9,8 +9,8 @@ Use this when you want the repo's config on the machine you're sitting at.
 ```sh
 git clone https://github.com/tea-ok/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./install.sh        # installs tools, tree-sitter-cli, TPM
-./apply.sh          # creates stow symlinks
+./install.sh        # auto-detects arch vs darwin and installs tools
+./apply.sh          # auto-detects arch vs darwin and creates stow symlinks
 sudo ./apply.sh keyd  # applies the system keyd config
 # open a new shell so PATH includes ~/.cargo/bin and ~/.local/bin
 nvim                # lazy.nvim auto-installs plugins + treesitter parsers on first launch
@@ -50,7 +50,9 @@ mv ~/.config/nvim ~/.config/nvim.backup
 
 ## Bootstrap
 
-`install.sh` is Homebrew-first and idempotent. It installs:
+`install.sh` auto-detects `arch` vs `darwin` by default, and also accepts `--mode arch|darwin` if you want to override that choice for testing.
+
+It is Homebrew-first and idempotent. It installs:
 
 - `stow`, `neovim`, `tmux`, `lazygit`, `stylua`, and the rest of the common CLI tools via Homebrew
 - `ruff` and `ty` globally via `uv tool install`
@@ -58,22 +60,39 @@ mv ~/.config/nvim ~/.config/nvim.backup
 - `tree-sitter-cli` via cargo — required by nvim-treesitter v1 to compile language parsers
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
-- on Arch, a few more packages are installed via pacman
+- on Arch, desktop packages are installed via `pacman`
+- on macOS, Ghostty and the JetBrains Mono Nerd Font are installed via Homebrew casks
 
 `quickshell` itself is not in this bootstrap script right now. On this machine it is installed separately as `quickshell-git` from the AUR.
 
-On Linux it falls back to non-Brew paths where needed (Nerd Fonts, Alacritty build, TPM).
+On Arch it still falls back to non-Brew paths where needed (Nerd Fonts, TPM).
 
 Because `uv tool` installs into `~/.local/bin` and cargo installs into `~/.cargo/bin`, open a new shell after bootstrap before launching Neovim.
 
 ## Apply
 
+`apply.sh` also auto-detects `arch` vs `darwin` by default, and supports `--mode arch|darwin` as an override. It is safe to run with the macOS system Bash 3.2.
+
 Use `./apply.sh --dry-run` to preview links, `./apply.sh <package>` to apply a subset, and `./apply.sh --adopt` once if you already have live config files in place.
+
+If you do not pass any packages, it applies the defaults for the resolved mode:
+
+- `darwin`: shared shell/editor/CLI config plus macOS-safe packages like `ghostty`
+- `arch`: the shared set plus Linux desktop packages like `hypr`, `niri`, `dank`, `quickshell`, `rofi`, `theme`, and `local`
+
+If you explicitly request a package that is unsupported in the selected mode, the script fails with a clear error instead of half-applying it.
 
 Packages target `~` by default. `keyd/` targets `/`, so apply it with:
 
 ```sh
 sudo ./apply.sh keyd
+```
+
+Examples:
+
+```sh
+./apply.sh --mode darwin --dry-run ghostty
+./apply.sh --mode arch niri
 ```
 
 ## Local config
