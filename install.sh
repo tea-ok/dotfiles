@@ -94,7 +94,16 @@ ensure_linux_prereqs() {
       xz-utils
   elif os_is_arch; then
     log "Installing Arch desktop packages via pacman..."
-    sudo pacman -S --needed --noconfirm \
+    sudo pacman -Syu --needed --noconfirm \
+      niri \
+      xwayland-satellite \
+      xdg-desktop-portal-gnome \
+      xdg-desktop-portal-gtk \
+      alacritty \
+      dms-shell-niri \
+      matugen \
+      cava \
+      qt6-multimedia-ffmpeg \
       fzf \
       grim \
       hypridle \
@@ -109,6 +118,9 @@ ensure_linux_prereqs() {
       zoxide \
       discord \
       toolbox \
+    log "Ensuring niri.service wants dms..."
+    systemctl --user add-wants niri.service dms || \
+      warn "systemctl --user add-wants niri.service dms failed — run manually if needed."
   elif os_is_atomic; then
     warn "Atomic Linux detected. Skipping apt dependencies — ensure build tools are available."
   else

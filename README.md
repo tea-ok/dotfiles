@@ -37,6 +37,8 @@ mv ~/.config/nvim ~/.config/nvim.backup
 | `opencode/` | `~/.config/opencode/opencode.json` |
 | `ghostty/` | `~/.config/ghostty/` on Linux, `~/Library/Application Support/com.mitchellh.ghostty/` on macOS |
 | `hypr/` | `~/.config/hypr/` including `hyprlock.conf`, `hypridle.conf`, and wallpaper config |
+| `niri/` | `~/.config/niri/` |
+| `dank/` | `~/.config/DankMaterialShell/` |
 | `quickshell/` | `~/.config/quickshell/` |
 | `rofi/` | `~/.config/rofi/` |
 | `theme/` | `~/.config/gtk-3.0/settings.ini`, `~/.config/gtk-4.0/settings.ini`, `~/.config/kdeglobals` |
