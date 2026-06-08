@@ -361,8 +361,6 @@ install_darwin_mode() {
   else
     log "INSTALL_NERD_FONT=${INSTALL_NERD_FONT}; skipping font install."
   fi
-
-  log "Ghostty is handled via Homebrew cask on macOS."
 }
 
 print_next_steps() {
@@ -383,7 +381,7 @@ EOF
 
 COMMON_BREW_FORMULAS=(stow zsh tmux neovim uv fastfetch gh lazygit ripgrep fd jq fzf zoxide eza yazi unzip bat btop neovide stylua go prettier markdownlint-cli2)
 DARWIN_BREW_CASKS=(font-jetbrains-mono-nerd-font ghostty)
-ARCH_PACMAN_PACKAGES=(niri xwayland-satellite xdg-desktop-portal-gnome xdg-desktop-portal-gtk alacritty dms-shell-niri matugen cava qt6-multimedia-ffmpeg fzf grim hypridle hyprshutdown papirus-icon-theme pavucontrol qt5-quickcontrols2 qt6-declarative qt6-svg slurp wl-clipboard zoxide discord toolbox)
+ARCH_PACMAN_PACKAGES=(ghostty niri xwayland-satellite xdg-desktop-portal-gnome xdg-desktop-portal-gtk dms-shell-niri matugen cava qt6-multimedia-ffmpeg grim hypridle hyprshutdown papirus-icon-theme pavucontrol qt5-quickcontrols2 qt6-declarative qt6-svg slurp wl-clipboard discord toolbox)
 MODE="auto"
 
 while (($#)); do

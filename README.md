@@ -61,7 +61,9 @@ It is Homebrew-first and idempotent. It installs:
 - TPM (tmux plugin manager)
 - `~/.config/zsh/local.zsh` stub if missing
 - on Arch, desktop packages are installed via `pacman`
-- on macOS, Ghostty and the JetBrains Mono Nerd Font are installed via Homebrew casks
+- on Arch, Ghostty is installed via `pacman`
+- on macOS, Ghostty is installed via `brew install --cask ghostty`
+- on macOS, the JetBrains Mono Nerd Font is installed via a Homebrew cask
 
 `quickshell` itself is not in this bootstrap script right now. On this machine it is installed separately as `quickshell-git` from the AUR.
 
