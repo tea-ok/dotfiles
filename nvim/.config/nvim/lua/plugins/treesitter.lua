@@ -24,6 +24,7 @@ return {
         "query",
         "toml",
         "bash",
+        "nix",
       },
 
       sync_install = false,

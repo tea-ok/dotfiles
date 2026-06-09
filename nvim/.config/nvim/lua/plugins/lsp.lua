@@ -43,7 +43,7 @@ return {
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
-      ensure_installed = { "ruff", "gopls" },
+      ensure_installed = { "ruff", "gopls", "nil" },
       automatic_enable = {
         exclude = { "rust_analyzer" }, -- managed by rustup, rustaceanvim finds it automatically
       },

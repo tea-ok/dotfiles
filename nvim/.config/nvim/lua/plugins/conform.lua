@@ -32,6 +32,7 @@ return {
       go       = { lsp_format = "first" },
       -- Markdown: markdownlint-cli2 fixes style violations on save
       markdown   = { "markdownlint-cli2" },
+      nix        = { "nixfmt" },
       -- Prettier-handled filetypes
       html       = { "prettier" },
       css        = { "prettier" },
