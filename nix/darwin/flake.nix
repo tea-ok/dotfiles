@@ -17,69 +17,72 @@
     };
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew, homebrew-core, homebrew-cask }:
   let
     configuration = { pkgs, ... }: {
+
+      system.primaryUser = "taavi-ok";
 
       nixpkgs.config.allowUnfree = true;
 
       # Check https://search.nixos.org for packages.
-      environment.systemPackages =
-        [ 
-          # Open-source terminal software <3
-          pkgs.vim
-          pkgs.bat
-          pkgs.btop
-          pkgs.eza
-          pkgs.fastfetch
-          pkgs.fd
-          pkgs.fzf
-          pkgs.gh
-          pkgs.lazygit
-          pkgs.markdownlint-cli2
-          pkgs.neovim
-          pkgs.prettier
-          pkgs.ripgrep
-          pkgs.stylua
-          pkgs.tmux
-          pkgs.uv
-          pkgs.yazi
-          pkgs.zoxide
-          pkgs.opencode
-          pkgs.codex
+      environment.systemPackages = [
+        # Open-source terminal software <3
+        pkgs.vim
+        pkgs.bat
+        pkgs.btop
+        pkgs.eza
+        pkgs.fastfetch
+        pkgs.fd
+        pkgs.fzf
+        pkgs.gh
+        pkgs.lazygit
+        pkgs.markdownlint-cli2
+        pkgs.neovim
+        pkgs.prettier
+        pkgs.ripgrep
+        pkgs.stylua
+        pkgs.tmux
+        pkgs.uv
+        pkgs.yazi
+        pkgs.zoxide
+        pkgs.opencode
+        pkgs.codex
+        pkgs.stow
 
-          # Open-source GUI software.
-          pkgs.neovide
-          pkgs.zed-editor
-          pkgs.ghostty-bin
-          pkgs.karabiner-elements
-          pkgs.proton-vpn
+        # Open-source GUI software.
+        pkgs.neovide
+        pkgs.zed-editor
+        pkgs.ghostty-bin
+        pkgs.karabiner-elements
+        pkgs.proton-vpn
 
-          # Closed-source software.
-          pkgs._1password-gui
-          pkgs.obsidian
-          pkgs.claude-code
-          pkgs.spotify
-          pkgs.discord
+        # Closed-source software.
+        pkgs._1password-gui
+        pkgs.obsidian
+        pkgs.claude-code
+        pkgs.spotify
+        pkgs.discord
 
-          # Fonts.
-          pkgs.nerd-fonts.jetbrains-mono
-        ];
+        # Fonts.
+        pkgs.nerd-fonts.jetbrains-mono
+      ];
 
       # Homebrew. Removes all brew packages not installed through Nix.
       homebrew = {
-          enable = true;
-          masApps = {
-              "WhatsApp": 310633997;
-          };
-          onActivation.cleanup = "zap";
-          onActivation.autoUpdate = true;
-          onActivation.upgrade = true;
-       };
+        enable = true;
+        masApps = {
+          "WhatsApp" = 310633997;
+          "1password Safari extension" = 1569813296;
+        };
+        onActivation.cleanup = "zap";
+        onActivation.autoUpdate = true;
+        onActivation.upgrade = true;
+      };
 
       # macOS system settings.
       system.defaults = {
-        dock.autohide = true;
+        dock.autohide = false;
       };
 
       # Necessary for using flakes on this system.
@@ -101,9 +104,10 @@
   in
   {
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#taavi-mac
-    darwinConfigurations."taavi-mac" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration,
+    # $ darwin-rebuild build --flake .#Taavis-MacBook-Air
+    darwinConfigurations."Taavis-MacBook-Air" = nix-darwin.lib.darwinSystem {
+      modules = [
+        configuration
         nix-homebrew.darwinModules.nix-homebrew
         {
           nix-homebrew = {
@@ -128,9 +132,9 @@
           };
         }
         # Align homebrew taps config with nix-homebrew
-        ({config, ...}: {
+        ({ config, ... }: {
           homebrew.taps = builtins.attrNames config.nix-homebrew.taps;
-        })  
+        })
       ];
     };
   };
