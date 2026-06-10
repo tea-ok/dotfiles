@@ -30,8 +30,7 @@
     matugen
     cava
     toolbox
-    qt5.qtquickcontrols2
-    qt6.qtdeclarative
-    qt6.qtsvg
+    dms-shell
+    quickshell
   ];
 }
