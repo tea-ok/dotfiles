@@ -21,55 +21,5 @@
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nix-darwin,
-      nixpkgs,
-      home-manager,
-      nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-    }:
-    let
-      linuxPkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-    in
-    {
-      darwinConfigurations."Taavis-MacBook-Air" = nix-darwin.lib.darwinSystem {
-        modules = [
-          ./hosts/darwin.nix
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-          {
-            _module.args = {
-              inherit
-                self
-                homebrew-core
-                homebrew-cask
-                ;
-            };
-
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."taavi-ok" = {
-              imports = [
-                ./home/common.nix
-                ./home/darwin.nix
-              ];
-            };
-          }
-        ];
-      };
-
-      homeConfigurations."taavi@arch" = home-manager.lib.homeManagerConfiguration {
-        pkgs = linuxPkgs;
-        modules = [
-          ./home/common.nix
-          ./home/linux.nix
-        ];
-      };
-    };
+  outputs = inputs: import ./outputs { inherit inputs; };
 }

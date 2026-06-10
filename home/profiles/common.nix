@@ -1,0 +1,50 @@
+{
+  lib,
+  pkgs,
+  ...
+}:
+
+{
+  imports = [
+    ../programs/ai.nix
+    ../programs/cli.nix
+    ../programs/editors.nix
+    ../programs/shell.nix
+  ];
+
+  home.stateVersion = "26.05";
+
+  xdg.enable = true;
+  fonts.fontconfig.enable = true;
+
+  home.packages = with pkgs; [
+    neovim
+    vim
+    ripgrep
+    fd
+    gh
+    jq
+    uv
+    fastfetch
+    stylua
+    prettier
+    markdownlint-cli2
+    tree-sitter
+    ruff
+    ty
+    htop
+    go
+    gopls
+    unzip
+    nerd-fonts.jetbrains-mono
+    zsh-completions
+  ];
+
+  home.sessionPath =
+    [
+      "$HOME/.cargo/bin"
+      "$HOME/.local/bin"
+      "$HOME/go/bin"
+    ]
+    ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin "/usr/local/go/bin";
+}

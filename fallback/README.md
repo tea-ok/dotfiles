@@ -1,0 +1,22 @@
+# Non-Nix Fallback Kit
+
+This directory is for machines where Nix is not available but a few essentials
+are still useful.
+
+It intentionally contains only portable shell and editor configuration:
+
+- zsh: `.zshrc`, `.p10k.zsh`, and `functions.zsh`
+- vim: `.vimrc` and `.exrc`
+- IdeaVim: `.ideavimrc`
+
+The normal setup is still Home Manager via the root flake. This fallback kit is
+not a replacement for the full managed configuration.
+
+Run:
+
+```sh
+./fallback/install.sh
+```
+
+The installer creates symlinks by default. Use `--copy` to copy files instead,
+or `--force` to replace an existing file or symlink.
