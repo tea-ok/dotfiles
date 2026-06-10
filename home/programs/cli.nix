@@ -47,11 +47,11 @@
     themes.catppuccin_frappe = ../../dotfiles/btop/.config/btop/themes/catppuccin_frappe.theme;
   };
 
-programs.git = {
+  programs.git = {
     enable = true;
     settings = {
       user = {
-        name  = "tea-ok";
+        name = "tea-ok";
         email = "70608286+tea-ok@users.noreply.github.com";
       };
       init.defaultBranch = "main";
