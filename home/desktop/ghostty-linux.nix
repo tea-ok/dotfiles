@@ -18,9 +18,4 @@
       ];
     };
   };
-
-  home.file = {
-    ".config/ghostty/shaders".source = ../../dotfiles/ghostty/.config/ghostty/shaders;
-    ".config/ghostty/themes/dankcolors".source = ../../dotfiles/ghostty/.config/ghostty/themes/dankcolors;
-  };
 }
