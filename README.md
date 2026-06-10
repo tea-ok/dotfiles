@@ -20,19 +20,19 @@ cd ~/dotfiles
 The wrapper auto-detects the current OS:
 
 - macOS creates `/etc/nix-darwin/flake.nix`, then runs `darwin-rebuild switch --flake .#Taavis-MacBook-Air`
-- Arch Linux runs `nix run home-manager -- switch --flake .#taavi@arch`
+- NixOS runs `sudo nixos-rebuild switch --flake .#nix`
 
 To preview or build manually:
 
 ```sh
 nix build .#darwinConfigurations.Taavis-MacBook-Air.system --no-link
-nix eval '.#homeConfigurations."taavi@arch".activationPackage.drvPath'
+nix build .#nixosConfigurations.nix.config.system.build.toplevel --no-link
 ```
 
 ## Flake Outputs
 
 - `darwinConfigurations."Taavis-MacBook-Air"`: nix-darwin system config for macOS, with Home Manager attached for user config.
-- `homeConfigurations."taavi@arch"`: standalone Home Manager config for Arch Linux.
+- `nixosConfigurations."nix"`: NixOS system config for this machine, with Home Manager attached for user config.
 
 The macOS flake symlink should point at the root flake:
 
@@ -48,7 +48,7 @@ The macOS flake symlink should point at the root flake:
 | `outputs/` | Public flake outputs for nix-darwin and Home Manager |
 | `lib/` | Shared Nix helpers, host names, usernames, and package setup |
 | `system/darwin/` | macOS system-level nix-darwin configuration |
-| `home/profiles/` | Small Home Manager entrypoints for common, macOS, and Arch |
+| `home/profiles/` | Small Home Manager entrypoints for common, macOS, and NixOS |
 | `home/programs/` | Focused Home Manager modules for shell, CLI, editors, and AI tools |
 | `home/desktop/` | Platform desktop modules such as Ghostty, Niri, Rofi, and Quickshell |
 | `dotfiles/` | Raw config trees referenced by Home Manager or kept for archival use |
@@ -65,8 +65,8 @@ Examples:
 - `dotfiles/zsh/` -> `~/.p10k.zsh` and `~/.config/zsh/functions.zsh`
 - `dotfiles/vim/` -> `~/.vimrc` and `~/.exrc`
 - `dotfiles/ideavim/` -> `~/.ideavimrc`
-- `dotfiles/niri/` -> `~/.config/niri` on Arch
-- `dotfiles/quickshell/`, `dotfiles/rofi/`, `dotfiles/theme/`, `dotfiles/dank/`, and `dotfiles/local/` -> Arch user config/assets
+- `dotfiles/niri/` -> `~/.config/niri` on NixOS
+- `dotfiles/quickshell/`, `dotfiles/rofi/`, `dotfiles/theme/`, `dotfiles/dank/`, and `dotfiles/local/` -> legacy Linux user config/assets
 
 `~/.config/zsh/local.zsh` is machine-local and intentionally untracked. The Home
 Manager zsh config sources it when present, but does not create or manage it.
@@ -82,16 +82,6 @@ kit:
 
 See `fallback/README.md` for details. This fallback is not the full managed
 desktop setup; it only covers portable zsh, vim, and IdeaVim essentials.
-
-## Keyd Exception
-
-`dotfiles/keyd/` still targets `/etc/keyd/default.conf` and is not managed by
-Home Manager. On Arch, apply it manually until the machine moves to NixOS:
-
-```sh
-cd dotfiles
-sudo stow keyd
-```
 
 ## Stow
 

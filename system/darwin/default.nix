@@ -1,10 +1,9 @@
-{
-  config,
-  pkgs,
-  self,
-  homebrew-core,
-  homebrew-cask,
-  ...
+{ config
+, pkgs
+, self
+, homebrew-core
+, homebrew-cask
+, ...
 }:
 
 {

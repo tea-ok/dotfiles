@@ -277,8 +277,8 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// Dank shell.
-spawn-at-startup "dms" "run"
+// Commenting this out on NixOS since it'll start automatically.
+// spawn-at-startup "dms" "run"
 
 // Dank shell settings:
 

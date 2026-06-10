@@ -1,6 +1,5 @@
-{
-  pkgs,
-  ...
+{ pkgs
+, ...
 }:
 
 {
@@ -48,7 +47,16 @@
     themes.catppuccin_frappe = ../../dotfiles/btop/.config/btop/themes/catppuccin_frappe.theme;
   };
 
-  programs.git.enable = true;
+programs.git = {
+    enable = true;
+    settings = {
+      user = {
+        name  = "tea-ok";
+        email = "70608286+tea-ok@users.noreply.github.com";
+      };
+      init.defaultBranch = "main";
+    };
+  };
 
   home.file = {
     ".config/eza/theme.yml".source = ../../dotfiles/eza/.config/eza/theme.yml;

@@ -7,7 +7,7 @@ rec {
       homeDirectory = "/Users/taavi-ok";
     };
 
-    arch = {
+    nixos = {
       username = "taavi";
       homeDirectory = "/home/taavi";
     };
@@ -19,10 +19,10 @@ rec {
       system = "aarch64-darwin";
     };
 
-    arch = {
-      name = "arch";
+    nixos = {
+      name = "nix";
       system = "x86_64-linux";
-      homeConfiguration = "${users.arch.username}@arch";
+      homeConfiguration = "${users.nixos.username}@nix";
     };
   };
 
@@ -34,9 +34,9 @@ rec {
     };
 
   mkHome =
-    {
-      system,
-      modules,
+    { system
+    , modules
+    ,
     }:
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = mkPkgs system;

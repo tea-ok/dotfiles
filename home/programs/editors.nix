@@ -1,9 +1,11 @@
+{ config, ... }:
+
 {
   programs.neovide = {
     enable = true;
     settings = {
       font = {
-        normal = [ { family = "JetBrainsMono Nerd Font"; } ];
+        normal = [{ family = "JetBrainsMono Nerd Font"; }];
         size = 20.0;
       };
     };
@@ -98,7 +100,9 @@
   };
 
   home.file = {
-    ".config/nvim".source = ../../dotfiles/nvim/.config/nvim;
+    ".config/nvim".source =
+      config.lib.file.mkOutOfStoreSymlink
+        "${config.home.homeDirectory}/dotfiles/dotfiles/nvim/.config/nvim";
     ".ideavimrc".source = ../../dotfiles/ideavim/.ideavimrc;
     ".vimrc".source = ../../dotfiles/vim/.vimrc;
     ".exrc".source = ../../dotfiles/vim/.exrc;

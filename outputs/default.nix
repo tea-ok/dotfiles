@@ -3,6 +3,7 @@
 let
   inherit (inputs)
     self
+    nixpkgs
     nix-darwin
     home-manager
     nix-homebrew
@@ -39,11 +40,24 @@ in
     ];
   };
 
-  homeConfigurations.${repo.hosts.arch.homeConfiguration} = repo.mkHome {
-    system = repo.hosts.arch.system;
+  nixosConfigurations.${repo.hosts.nixos.name} = nixpkgs.lib.nixosSystem {
+    system = repo.hosts.nixos.system;
     modules = [
-      ../home/profiles/common.nix
-      ../home/profiles/arch.nix
+      ../system/nixos
+      home-manager.nixosModules.home-manager
+      {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          users.${repo.users.nixos.username} = {
+            imports = [
+              ../home/profiles/common.nix
+              ../home/profiles/nixos.nix
+            ];
+          };
+          backupFileExtension = "backup";
+        };
+      }
     ];
   };
 }
