@@ -19,6 +19,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    rustup
     neovim
     vim
     ripgrep
