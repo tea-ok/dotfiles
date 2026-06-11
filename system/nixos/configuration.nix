@@ -1,11 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -46,6 +50,14 @@
 
   programs.firefox.enable = true;
 
+  # This has to be here instead of in home-manager.
+  programs.ssh = {
+    extraConfig = "
+    Host *
+      IdentityAgent ~/.1password/agent.sock
+    ";
+  };
+
   # Niri config.
   programs.niri.enable = true;
   systemd.user.services.niri.enableDefaultPath = false;
@@ -75,7 +87,10 @@
   ];
 
   programs.zsh.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
