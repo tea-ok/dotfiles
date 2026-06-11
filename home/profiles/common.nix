@@ -1,6 +1,7 @@
-{ lib
-, pkgs
-, ...
+{
+  lib,
+  pkgs,
+  ...
 }:
 
 {
@@ -16,6 +17,11 @@
 
   xdg.enable = true;
   fonts.fontconfig.enable = true;
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
   home.packages = with pkgs; [
     rustup
@@ -41,11 +47,10 @@
     zsh-completions
   ];
 
-  home.sessionPath =
-    [
-      "$HOME/.cargo/bin"
-      "$HOME/.local/bin"
-      "$HOME/go/bin"
-    ]
-    ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin "/usr/local/go/bin";
+  home.sessionPath = [
+    "$HOME/.cargo/bin"
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+  ]
+  ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin "/usr/local/go/bin";
 }

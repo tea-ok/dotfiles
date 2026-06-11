@@ -82,8 +82,3 @@ kit:
 
 See `fallback/README.md` for details. This fallback is not the full managed
 desktop setup; it only covers portable zsh, vim, and IdeaVim essentials.
-
-## Stow
-
-`stow` is no longer part of the normal workflow. `apply.sh` now prints a
-migration notice instead of creating user symlinks.
