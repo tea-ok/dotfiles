@@ -42,7 +42,7 @@
     ";
   };
 
-  # Niri + greetd.
+  # Niri + dms + greetd.
   programs.niri.enable = true;
   systemd.user.services.niri.enableDefaultPath = false;
   services.gnome.gnome-keyring.enable = true;
