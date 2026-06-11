@@ -43,6 +43,10 @@
 
   programs.btop = {
     enable = true;
+    settings = {
+      color_theme = "catppuccin_frappe.theme";
+      theme_background = false;
+    };
     extraConfig = builtins.readFile ../../dotfiles/btop/.config/btop/btop.conf;
     themes.catppuccin_frappe = ../../dotfiles/btop/.config/btop/themes/catppuccin_frappe.theme;
   };

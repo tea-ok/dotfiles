@@ -278,7 +278,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // Commenting this out on NixOS since it'll start automatically.
-// spawn-at-startup "dms" "run"
+spawn-at-startup "1password"
 
 // Dank shell settings:
 
