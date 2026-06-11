@@ -18,23 +18,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
-  services.gnome.gnome-keyring.enable = false;
-
-  # Set your time zone.
   time.timeZone = "Europe/Helsinki";
-
   services.keyd = {
     enable = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${config.programs.niri.package}/bin/niri-session";
-        user = "taavi";
-      };
-    };
   };
 
   users.users.taavi = {
@@ -56,9 +42,12 @@
     ";
   };
 
-  # Niri config.
+  # Niri + greetd.
   programs.niri.enable = true;
   systemd.user.services.niri.enableDefaultPath = false;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
   programs.dms-shell = {
     enable = true;
     systemd = {
@@ -71,6 +60,15 @@
     enableAudioWavelength = true;
     enableCalendarEvents = true;
     enableClipboardPaste = true;
+  };
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --user-menu --cmd ${config.programs.niri.package}/bin/niri-session";
+        user = "greeter";
+      };
+    };
   };
 
   environment.systemPackages = with pkgs; [
