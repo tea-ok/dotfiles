@@ -21,7 +21,7 @@
     pavucontrol
     papirus-icon-theme
     toolbox
-    nixpkgs-fmt
+    nixfmt
     nil
     gcc
   ];

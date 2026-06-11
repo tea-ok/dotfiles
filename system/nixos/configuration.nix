@@ -16,11 +16,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nix"; # Define your hostname.
-
-  # Configure network connections interactively with nmcli or nmtui.
+  networking.hostName = "nix";
   networking.networkmanager.enable = true;
+  services.gnome.gnome-keyring.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Helsinki";
