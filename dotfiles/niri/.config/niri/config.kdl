@@ -354,12 +354,25 @@ blur {
     saturation 1.1696
 }
 
+// Disable the hot corners.
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 // BEGIN DANK SETTINGS
 // from: https://danklinux.com/docs/dankmaterialshell/compositors#layout
 
 layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
+}
+
+// Open DMS windows as floating by default
+window-rule {
+    match app-id=r#"org.quickshell$"#
+    open-floating true
 }
 
 layer-rule {
@@ -400,6 +413,14 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+}
+
+// Open Dolphin in floating
+window-rule {
+    match app-id=r#"^org\.kde\.dolphin$"#
+    open-floating true
+    max-width 900
+    default-window-height { proportion 0.4; }
 }
 
 // Open the Firefox picture-in-picture player as floating by default.
