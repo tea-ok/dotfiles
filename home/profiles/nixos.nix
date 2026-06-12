@@ -24,5 +24,8 @@
     nixfmt
     nil
     gcc
+    grim
+    slurp
+    libnotify
   ];
 }

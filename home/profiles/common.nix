@@ -16,6 +16,10 @@
   home.stateVersion = "26.05";
 
   xdg.enable = true;
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+  };
   fonts.fontconfig.enable = true;
 
   home.sessionVariables = {

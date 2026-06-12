@@ -13,12 +13,17 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader.
+  # Core system stuff.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Helsinki";
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+  services.hardware.openrgb.enable = true;
   services.keyd = {
     enable = true;
   };
@@ -76,6 +81,9 @@
     wget
     git
     ghostty
+    openrgb-with-all-plugins
+    kdePackages.dolphin
+    kdePackages.qtsvg
   ];
 
   fonts.packages = with pkgs; [
