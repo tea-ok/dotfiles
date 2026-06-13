@@ -6,6 +6,7 @@ let
     nixpkgs
     nix-darwin
     home-manager
+    zig-overlay
     nix-homebrew
     homebrew-core
     homebrew-cask
@@ -20,16 +21,16 @@ in
       nix-homebrew.darwinModules.nix-homebrew
       home-manager.darwinModules.home-manager
       {
-        _module.args = {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = {
           inherit
             self
+            zig-overlay
             homebrew-core
             homebrew-cask
             ;
         };
-
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
         home-manager.users.${repo.users.darwin.username} = {
           imports = [
             ../home/profiles/common.nix
@@ -49,6 +50,9 @@ in
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
+          extraSpecialArgs = {
+            inherit self zig-overlay;
+          };
           users.${repo.users.nixos.username} = {
             imports = [
               ../home/profiles/common.nix

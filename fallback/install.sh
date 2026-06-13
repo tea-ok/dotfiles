@@ -14,7 +14,7 @@ usage() {
   cat <<'EOF'
 Usage: ./fallback/install.sh [--copy] [--force]
 
-Install the minimal non-Nix fallback kit for zsh, vim, and IdeaVim.
+Install the minimal non-Nix fallback kit for zsh, tmux, vim, and IdeaVim.
 
 Options:
   --copy    Copy files instead of creating symlinks
@@ -77,6 +77,7 @@ install_one() {
 install_one "$src_root/zsh/.zshrc" "$HOME/.zshrc"
 install_one "$src_root/zsh/.p10k.zsh" "$HOME/.p10k.zsh"
 install_one "$src_root/zsh/.config/zsh/functions.zsh" "$HOME/.config/zsh/functions.zsh"
+install_one "$src_root/tmux/.tmux.conf" "$HOME/.tmux.conf"
 install_one "$src_root/vim/.vimrc" "$HOME/.vimrc"
 install_one "$src_root/vim/.exrc" "$HOME/.exrc"
 install_one "$src_root/ideavim/.ideavimrc" "$HOME/.ideavimrc"

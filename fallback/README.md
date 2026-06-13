@@ -3,9 +3,10 @@
 This directory is for machines where Nix is not available but a few essentials
 are still useful.
 
-It intentionally contains only portable shell and editor configuration:
+It intentionally contains only portable shell, tmux, and editor configuration:
 
 - zsh: `.zshrc`, `.p10k.zsh`, and `functions.zsh`
+- tmux: `.tmux.conf`
 - vim: `.vimrc` and `.exrc`
 - IdeaVim: `.ideavimrc`
 

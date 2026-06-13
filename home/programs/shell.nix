@@ -99,71 +99,27 @@
     mouse = true;
     baseIndex = 1;
     keyMode = "vi";
+    terminal = "tmux-256color";
     plugins = with pkgs.tmuxPlugins; [
       sensible
       vim-tmux-navigator
       yank
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavor "frappe"
+          set -g @catppuccin_window_status_style "basic"
+          set -g @catppuccin_status_background "default"
+
+          set -g status-left-length 100
+          set -g status-right-length 100
+          set -g status-left "#{E:@catppuccin_status_session}"
+          set -ag status-left "#{E:@catppuccin_status_directory}"
+          set -g status-right "#{E:@catppuccin_status_host}"
+        '';
+      }
     ];
-    extraConfig = ''
-      unbind r
-      bind r source-file ~/.tmux.conf
-
-      bind-key h select-pane -L
-      bind-key j select-pane -D
-      bind-key k select-pane -U
-      bind-key l select-pane -R
-
-      set-option -g renumber-windows on
-
-      bind -n M-Left select-pane -L
-      bind -n M-Right select-pane -R
-      bind -n M-Up select-pane -U
-      bind -n M-Down select-pane -D
-
-      bind -n S-Left  previous-window
-      bind -n S-Right next-window
-
-      bind -n M-H previous-window
-      bind -n M-L next-window
-
-      set -g automatic-rename on
-      set -g automatic-rename-format "#{host_short}"
-
-      set -g status-interval 5
-      set -g status-position bottom
-      set -g status-justify left
-      set -g status-style "bg=#303446,fg=#c6d0f5"
-      set -g message-style "bg=#e5c890,fg=#303446,bold"
-      set -g message-command-style "bg=#8caaee,fg=#303446,bold"
-
-      set -g pane-border-style "fg=#51576d"
-      set -g pane-active-border-style "fg=#a6d189"
-
-      set -g window-status-separator ""
-      set -g window-status-style "fg=#c6d0f5,bg=#414559"
-      set -g window-status-format "#[fg=#303446,bg=#414559]#[fg=#c6d0f5,bg=#414559] #I #W #[fg=#414559,bg=#303446]"
-      set -g window-status-current-style "fg=#303446,bg=#a6d189,bold"
-      set -g window-status-current-format "#[fg=#303446,bg=#a6d189]#[fg=#303446,bg=#a6d189,bold] #I #W #[fg=#a6d189,bg=#303446]"
-      set -g window-status-last-style "fg=#c6d0f5,bg=#51576d"
-      set -g window-status-activity-style "fg=#e5c890,bg=#414559"
-      set -g window-status-bell-style "fg=#303446,bg=#ef9f76,bold"
-
-      set -g status-left-length 80
-      set -g status-right-length 0
-      set -g status-left "#[fg=#303446,bg=#ca9ee6,bold] ❐ #S #[fg=#ca9ee6,bg=#8caaee,nobold]#[fg=#303446,bg=#8caaee] #{=/40/...;s|^#{HOME}|~|:pane_current_path} #[fg=#8caaee,bg=#303446]"
-      set -g status-right ""
-
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-
-      bind '"' split-window -v -c "#{pane_current_path}"
-      bind % split-window -h -c "#{pane_current_path}"
-
-      unbind s
-      bind s split-window -h -c "#{pane_current_path}"
-      bind i split-window -v -c "#{pane_current_path}"
-    '';
+    extraConfig = builtins.readFile ../../dotfiles/tmux/.tmux.conf;
   };
 
   programs.fzf.enable = true;

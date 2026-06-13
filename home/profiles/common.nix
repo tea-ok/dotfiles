@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  zig-overlay,
   ...
 }:
 
@@ -49,7 +50,7 @@
     unzip
     nerd-fonts.jetbrains-mono
     zsh-completions
-    zig
+    zig-overlay.packages.${pkgs.stdenv.hostPlatform.system}.master
     zls
   ];
 
