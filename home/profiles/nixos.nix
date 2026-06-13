@@ -1,5 +1,25 @@
 { pkgs, ... }:
 
+let
+  screenshotSnipDesktop = pkgs.makeDesktopItem {
+    name = "screenshot-snip";
+    desktopName = "Screenshot Snip";
+    comment = "Drag to capture a region of the screen";
+    exec = "/home/taavi/.local/bin/screenshot-snip";
+    icon = "applets-screenshooter";
+    terminal = false;
+    categories = [
+      "Graphics"
+      "Utility"
+    ];
+    keywords = [
+      "screenshot"
+      "snip"
+      "capture"
+      "screen"
+    ];
+  };
+in
 {
   imports = [
     ../desktop/ghostty-linux.nix
@@ -27,5 +47,6 @@
     grim
     slurp
     libnotify
+    screenshotSnipDesktop
   ];
 }

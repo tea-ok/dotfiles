@@ -28,6 +28,13 @@
     enable = true;
   };
 
+  # Useful programs.
+  programs.zsh.enable = true;
+  programs.firefox.enable = true;
+  programs.steam = {
+    enable = true;
+  };
+
   users.users.taavi = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -36,8 +43,6 @@
       tree
     ];
   };
-
-  programs.firefox.enable = true;
 
   # This has to be here instead of in home-manager.
   programs.ssh = {
@@ -90,7 +95,6 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  programs.zsh.enable = true;
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
