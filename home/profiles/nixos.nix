@@ -48,5 +48,6 @@ in
     slurp
     libnotify
     screenshotSnipDesktop
+    davinci-resolve
   ];
 }

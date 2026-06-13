@@ -412,6 +412,12 @@ window-rule {
     default-window-height { proportion 0.4; }
 }
 
+// Open DaVinci Resolve in floating
+window-rule {
+    match app-id=r#"^resolve$"#
+    open-floating true
+}
+
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
