@@ -49,6 +49,8 @@
     unzip
     nerd-fonts.jetbrains-mono
     zsh-completions
+    zig
+    zls
   ];
 
   home.sessionPath =

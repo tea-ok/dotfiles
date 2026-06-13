@@ -30,6 +30,9 @@ return {
       lua    = { "stylua", lsp_format = "fallback" },
       -- Go: use LSP (gopls runs gofmt + organizes imports)
       go       = { lsp_format = "first" },
+      -- Zig/ZON: use ZLS formatting, which matches zig fmt
+      zig      = { lsp_format = "first" },
+      zon      = { lsp_format = "first" },
       -- Markdown: markdownlint-cli2 fixes style violations on save
       markdown   = { "markdownlint-cli2" },
       nix        = { "nixfmt" },

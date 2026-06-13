@@ -23,5 +23,6 @@
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "telescope.nvim": { "branch": "master", "commit": "7d324792b7943e4aa16ad007212e6acc6f9fe335" },
   "ultimate-autopair.nvim": { "branch": "v0.6", "commit": "6b58234de921437836efe27714b2026ed2ee235a" },
-  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" }
+  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" },
+  "zig.vim": { "branch": "master", "commit": "29f7a9b8a4e33f936b803de0b713683ad687a6c3" }
 }

@@ -25,6 +25,7 @@ return {
         "toml",
         "bash",
         "nix",
+        "zig",
       },
 
       sync_install = false,

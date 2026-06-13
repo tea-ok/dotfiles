@@ -61,5 +61,14 @@ return {
       })
       vim.lsp.enable("ty")
     end
+
+    if vim.fn.executable("zls") == 1 then
+      vim.lsp.config("zls", {
+        cmd = { "zls" },
+        filetypes = { "zig", "zon" },
+        root_markers = { "build.zig" },
+      })
+      vim.lsp.enable("zls")
+    end
   end
 }
