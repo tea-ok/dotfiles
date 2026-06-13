@@ -43,11 +43,15 @@ return {
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
-      ensure_installed = { "ruff", "gopls", "nil" },
+      ensure_installed = { "ruff", "gopls" },
       automatic_enable = {
         exclude = { "rust_analyzer" }, -- managed by rustup, rustaceanvim finds it automatically
       },
     })
+
+    if vim.fn.executable("nil") == 1 then
+      vim.lsp.enable("nil_ls")
+    end
 
     if vim.fn.executable("ty") == 1 then
       vim.lsp.config("ty", {
