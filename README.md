@@ -62,3 +62,9 @@ kit:
 
 See `fallback/README.md` for details. This fallback is not the full managed
 desktop setup; it only covers portable zsh, vim, and tmux essentials.
+
+## Shouts-out
+
+- [waifu pic](https://github.com/gvolpe/nix-config) + repo structure inspo
+- [the best wm](https://github.com/niri-wm/niri) <3
+- [soothing pastel theme](https://github.com/catppuccin) 😺
