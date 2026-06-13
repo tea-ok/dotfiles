@@ -1,11 +1,8 @@
 # dotfiles
 
-Personal dotfiles managed with Nix, nix-darwin, and Home Manager.
+Personal dotfiles for Linux (NixOS) and macOS.
 
-The root is intentionally small. Nix wiring lives in `outputs/` and `lib/`,
-system-level macOS configuration lives in `system/`, Home Manager modules live
-in `home/`, raw managed config assets live in `dotfiles/`, and the small
-non-Nix emergency kit lives in `fallback/`.
+![screenshot](.github/images/screenshot.png)
 
 ## Apply This Repo
 
@@ -52,24 +49,7 @@ The macOS flake symlink should point at the root flake:
 | `home/programs/` | Focused Home Manager modules for shell, CLI, editors, and AI tools |
 | `home/desktop/` | Platform desktop modules such as Ghostty, Niri, Rofi, and Quickshell |
 | `dotfiles/` | Raw config trees referenced by Home Manager or kept for archival use |
-| `fallback/` | Minimal non-Nix fallback kit for zsh, vim, and IdeaVim |
-
-## Dotfiles
-
-Home Manager manages user symlinks and package installation. The old stow-style
-package directories now live under `dotfiles/` as source directories.
-
-Examples:
-
-- `dotfiles/nvim/` -> `~/.config/nvim`
-- `dotfiles/zsh/` -> `~/.p10k.zsh` and `~/.config/zsh/functions.zsh`
-- `dotfiles/vim/` -> `~/.vimrc` and `~/.exrc`
-- `dotfiles/ideavim/` -> `~/.ideavimrc`
-- `dotfiles/niri/` -> `~/.config/niri` on NixOS
-- `dotfiles/quickshell/`, `dotfiles/rofi/`, `dotfiles/theme/`, `dotfiles/dank/`, and `dotfiles/local/` -> legacy Linux user config/assets
-
-`~/.config/zsh/local.zsh` is machine-local and intentionally untracked. The Home
-Manager zsh config sources it when present, but does not create or manage it.
+| `fallback/` | Minimal non-Nix fallback kit for zsh, vim, and tmux |
 
 ## Non-Nix Fallback
 
@@ -81,4 +61,4 @@ kit:
 ```
 
 See `fallback/README.md` for details. This fallback is not the full managed
-desktop setup; it only covers portable zsh, vim, and IdeaVim essentials.
+desktop setup; it only covers portable zsh, vim, and tmux essentials.

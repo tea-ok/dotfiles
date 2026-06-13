@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   screenshotSnipDesktop = pkgs.makeDesktopItem {
@@ -50,4 +50,8 @@ in
     screenshotSnipDesktop
     davinci-resolve
   ];
+
+  home.file.".config/fastfetch".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";
 }
