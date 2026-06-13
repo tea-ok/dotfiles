@@ -51,11 +51,12 @@
     zsh-completions
   ];
 
-  home.sessionPath = [
-    "$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin"
-    "$HOME/.cargo/bin"
-    "$HOME/.local/bin"
-    "$HOME/go/bin"
-  ]
-  ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin "/usr/local/go/bin";
+  home.sessionPath =
+    lib.optional pkgs.stdenv.hostPlatform.isLinux "$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin"
+    ++ [
+      "$HOME/.cargo/bin"
+      "$HOME/.local/bin"
+      "$HOME/go/bin"
+    ]
+    ++ lib.optional pkgs.stdenv.hostPlatform.isDarwin "/usr/local/go/bin";
 }
