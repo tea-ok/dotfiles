@@ -39,6 +39,9 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
 
 # snippets
 zinit snippet OMZL::git.zsh
@@ -60,6 +63,13 @@ zinit cdreplay -q
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+
+function zvm_after_lazy_keybindings() {
+  zvm_bindkey vicmd 'H' vi-first-non-blank
+  zvm_bindkey vicmd 'L' vi-end-of-line
+  zvm_bindkey visual 'H' vi-first-non-blank
+  zvm_bindkey visual 'L' vi-end-of-line
+}
 
 # history
 HISTSIZE=5000

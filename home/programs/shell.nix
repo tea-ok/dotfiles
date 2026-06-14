@@ -1,14 +1,14 @@
-{ config
-, lib
-, pkgs
-, ...
+{
+  config,
+  lib,
+  pkgs,
+  ...
 }:
 
 {
   programs.zsh = {
     enable = true;
     dotDir = config.home.homeDirectory;
-    defaultKeymap = "emacs";
 
     shellAliases = {
       ls = "eza --icons --group-directories-first";
@@ -61,6 +61,11 @@
         src = pkgs.zsh-fzf-tab;
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
+      {
+        name = "vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
     ];
 
     initContent = lib.mkMerge [
@@ -69,12 +74,21 @@
         if [[ -z "$TMUX" && -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
           source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
         fi
+
+        ZVM_SYSTEM_CLIPBOARD_ENABLED=true
       '')
       (lib.mkOrder 1000 ''
         HISTDUP=erase
 
         bindkey '^p' history-search-backward
         bindkey '^n' history-search-forward
+
+        function zvm_after_lazy_keybindings() {
+          zvm_bindkey vicmd 'H' vi-first-non-blank
+          zvm_bindkey vicmd 'L' vi-end-of-line
+          zvm_bindkey visual 'H' vi-first-non-blank
+          zvm_bindkey visual 'L' vi-end-of-line
+        }
 
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
