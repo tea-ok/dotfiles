@@ -2,6 +2,7 @@
   lib,
   pkgs,
   zig-overlay,
+  zls,
   ...
 }:
 
@@ -51,7 +52,7 @@
     nerd-fonts.jetbrains-mono
     zsh-completions
     zig-overlay.packages.${pkgs.stdenv.hostPlatform.system}.master
-    zls
+    zls.packages.${pkgs.stdenv.hostPlatform.system}.zls
   ];
 
   home.sessionPath =

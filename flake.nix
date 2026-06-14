@@ -11,6 +11,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     zig-overlay.url = "github:mitchellh/zig-overlay";
+    zls.url = "github:zigtools/zls";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     homebrew-core = {

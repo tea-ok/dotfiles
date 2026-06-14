@@ -8,7 +8,6 @@ It intentionally contains only portable shell, tmux, and editor configuration:
 - zsh: `.zshrc`, `.p10k.zsh`, and `functions.zsh`
 - tmux: `.tmux.conf`
 - vim: `.vimrc` and `.exrc`
-- IdeaVim: `.ideavimrc`
 
 The normal setup is still Home Manager via the root flake. This fallback kit is
 not a replacement for the full managed configuration.

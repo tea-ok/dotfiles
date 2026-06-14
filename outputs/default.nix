@@ -7,6 +7,7 @@ let
     nix-darwin
     home-manager
     zig-overlay
+    zls
     nix-homebrew
     homebrew-core
     homebrew-cask
@@ -27,6 +28,7 @@ in
           inherit
             self
             zig-overlay
+            zls
             homebrew-core
             homebrew-cask
             ;
@@ -51,7 +53,7 @@ in
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = {
-            inherit self zig-overlay;
+            inherit self zig-overlay zls;
           };
           users.${repo.users.nixos.username} = {
             imports = [
