@@ -97,7 +97,7 @@ if os_is_mac; then
   sudo ln -sfn "$flake_path" /etc/nix-darwin/flake.nix
   log "Applying nix-darwin configuration."
   cd "$repo_root"
-  exec darwin-rebuild switch --flake .#Taavis-MacBook-Air
+  exec darwin-rebuild switch --flake .#mac
 fi
 
 if os_is_nixos; then

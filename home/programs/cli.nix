@@ -65,7 +65,5 @@
   home.file = {
     ".config/eza/theme.yml".source = ../../dotfiles/eza/.config/eza/theme.yml;
     ".config/htop".source = ../../dotfiles/htop/.config/htop;
-    ".local/bin".source = ../../dotfiles/local/.local/bin;
-    ".local/share/applications".source = ../../dotfiles/local/.local/share/applications;
   };
 }

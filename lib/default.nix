@@ -3,8 +3,8 @@
 rec {
   users = {
     darwin = {
-      username = "taavi-ok";
-      homeDirectory = "/Users/taavi-ok";
+      username = "taavi";
+      homeDirectory = "/Users/taavi";
     };
 
     nixos = {
@@ -15,7 +15,7 @@ rec {
 
   hosts = {
     darwin = {
-      name = "Taavis-MacBook-Air";
+      name = "mac";
       system = "aarch64-darwin";
     };
 

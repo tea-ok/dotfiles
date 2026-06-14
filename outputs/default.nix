@@ -17,6 +17,14 @@ let
 in
 {
   darwinConfigurations.${repo.hosts.darwin.name} = nix-darwin.lib.darwinSystem {
+    specialArgs = {
+      inherit
+        self
+        homebrew-core
+        homebrew-cask
+        ;
+    };
+
     modules = [
       ../system/darwin
       nix-homebrew.darwinModules.nix-homebrew
@@ -24,6 +32,7 @@ in
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "backup";
         home-manager.extraSpecialArgs = {
           inherit
             self

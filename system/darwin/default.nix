@@ -7,9 +7,15 @@
 }:
 
 {
-  system.primaryUser = "taavi-ok";
+  networking = {
+    hostName = "mac";
+    localHostName = "mac";
+    computerName = "mac";
+  };
 
-  users.users."taavi-ok".home = "/Users/taavi-ok";
+  system.primaryUser = "taavi";
+
+  users.users."taavi".home = "/Users/taavi";
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "aarch64-darwin";
@@ -31,7 +37,7 @@
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
-    user = "taavi-ok";
+    user = "taavi";
     taps = {
       "homebrew/homebrew-core" = homebrew-core;
       "homebrew/homebrew-cask" = homebrew-cask;

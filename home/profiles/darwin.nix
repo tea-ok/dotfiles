@@ -1,8 +1,8 @@
 {
   imports = [ ../desktop/ghostty-darwin.nix ];
 
-  home.username = "taavi-ok";
-  home.homeDirectory = "/Users/taavi-ok";
+  home.username = "taavi";
+  home.homeDirectory = "/Users/taavi";
 
   # Darwin GUI apps are materialized by nix-darwin into /Applications/Nix Apps,
   # matching the pre-refactor behavior that Finder/Spotlight picked up.

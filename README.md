@@ -16,25 +16,25 @@ cd ~/dotfiles
 
 The wrapper auto-detects the current OS:
 
-- macOS creates `/etc/nix-darwin/flake.nix`, then runs `darwin-rebuild switch --flake .#Taavis-MacBook-Air`
+- macOS creates `/etc/nix-darwin/flake.nix`, then runs `darwin-rebuild switch --flake .#mac`
 - NixOS runs `sudo nixos-rebuild switch --flake .#nix`
 
 To preview or build manually:
 
 ```sh
-nix build .#darwinConfigurations.Taavis-MacBook-Air.system --no-link
+nix build .#darwinConfigurations.mac.system --no-link
 nix build .#nixosConfigurations.nix.config.system.build.toplevel --no-link
 ```
 
 ## Flake Outputs
 
-- `darwinConfigurations."Taavis-MacBook-Air"`: nix-darwin system config for macOS, with Home Manager attached for user config.
+- `darwinConfigurations.mac`: nix-darwin system config for macOS, with Home Manager attached for user config.
 - `nixosConfigurations."nix"`: NixOS system config for this machine, with Home Manager attached for user config.
 
 The macOS flake symlink should point at the root flake:
 
 ```sh
-/etc/nix-darwin/flake.nix -> /Users/taavi-ok/dotfiles/flake.nix
+/etc/nix-darwin/flake.nix -> /Users/taavi/dotfiles/flake.nix
 ```
 
 ## Layout
