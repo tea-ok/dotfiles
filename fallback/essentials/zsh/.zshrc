@@ -65,6 +65,11 @@ function zvm_after_lazy_keybindings() {
   zvm_bindkey vicmd 'L' vi-end-of-line
   zvm_bindkey visual 'H' vi-first-non-blank
   zvm_bindkey visual 'L' vi-end-of-line
+
+  if (( $+widgets[fzf-history-widget] )); then
+    zvm_bindkey viins '^R' fzf-history-widget
+    zvm_bindkey vicmd '^R' fzf-history-widget
+  fi
 }
 
 # history
@@ -123,6 +128,12 @@ export PATH="$HOME/go/bin:$PATH"
 # Shell integrations
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
+
+if (( $+widgets[fzf-history-widget] )); then
+  bindkey -M emacs '^R' fzf-history-widget
+  bindkey -M viins '^R' fzf-history-widget
+  bindkey -M vicmd '^R' fzf-history-widget
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

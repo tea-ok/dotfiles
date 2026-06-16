@@ -83,11 +83,22 @@
         bindkey '^p' history-search-backward
         bindkey '^n' history-search-forward
 
+        if (( $+widgets[fzf-history-widget] )); then
+          bindkey -M emacs '^R' fzf-history-widget
+          bindkey -M viins '^R' fzf-history-widget
+          bindkey -M vicmd '^R' fzf-history-widget
+        fi
+
         function zvm_after_lazy_keybindings() {
           zvm_bindkey vicmd 'H' vi-first-non-blank
           zvm_bindkey vicmd 'L' vi-end-of-line
           zvm_bindkey visual 'H' vi-first-non-blank
           zvm_bindkey visual 'L' vi-end-of-line
+
+          if (( $+widgets[fzf-history-widget] )); then
+            zvm_bindkey viins '^R' fzf-history-widget
+            zvm_bindkey vicmd '^R' fzf-history-widget
+          fi
         }
 
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -136,7 +147,10 @@
     extraConfig = builtins.readFile ../../dotfiles/tmux/.tmux.conf;
   };
 
-  programs.fzf.enable = true;
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.zoxide = {
     enable = true;
