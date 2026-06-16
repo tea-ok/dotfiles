@@ -56,11 +56,7 @@ zinit snippet OMZP::command-not-found
 autoload -U compinit && compinit
 zinit cdreplay -q
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # keybindings
-bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 
@@ -99,12 +95,11 @@ alias ls="eza --icons --group-directories-first"
 alias tree="eza --tree --level=2 --icons --git"
 alias ll="eza -l --icons"
 alias la="eza -la --icons"
-alias vim="nvim"
 alias cat="bat"
 
-# Shell integrations
-eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+if command -v nvim >/dev/null 2>&1; then
+  alias vim="nvim"
+fi
 
 # brew
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -124,6 +119,13 @@ export PATH="$HOME/.local/bin:$PATH"
 # go
 export PATH=$PATH:/usr/local/go/bin
 export PATH="$HOME/go/bin:$PATH"
+
+# Shell integrations
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # machine-local config (not tracked in version control)
 [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
