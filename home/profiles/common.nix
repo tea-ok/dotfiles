@@ -11,7 +11,6 @@
     ../programs/ai.nix
     ../programs/cli.nix
     ../programs/editors.nix
-    ../programs/migrations.nix
     ../programs/shell.nix
   ];
 
