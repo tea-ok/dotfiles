@@ -1,5 +1,8 @@
 {
-  imports = [ ../desktop/ghostty-darwin.nix ];
+  imports = [
+    ../desktop/ghostty-darwin.nix
+    ../desktop/kitty.nix
+  ];
 
   home.username = "taavi";
   home.homeDirectory = "/Users/taavi";

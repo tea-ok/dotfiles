@@ -23,6 +23,7 @@ in
 {
   imports = [
     ../desktop/ghostty-linux.nix
+    ../desktop/kitty.nix
     ../desktop/niri.nix
     ../desktop/theme.nix
   ];

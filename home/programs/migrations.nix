@@ -14,6 +14,7 @@
       ".config/ghostty/shaders"
       ".config/ghostty/themes/dankcolors"
       ".config/htop"
+      ".config/kitty"
       ".config/niri"
       ".config/nvim"
       ".config/quickshell"
