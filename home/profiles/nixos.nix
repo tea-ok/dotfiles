@@ -50,6 +50,7 @@ in
     libnotify
     screenshotSnipDesktop
     davinci-resolve
+    kitty
   ];
 
   home.file.".config/fastfetch".source =

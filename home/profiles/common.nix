@@ -53,7 +53,6 @@
     zig-overlay.packages.${pkgs.stdenv.hostPlatform.system}.master
     zls.packages.${pkgs.stdenv.hostPlatform.system}.zls
     ffmpeg
-    kitty
   ];
 
   home.sessionPath =

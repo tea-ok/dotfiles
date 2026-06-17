@@ -32,6 +32,7 @@
     discord
     claude-code
     codex
+    kitty
   ];
 
   nix-homebrew = {
