@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   imports = [
     ../desktop/ghostty-darwin.nix
@@ -13,4 +15,9 @@
 
   programs.neovide.package = null;
   programs.zed-editor.package = null;
+
+  home.packages = with pkgs; [
+    jetbrains-mono
+    nerd-fonts.symbols-only
+  ];
 }
