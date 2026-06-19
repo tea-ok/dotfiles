@@ -52,11 +52,11 @@ in
     davinci-resolve
     kitty
     protonmail-desktop
+    prismlauncher
   ];
 
   home.file.".config/fastfetch".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";
 
   home.file.".local/bin".source = ../../dotfiles/local/.local/bin;
   home.file.".local/share/applications".source = ../../dotfiles/local/.local/share/applications;
