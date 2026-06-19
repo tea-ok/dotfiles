@@ -412,9 +412,10 @@ window-rule {
     default-window-height { proportion 0.4; }
 }
 
-// Open DaVinci Resolve in floating
+// Open DaVinci Resolve and Steam in floating
 window-rule {
     match app-id=r#"^resolve$"#
+    match app-id=r#"^[Ss]team$"#
     open-floating true
 }
 

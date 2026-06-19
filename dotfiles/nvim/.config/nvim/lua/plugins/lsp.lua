@@ -7,6 +7,25 @@ return {
   },
 
   config = function()
+    local lsp_float_winhighlight = "Normal:LspFloatNormal,FloatBorder:LspFloatBorder"
+
+    local function set_lsp_float_highlights()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local is_hover = pcall(vim.api.nvim_win_get_var, win, "textDocument/hover")
+        local is_signature = pcall(vim.api.nvim_win_get_var, win, "textDocument/signatureHelp")
+
+        if is_hover or is_signature then
+          vim.wo[win].winhighlight = lsp_float_winhighlight
+        end
+      end
+    end
+
+    vim.api.nvim_create_autocmd({ "WinNew", "WinEnter" }, {
+      callback = function()
+        vim.schedule(set_lsp_float_highlights)
+      end,
+    })
+
     vim.diagnostic.config({
       virtual_text = false,
       virtual_lines = { current_line = true }, -- show inline text only on the cursor line

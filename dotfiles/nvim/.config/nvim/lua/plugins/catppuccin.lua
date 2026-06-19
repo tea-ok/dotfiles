@@ -23,6 +23,8 @@ return {
 					NormalNC = { bg = transparent_bg },
 					NormalFloat = { bg = transparent_bg },
 					FloatBorder = { bg = transparent_bg },
+					LspFloatNormal = { fg = c.text, bg = c.mantle },
+					LspFloatBorder = { fg = c.surface1, bg = c.mantle },
 					SignColumn = { bg = transparent_bg },
 					EndOfBuffer = { bg = transparent_bg },
 					StatusLine = { fg = c.text, bg = c.mantle },
