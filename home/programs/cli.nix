@@ -1,7 +1,26 @@
-{ pkgs
-, ...
+{
+  lib,
+  osConfig ? null,
+  pkgs,
+  ...
 }:
 
+let
+  nvidiaPackage = osConfig.hardware.nvidia.package or null;
+  btopPackage =
+    if nvidiaPackage != null then
+      pkgs.symlinkJoin {
+        name = "btop-nvidia";
+        paths = [ pkgs.btop ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/btop \
+            --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ nvidiaPackage ]}
+        '';
+      }
+    else
+      pkgs.btop;
+in
 {
   programs.bat = {
     enable = true;
@@ -43,6 +62,7 @@
 
   programs.btop = {
     enable = true;
+    package = btopPackage;
     settings = {
       color_theme = "catppuccin_frappe.theme";
       theme_background = false;
