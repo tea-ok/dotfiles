@@ -51,6 +51,7 @@ in
     screenshotSnipDesktop
     davinci-resolve
     kitty
+    protonmail-desktop
   ];
 
   home.file.".config/fastfetch".source =

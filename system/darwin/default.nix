@@ -33,6 +33,7 @@
     claude-code
     codex
     kitty
+    protonmail-desktop
   ];
 
   nix-homebrew = {
