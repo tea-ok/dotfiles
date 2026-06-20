@@ -8,7 +8,7 @@ It intentionally contains only portable shell, tmux, and editor configuration:
 - zsh: `.zshrc`, `.p10k.zsh`, and `functions.zsh`
 - tmux: `.tmux.conf`
 - vim: `.vimrc` and `.exrc`
-- optional Neovim: `.config/nvim` via `./fallback/install.sh --nvim`
+- Neovim: `.config/nvim` when `nvim` is installed
 
 The normal setup is still Home Manager via the root flake. This fallback kit is
 not a replacement for the full managed configuration.
@@ -26,12 +26,13 @@ or `--force` to replace an existing file or symlink.
 Clone only the essentials and run the installer:
 
 ```sh
-git clone --filter=blob:none --sparse https://github.com/tea-ok/dotfiles.git ~/dotfiles-essentials && cd ~/dotfiles-essentials && git sparse-checkout set --no-cone '/fallback/install.sh' '/fallback/essentials/*' && ./fallback/install.sh
+git clone --filter=blob:none --sparse https://github.com/tea-ok/dotfiles.git ~/dotfiles-essentials && cd ~/dotfiles-essentials && git sparse-checkout set --no-cone '/fallback/install.sh' '/fallback/essentials/*' '/dotfiles/nvim/*' && ./fallback/install.sh
 ```
 
-To include Neovim in a sparse clone, add the Neovim config path before running
-with `--nvim`:
+The installer applies the Neovim symlink automatically when `nvim` is on
+`PATH`. To install the Neovim config before installing Neovim itself, pass
+`--nvim`:
 
 ```sh
-git sparse-checkout add --no-cone '/dotfiles/nvim/*' && ./fallback/install.sh --nvim
+./fallback/install.sh --nvim
 ```

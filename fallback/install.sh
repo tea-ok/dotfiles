@@ -15,12 +15,13 @@ usage() {
   cat <<'EOF'
 Usage: ./fallback/install.sh [--copy] [--force] [--nvim]
 
-Install the minimal non-Nix fallback kit for zsh, tmux, and vim.
+Install the minimal non-Nix fallback kit for zsh, tmux, vim, and Neovim when
+the nvim command is available.
 
 Options:
   --copy    Copy files instead of creating symlinks
   --force   Replace existing target files or symlinks
-  --nvim    Also install the Neovim config to ~/.config/nvim
+  --nvim    Install the Neovim config even if nvim is not on PATH
   -h        Show this help text
 EOF
 }
@@ -46,6 +47,10 @@ while [[ "$#" -gt 0 ]]; do
   esac
   shift
 done
+
+if command -v nvim >/dev/null 2>&1; then
+  install_nvim=1
+fi
 
 install_one() {
   local src="$1"
