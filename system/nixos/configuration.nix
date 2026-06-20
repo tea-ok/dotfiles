@@ -18,6 +18,10 @@
   networking.hostName = "nix";
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/Helsinki";
+  services.xserver.xkb = {
+    layout = "us,fi";
+    options = "grp:alt_shift_toggle";
+  };
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;

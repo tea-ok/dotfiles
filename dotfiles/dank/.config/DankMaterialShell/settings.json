@@ -430,6 +430,7 @@
       "rightWidgets": [
         "systemTray",
         "clipboard",
+        "keyboard_layout_name",
         "cpuUsage",
         "memUsage",
         "notificationButton",
