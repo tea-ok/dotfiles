@@ -33,7 +33,7 @@ in
 
   home.packages = with pkgs; [
     _1password-gui
-    discord
+    vesktop
     spotify
     obsidian
     proton-vpn

@@ -26,6 +26,19 @@
   services.keyd = {
     enable = true;
   };
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    wireplumber.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+    ];
+  };
 
   # Useful programs.
   programs.zsh.enable = true;
