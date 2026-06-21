@@ -3,7 +3,22 @@ return {
 	priority = 1000,
 	lazy = false,
 	opts = {
-		lazygit = { enabled = true },
+		lazygit = {
+			enabled = true,
+			win = {
+				wo = {
+					winhighlight = table.concat({
+						"Normal:SnacksLazyGitNormal",
+						"NormalNC:SnacksLazyGitNormal",
+						"NormalFloat:SnacksLazyGitNormal",
+						"FloatBorder:SnacksLazyGitBorder",
+						"FloatTitle:SnacksLazyGitTitle",
+						"WinBar:SnacksLazyGitNormal",
+						"WinBarNC:SnacksLazyGitNormal",
+					}, ","),
+				},
+			},
+		},
 		dashboard = {
 			enabled = true,
 			sections = {
