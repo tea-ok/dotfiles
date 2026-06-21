@@ -129,20 +129,6 @@
       sensible
       vim-tmux-navigator
       yank
-      {
-        plugin = catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavor "frappe"
-          set -g @catppuccin_window_status_style "basic"
-          set -g @catppuccin_status_background "default"
-
-          set -g status-left-length 100
-          set -g status-right-length 100
-          set -g status-left "#{E:@catppuccin_status_session}"
-          set -ag status-left "#{E:@catppuccin_status_directory}"
-          set -g status-right "#{E:@catppuccin_status_host}"
-        '';
-      }
     ];
     extraConfig = builtins.readFile ../../dotfiles/tmux/.tmux.conf;
   };
