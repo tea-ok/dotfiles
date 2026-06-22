@@ -61,7 +61,10 @@
   };
 
   system.defaults = {
-    dock.autohide = false;
+    dock = {
+      autohide = true;
+      orientation = "left";
+    };
   };
 
   nix.settings.experimental-features = "nix-command flakes";
