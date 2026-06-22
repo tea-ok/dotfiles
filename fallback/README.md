@@ -20,6 +20,8 @@ plugins bootstrap themselves through Zinit and Vundle. The installer also
 bootstraps TPM for tmux plugins; after first install, start tmux and press
 `prefix + I` (`C-s` then `I`) to fetch the plugins.
 
+On macOS, install the matching fonts with `brew install --cask font-jetbrains-mono-nerd-font font-symbols-only-nerd-font font-jetbrains-mono`.
+
 The installer creates symlinks by default. Use `--copy` to copy files instead,
 or `--force` to replace an existing file or symlink.
 

@@ -16,6 +16,8 @@ return {
         "gosum",
         "python",
         "html",
+        "markdown",
+        "markdown_inline",
         "css",
         "javascript",
         "lua",
