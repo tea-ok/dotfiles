@@ -1,0 +1,108 @@
+config-version = 2
+
+after-startup-command = []
+after-login-command = []
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+automatically-unhide-macos-hidden-apps = true
+
+accordion-padding = 30
+default-root-container-layout = "tiles"
+default-root-container-orientation = "auto"
+
+[key-mapping]
+preset = "qwerty"
+
+[gaps]
+inner.horizontal = 12
+inner.vertical = 12
+outer.left = 15
+outer.bottom = 15
+outer.top = 15
+outer.right = 15
+
+[mode.main.binding]
+# Niri Mod maps to Super; on macOS that is the Command key.
+cmd-t = "exec-and-forget open -na kitty"
+cmd-q = "close"
+
+cmd-h = "focus left"
+cmd-j = "focus down"
+cmd-k = "focus up"
+cmd-l = "focus right"
+
+cmd-shift-h = "move left"
+cmd-shift-j = "move down"
+cmd-shift-k = "move up"
+cmd-shift-l = "move right"
+
+cmd-ctrl-shift-h = "move-node-to-monitor left"
+cmd-ctrl-shift-j = "move-node-to-monitor down"
+cmd-ctrl-shift-k = "move-node-to-monitor up"
+cmd-ctrl-shift-l = "move-node-to-monitor right"
+cmd-ctrl-shift-left = "move-node-to-monitor left"
+cmd-ctrl-shift-down = "move-node-to-monitor down"
+cmd-ctrl-shift-up = "move-node-to-monitor up"
+cmd-ctrl-shift-right = "move-node-to-monitor right"
+
+cmd-n = "workspace --wrap-around next"
+cmd-p = "workspace --wrap-around prev"
+cmd-shift-n = "move-node-to-workspace --wrap-around next"
+cmd-shift-p = "move-node-to-workspace --wrap-around prev"
+
+cmd-1 = "workspace 1"
+cmd-2 = "workspace 2"
+cmd-3 = "workspace 3"
+cmd-4 = "workspace 4"
+cmd-5 = "workspace 5"
+cmd-6 = "workspace 6"
+cmd-7 = "workspace 7"
+cmd-8 = "workspace 8"
+cmd-9 = "workspace 9"
+
+cmd-ctrl-1 = "move-node-to-workspace 1"
+cmd-ctrl-2 = "move-node-to-workspace 2"
+cmd-ctrl-3 = "move-node-to-workspace 3"
+cmd-ctrl-4 = "move-node-to-workspace 4"
+cmd-ctrl-5 = "move-node-to-workspace 5"
+cmd-ctrl-6 = "move-node-to-workspace 6"
+cmd-ctrl-7 = "move-node-to-workspace 7"
+cmd-ctrl-8 = "move-node-to-workspace 8"
+cmd-ctrl-9 = "move-node-to-workspace 9"
+
+cmd-leftSquareBracket = "join-with left"
+cmd-rightSquareBracket = "join-with right"
+cmd-comma = "layout accordion horizontal vertical"
+cmd-period = "layout tiles horizontal vertical"
+
+cmd-r = "balance-sizes"
+cmd-ctrl-r = "flatten-workspace-tree"
+
+cmd-f = "fullscreen"
+cmd-shift-f = "fullscreen"
+cmd-m = "fullscreen --no-outer-gaps"
+cmd-ctrl-f = "resize smart +50"
+
+cmd-minus = "resize smart -50"
+cmd-equal = "resize smart +50"
+cmd-shift-minus = "resize height -50"
+cmd-shift-equal = "resize height +50"
+
+cmd-shift-v = "layout floating tiling"
+cmd-w = "layout accordion tiles"
+
+cmd-esc = "enable toggle"
+cmd-shift-e = "mode service"
+ctrl-alt-backspace = "mode service"
+
+[mode.service.binding]
+esc = ["reload-config", "mode main"]
+r = ["flatten-workspace-tree", "mode main"]
+f = ["layout floating tiling", "mode main"]
+backspace = ["close-all-windows-but-current", "mode main"]
+cmd-shift-h = ["join-with left", "mode main"]
+cmd-shift-j = ["join-with down", "mode main"]
+cmd-shift-k = ["join-with up", "mode main"]
+cmd-shift-l = ["join-with right", "mode main"]

@@ -32,6 +32,7 @@
     discord
     claude-code
     codex
+    aerospace
     kitty
     protonmail-desktop
   ];
