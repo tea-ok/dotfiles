@@ -316,33 +316,41 @@ animations {
     // slowdown 3.0
 
     workspace-switch {
-        duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        spring damping-ratio=0.82 stiffness=700 epsilon=0.0001
     }
 
     window-open {
-        duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        spring damping-ratio=0.78 stiffness=900 epsilon=0.0001
     }
 
     window-close {
-        duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        duration-ms 150
+        curve "ease-out-cubic"
     }
 
     horizontal-view-movement {
-        duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        spring damping-ratio=0.85 stiffness=650 epsilon=0.0001
     }
 
     window-movement {
-        duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        spring damping-ratio=0.75 stiffness=600 epsilon=0.0001
     }
 
     window-resize {
+        spring damping-ratio=0.85 stiffness=750 epsilon=0.0001
+    }
+
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=1000 epsilon=0.001
+    }
+
+    screenshot-ui-open {
         duration-ms 200
-        curve "cubic-bezier" 0.05 0.9 0.1 1.05
+        curve "ease-out-quad"
+    }
+
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=800 epsilon=0.0001
     }
 }
 
