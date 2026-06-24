@@ -33,6 +33,7 @@
     claude-code
     codex
     aerospace
+    jankyborders
     kitty
     protonmail-desktop
   ];
