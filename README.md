@@ -47,7 +47,7 @@ The macOS flake symlink should point at the root flake:
 | `system/darwin/` | macOS system-level nix-darwin configuration |
 | `home/profiles/` | Small Home Manager entrypoints for common, macOS, and NixOS |
 | `home/programs/` | Focused Home Manager modules for shell, CLI, editors, and AI tools |
-| `home/desktop/` | Platform desktop modules such as Ghostty, Niri, Rofi, and Quickshell |
+| `home/desktop/` | Platform desktop modules such as Ghostty, Hyprland, and theme config |
 | `dotfiles/` | Raw config trees referenced by Home Manager or kept for archival use |
 | `fallback/` | Minimal non-Nix fallback kit for zsh, vim, and tmux |
 
@@ -66,5 +66,5 @@ desktop setup; it only covers portable zsh, vim, and tmux essentials.
 ## Shouts-out
 
 - [waifu pic](https://github.com/gvolpe/nix-config) + repo structure inspo
-- [the best wm](https://github.com/niri-wm/niri) <3
+- [the best wm](https://github.com/hyprwm/Hyprland) <3
 - [soothing pastel theme](https://github.com/catppuccin) 😺

@@ -1,6 +1,6 @@
 # Hyprland notes
 
-This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfiles`.
+This is my Hyprland config. Home Manager links `~/.config/hypr` here with an out-of-store symlink, so config edits can be applied with `hyprctl reload`.
 
 ## Layout
 
@@ -19,18 +19,20 @@ This is my Hyprland config. On Arch, `~/.config/hypr` points here from `~/dotfil
 
 - `DP-5` is the left `1920x1080` monitor
 - `DP-4` is the main `2560x1440` monitor
-- workspace `4` is pinned to `DP-5`
+- workspaces `1..9` are persistent
+- workspace `4` is on `DP-5`; the other persistent workspaces are on `DP-4`
 
 ## Startup
 
-On login, the session script tries to do this:
+On login, DankMaterialShell is started by the NixOS `dms` user service. Hyprland starts `hypridle`, `hyprpaper`, and the startup layout helper.
+
+The session script tries to do this:
 
 - workspace `4` on the left monitor with one Firefox window
 - workspace `1` on the main monitor with:
-  - an empty Ghostty terminal on the left half
+  - an empty Kitty terminal on the left half
   - Ghostty running `fastfetch` on the top right
   - Ghostty running `btop` on the bottom right
-- starts `hypridle`, `quickshell`, and `hyprpaper`
 
 ## Idle
 
@@ -44,16 +46,20 @@ On resume, displays are turned back on.
 
 ## Main shortcuts
 
-- `Super + T`: open Ghostty
-- `Super + Space`: open app launcher (`rofi drun`)
-- `Super + Shift + Space`: open command launcher (`rofi run`)
+- `Super + T`: open Kitty
+- `Super + Space`: open Dank spotlight
+- `Super + Shift + Space`: open Dank launcher
 - `Super + E`: open Dolphin
-- `Super + F`: toggle fullscreen
-- `Super + Shift + L`: lock with `hyprlock`
-- `Super + M`: logout / shutdown helper
+- `Super + F`: maximize
+- `Super + Shift + F`: toggle fullscreen
+- `Super + Alt + L`: lock with Dank
+- `Super + M`: open Dank power menu
 - `Super + Q`: close focused window
 - `Super + Shift + V`: toggle floating / tiled
-- `Super + P`: toggle pseudo-tiling
+- `Super + O`: toggle Dank/Hyprland overview
+- `Super + W`: toggle Hyprland group mode
+- `Super + -`: shrink the focused split
+- `Super + =` / `Super + Shift + =`: grow the focused split
 - `Super + I`: toggle split direction in dwindle
 - `Super + J`: move focus down
 - `Super + K`: move focus up
@@ -62,8 +68,12 @@ On resume, displays are turned back on.
 ## Navigation
 
 - `Super + H/J/K/L`: move focus left/down/up/right
-- `Super + 1..0`: switch workspace `1..10`
-- `Super + Shift + 1..0`: move focused window to workspace `1..10`
+- `Super + Shift + H/J/K/L`: move focused window left/down/up/right
+- `Super + 1..9`: switch workspace `1..9`
+- `Super + Ctrl + 1..9`: move focused window to workspace `1..9`
+- `Super + Shift + 1..9`: move focused window to workspace `1..9`
+- `Super + N/P`: switch to next/previous workspace
+- `Super + Shift + N/P`: move focused window to next/previous workspace
 - `Super + Mouse Wheel`: cycle workspaces
 - `Super + Left Click Drag`: move window
 - `Super + Right Click Drag`: resize window
@@ -111,6 +121,8 @@ After config edits:
 ```sh
 hyprctl reload
 ```
+
+Most edits under `dotfiles/hypr/.config/hypr` do not need a NixOS rebuild because `~/.config/hypr` is a live symlink to this directory.
 
 If the wallpaper does not update immediately:
 

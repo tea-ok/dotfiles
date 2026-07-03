@@ -1,15 +1,11 @@
 return function(_)
-	hl.workspace_rule({
-		workspace = "1",
-		monitor = "DP-4",
-		persistent = true,
-	})
-
-	hl.workspace_rule({
-		workspace = "4",
-		monitor = "DP-5",
-		persistent = true,
-	})
+	for i = 1, 9 do
+		hl.workspace_rule({
+			workspace = tostring(i),
+			monitor = i == 4 and "DP-5" or "DP-4",
+			persistent = true,
+		})
+	end
 
 	hl.window_rule({
 		name = "suppress-maximize-events",
@@ -35,12 +31,6 @@ return function(_)
 		match = { class = "hyprland-run" },
 		move = "20 monitor_h-120",
 		float = true,
-	})
-
-	hl.window_rule({
-		name = "firefox-opacity",
-		match = { class = "firefox" },
-		opacity = "0.94 0.90",
 	})
 
 	hl.window_rule({

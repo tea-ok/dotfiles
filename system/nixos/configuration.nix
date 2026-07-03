@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -39,7 +34,6 @@
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
       xdg-desktop-portal-gtk
     ];
   };
@@ -68,9 +62,11 @@
     ";
   };
 
-  # Niri + dms + greetd.
-  programs.niri.enable = true;
-  systemd.user.services.niri.enableDefaultPath = false;
+  # Hyprland + dms + greetd.
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
@@ -91,7 +87,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --asterisks --user-menu --cmd ${config.programs.niri.package}/bin/niri-session";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --asterisks --user-menu --cmd '${config.programs.uwsm.package}/bin/uwsm start -e -D Hyprland hyprland.desktop'";
         user = "greeter";
       };
     };

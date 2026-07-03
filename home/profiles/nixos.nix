@@ -24,7 +24,6 @@ in
   imports = [
     ../desktop/ghostty-linux.nix
     ../desktop/kitty.nix
-    ../desktop/niri.nix
     ../desktop/theme.nix
   ];
 
@@ -47,6 +46,11 @@ in
     gcc
     grim
     slurp
+    hypridle
+    hyprlock
+    hyprpaper
+    brightnessctl
+    playerctl
     libnotify
     screenshotSnipDesktop
     davinci-resolve
@@ -57,6 +61,9 @@ in
 
   home.file.".config/fastfetch".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";
+
+  home.file.".config/hypr".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/hypr/.config/hypr";
 
   home.file.".local/bin".source = ../../dotfiles/local/.local/bin;
   home.file.".local/share/applications".source = ../../dotfiles/local/.local/share/applications;

@@ -1,8 +1,10 @@
 return {
-    terminal = "ghostty",
+    terminal = "kitty",
     file_manager = "dolphin",
-    menu = "rofi -show drun",
+    spotlight = "dms ipc spotlight toggle",
+    launcher = "dms ipc launcher toggle",
     browser = "firefox",
-    lock = "pidof hyprlock >/dev/null 2>&1 || hyprlock",
+    lock = "dms ipc lock lock",
+    powermenu = "dms ipc powermenu toggle",
     startup_script = os.getenv("HOME") .. "/.config/hypr/scripts/start-session.sh",
 }
