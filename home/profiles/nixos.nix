@@ -64,6 +64,7 @@ in
     kitty
     protonmail-desktop
     prismlauncher
+    brave
   ];
 
   programs.caelestia = {
