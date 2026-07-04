@@ -67,4 +67,5 @@ desktop setup; it only covers portable zsh, vim, and tmux essentials.
 
 - [waifu pic](https://github.com/gvolpe/nix-config) + repo structure inspo
 - [the best wm](https://github.com/hyprwm/Hyprland) <3
+- [the gorgeous shell](https://github.com/caelestia-dots/shell)
 - [soothing pastel theme](https://github.com/catppuccin) 😺

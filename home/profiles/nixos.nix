@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  caelestia-shell,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   screenshotSnipDesktop = pkgs.makeDesktopItem {
@@ -22,6 +27,7 @@ let
 in
 {
   imports = [
+    caelestia-shell.homeManagerModules.default
     ../desktop/ghostty-linux.nix
     ../desktop/kitty.nix
     ../desktop/theme.nix
@@ -46,9 +52,6 @@ in
     gcc
     grim
     slurp
-    hypridle
-    hyprlock
-    hyprpaper
     brightnessctl
     playerctl
     libnotify
@@ -58,6 +61,44 @@ in
     protonmail-desktop
     prismlauncher
   ];
+
+  programs.caelestia = {
+    enable = true;
+    cli.enable = true;
+    settings = {
+      general = {
+        apps = {
+          terminal = [ "kitty" ];
+          explorer = [ "dolphin" ];
+        };
+        idle = {
+          lockBeforeSleep = true;
+          inhibitWhenAudio = true;
+          inhibitWhenCharging = false;
+          timeouts = [
+            {
+              timeout = 600;
+              idleAction = "lock";
+              inhibitWhenAudio = false;
+              inhibitWhenCharging = false;
+              respectInhibitors = true;
+            }
+            {
+              timeout = 900;
+              idleAction = "dpms off";
+              returnAction = "dpms on";
+            }
+            {
+              timeout = 1800;
+              idleAction = [ "suspendThenHibernate" ];
+            }
+          ];
+        };
+      };
+      bar.workspaces.shown = 9;
+      paths.wallpaperDir = "${config.home.homeDirectory}/dotfiles/dotfiles/wallpapers";
+    };
+  };
 
   home.file.".config/fastfetch".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";

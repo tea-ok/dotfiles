@@ -1,10 +1,13 @@
 return {
     terminal = "kitty",
     file_manager = "dolphin",
-    spotlight = "dms ipc spotlight toggle",
-    launcher = "dms ipc launcher toggle",
+    explorer = "caelestia shell drawers toggle launcher",
+    launcher = "caelestia shell drawers toggle launcher",
     browser = "firefox",
     password_manager = "1password",
-    lock = "dms ipc lock lock",
-    powermenu = "dms ipc powermenu toggle",
+    lock = "caelestia shell lock lock",
+    powermenu = "caelestia shell drawers toggle session",
+    dashboard = "caelestia shell drawers toggle dashboard",
+    screenshot = "caelestia shell picker openClip",
+    screenshot_freeze = "caelestia shell picker openFreezeClip",
 }

@@ -62,7 +62,7 @@
     ";
   };
 
-  # Hyprland + dms + greetd.
+  # Hyprland + greetd.
   programs.hyprland = {
     enable = true;
     withUWSM = true;
@@ -70,19 +70,6 @@
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   programs.seahorse.enable = true;
-  programs.dms-shell = {
-    enable = true;
-    systemd = {
-      enable = true;
-      restartIfChanged = true;
-    };
-    enableSystemMonitoring = true;
-    enableVPN = true;
-    enableDynamicTheming = true;
-    enableAudioWavelength = true;
-    enableCalendarEvents = true;
-    enableClipboardPaste = true;
-  };
   services.greetd = {
     enable = true;
     settings = {

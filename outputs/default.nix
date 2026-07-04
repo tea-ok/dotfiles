@@ -6,6 +6,7 @@ let
     nixpkgs
     nix-darwin
     home-manager
+    caelestia-shell
     zig-overlay
     zls
     nix-homebrew
@@ -62,7 +63,12 @@ in
           useGlobalPkgs = true;
           useUserPackages = true;
           extraSpecialArgs = {
-            inherit self zig-overlay zls;
+            inherit
+              self
+              caelestia-shell
+              zig-overlay
+              zls
+              ;
           };
           users.${repo.users.nixos.username} = {
             imports = [
