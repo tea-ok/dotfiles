@@ -101,6 +101,11 @@ Caelestia reads wallpapers from that directory.
 
 ## Appearance
 
+Cursor theme:
+
+- `Bibata-Modern-Classic`
+- size `24`
+
 Animation tuning in `config/appearance.lua` was adapted from:
 
 - `ilyamiro/nixos-configuration`
@@ -117,7 +122,7 @@ hyprctl reload
 
 Most edits under `dotfiles/hypr/.config/hypr` do not need a NixOS rebuild because `~/.config/hypr` is a live symlink to this directory.
 
-If you change Caelestia settings, restart the `caelestia` user service.
+Caelestia settings live in `dotfiles/caelestia/.config/caelestia` and are linked as a writable config directory, so Nexus can save settings without a rebuild.
 
 ## Open the current folder
 

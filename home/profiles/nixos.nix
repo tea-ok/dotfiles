@@ -6,6 +6,9 @@
 }:
 
 let
+  cursorSize = 24;
+  cursorTheme = "Bibata-Modern-Classic";
+
   screenshotSnipDesktop = pkgs.makeDesktopItem {
     name = "screenshot-snip";
     desktopName = "Screenshot Snip";
@@ -52,6 +55,7 @@ in
     gcc
     grim
     slurp
+    hyprcursor
     brightnessctl
     playerctl
     libnotify
@@ -65,40 +69,21 @@ in
   programs.caelestia = {
     enable = true;
     cli.enable = true;
-    settings = {
-      general = {
-        apps = {
-          terminal = [ "kitty" ];
-          explorer = [ "dolphin" ];
-        };
-        idle = {
-          lockBeforeSleep = true;
-          inhibitWhenAudio = true;
-          inhibitWhenCharging = false;
-          timeouts = [
-            {
-              timeout = 600;
-              idleAction = "lock";
-              inhibitWhenAudio = false;
-              inhibitWhenCharging = false;
-              respectInhibitors = true;
-            }
-            {
-              timeout = 900;
-              idleAction = "dpms off";
-              returnAction = "dpms on";
-            }
-            {
-              timeout = 1800;
-              idleAction = [ "suspendThenHibernate" ];
-            }
-          ];
-        };
-      };
-      bar.workspaces.shown = 9;
-      paths.wallpaperDir = "${config.home.homeDirectory}/dotfiles/dotfiles/wallpapers";
+  };
+
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.bibata-cursors;
+    name = cursorTheme;
+    size = cursorSize;
+    hyprcursor = {
+      enable = true;
+      size = cursorSize;
     };
   };
+
+  home.file.".config/caelestia".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/caelestia/.config/caelestia";
 
   home.file.".config/fastfetch".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/fastfetch/.config/fastfetch";
