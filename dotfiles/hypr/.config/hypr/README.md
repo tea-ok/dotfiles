@@ -7,8 +7,6 @@ This is my Hyprland config. Home Manager links `~/.config/hypr` here with an out
 - `hyprland.lua`: main entrypoint
 - `config/`: monitors, autostart, appearance, input, keybinds, rules
 - `lib/apps.lua`: shared app commands
-- `scripts/start-session.sh`: runs the startup layout helper
-- `scripts/start-session.lua`: startup workspace layout
 - `hyprpaper.conf`: wallpaper config
 - `hyprlock.conf`: lock screen config
 - `hypridle.conf`: idle timers
@@ -24,15 +22,7 @@ This is my Hyprland config. Home Manager links `~/.config/hypr` here with an out
 
 ## Startup
 
-On login, DankMaterialShell is started by the NixOS `dms` user service. Hyprland starts `hypridle`, `hyprpaper`, and the startup layout helper.
-
-The session script tries to do this:
-
-- workspace `4` on the left monitor with one Firefox window
-- workspace `1` on the main monitor with:
-  - an empty Kitty terminal on the left half
-  - Ghostty running `fastfetch` on the top right
-  - Ghostty running `btop` on the bottom right
+On login, DankMaterialShell is started by the NixOS `dms` user service. Hyprland starts `hypridle`, `hyprpaper`, and 1Password on workspace `4`.
 
 ## Idle
 

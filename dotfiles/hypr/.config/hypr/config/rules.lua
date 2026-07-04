@@ -34,6 +34,18 @@ return function(_)
 	})
 
 	hl.window_rule({
+		name = "float-dolphin",
+		match = { class = "^(org.kde.dolphin|dolphin)$" },
+		float = true,
+	})
+
+	hl.window_rule({
+		name = "float-1password",
+		match = { class = "^1password$" },
+		float = true,
+	})
+
+	hl.window_rule({
 		name = "discord-opacity",
 		match = { class = "discord" },
 		opacity = "0.94 0.90",
