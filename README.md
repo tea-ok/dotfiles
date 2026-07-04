@@ -26,6 +26,24 @@ nix build .#darwinConfigurations.mac.system --no-link
 nix build .#nixosConfigurations.nix.config.system.build.toplevel --no-link
 ```
 
+## Updating Apps
+
+Most apps are pinned by `flake.lock`. To update Nix-packaged apps, including
+`codex` and `claude-code`, bump `nixpkgs`:
+
+```sh
+nix flake update nixpkgs
+```
+
+For macOS Homebrew-managed apps and taps, update the Homebrew inputs:
+
+```sh
+nix flake update homebrew-core homebrew-cask
+```
+
+Then preview or apply the config with the commands above. Commit the resulting
+`flake.lock` change after checking that the updated configuration evaluates.
+
 ## Flake Outputs
 
 - `darwinConfigurations.mac`: nix-darwin system config for macOS, with Home Manager attached for user config.
