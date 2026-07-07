@@ -48,6 +48,7 @@ Then preview or apply the config with the commands above. Commit the resulting
 
 - `darwinConfigurations.mac`: nix-darwin system config for macOS, with Home Manager attached for user config.
 - `nixosConfigurations."nix"`: NixOS system config for this machine, with Home Manager attached for user config.
+- `templates.devshell`: Cross-platform project dev shell baseline.
 
 The macOS flake symlink should point at the root flake:
 
@@ -61,6 +62,7 @@ The macOS flake symlink should point at the root flake:
 |---|---|
 | `flake.nix` | Root flake inputs and delegation to `outputs/` |
 | `outputs/` | Public flake outputs for nix-darwin and Home Manager |
+| `templates/` | Reusable flake templates for new projects |
 | `lib/` | Shared Nix helpers, host names, usernames, and package setup |
 | `system/darwin/` | macOS system-level nix-darwin configuration |
 | `home/profiles/` | Small Home Manager entrypoints for common, macOS, and NixOS |
@@ -68,6 +70,14 @@ The macOS flake symlink should point at the root flake:
 | `home/desktop/` | Platform desktop modules such as Ghostty, Hyprland, and theme config |
 | `dotfiles/` | Raw config trees referenced by Home Manager or kept for archival use |
 | `fallback/` | Minimal non-Nix fallback kit for zsh, vim, and tmux |
+
+## Project Templates
+
+Start a new project dev shell from this repo:
+
+```sh
+nix flake init -t ~/dotfiles#devshell
+```
 
 ## Non-Nix Fallback
 

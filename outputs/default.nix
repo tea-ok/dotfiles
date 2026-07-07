@@ -17,6 +17,15 @@ let
   repo = import ../lib { inherit inputs; };
 in
 {
+  templates = {
+    devshell = {
+      path = ../templates/devshell;
+      description = "Cross-platform Nix dev shell baseline";
+    };
+
+    default = self.templates.devshell;
+  };
+
   darwinConfigurations.${repo.hosts.darwin.name} = nix-darwin.lib.darwinSystem {
     specialArgs = {
       inherit
