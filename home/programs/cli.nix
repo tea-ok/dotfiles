@@ -79,6 +79,7 @@ in
         email = "70608286+tea-ok@users.noreply.github.com";
       };
       init.defaultBranch = "main";
+      push.autoSetupRemote = true;
     };
   };
 

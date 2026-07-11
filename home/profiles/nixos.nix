@@ -39,6 +39,8 @@ in
   home.username = "taavi";
   home.homeDirectory = "/home/taavi";
 
+  home.sessionVariables.BROWSER = "firefox";
+
   home.packages = with pkgs; [
     _1password-gui
     vesktop
@@ -66,6 +68,20 @@ in
     prismlauncher
     brave
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications =
+      let
+        firefox = [ "firefox.desktop" ];
+      in
+      {
+        "application/xhtml+xml" = firefox;
+        "text/html" = firefox;
+        "x-scheme-handler/http" = firefox;
+        "x-scheme-handler/https" = firefox;
+      };
+  };
 
   programs.caelestia = {
     enable = true;
