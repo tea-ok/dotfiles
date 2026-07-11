@@ -6,40 +6,96 @@ return {
   build = ":TSUpdate",
 
   config = function()
-    require("nvim-treesitter").setup({
-      ensure_installed = {
-        "c",
-        "cpp",
-        "rust",
-        "go",
-        "gomod",
-        "gosum",
-        "python",
-        "html",
-        "markdown",
-        "markdown_inline",
-        "css",
-        "javascript",
-        "lua",
-        "vim",
-        "vimdoc",
-        "query",
-        "toml",
-        "bash",
-        "nix",
-        "zig",
-        "haskell",
-        "cabal",
-      },
+    local treesitter = require("nvim-treesitter")
+    local ts_config = require("nvim-treesitter.config")
+    local parser_configs = require("nvim-treesitter.parsers")
 
-      sync_install = false,
-      auto_install = true,
-      autopairs = { enable = true },
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = { enable = true },
+    treesitter.setup()
+
+    local ensure_installed = {
+      "c",
+      "cpp",
+      "rust",
+      "go",
+      "gomod",
+      "gosum",
+      "python",
+      "html",
+      "markdown",
+      "markdown_inline",
+      "css",
+      "javascript",
+      "lua",
+      "vim",
+      "vimdoc",
+      "query",
+      "toml",
+      "bash",
+      "nix",
+      "zig",
+      "haskell",
+    }
+
+    local function supported(languages)
+      return vim.tbl_filter(function(lang)
+        return parser_configs[lang] ~= nil
+      end, languages)
+    end
+
+    local function installed_set()
+      local installed = {}
+      for _, lang in ipairs(ts_config.get_installed("parsers")) do
+        installed[lang] = true
+      end
+      return installed
+    end
+
+    local function missing(languages)
+      local installed = installed_set()
+      return vim.tbl_filter(function(lang)
+        return not installed[lang]
+      end, supported(languages))
+    end
+
+    local parsers_to_install = missing(ensure_installed)
+    if #parsers_to_install > 0 then
+      treesitter.install(parsers_to_install)
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      group = vim.api.nvim_create_augroup("TreesitterStart", { clear = true }),
+      callback = function(args)
+        local lang = vim.treesitter.language.get_lang(args.match) or args.match
+        if not parser_configs[lang] then
+          return
+        end
+
+        local function start()
+          if not vim.api.nvim_buf_is_valid(args.buf) then
+            return
+          end
+
+          local ok = pcall(vim.treesitter.start, args.buf, lang)
+          if ok then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end
+
+        if installed_set()[lang] then
+          start()
+          return
+        end
+
+        if vim.list_contains(ensure_installed, lang) then
+          local task = treesitter.install({ lang }, { summary = false })
+          if task and task.wait then
+            pcall(function()
+              task:wait(60000)
+            end)
+          end
+          start()
+        end
+      end,
     })
 
     require("nvim-treesitter-textobjects").setup({
