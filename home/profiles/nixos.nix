@@ -109,5 +109,8 @@ in
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/dotfiles/hypr/.config/hypr";
 
   home.file.".local/bin".source = ../../dotfiles/local/.local/bin;
-  home.file.".local/share/applications".source = ../../dotfiles/local/.local/share/applications;
+  home.file.".local/share/applications" = {
+    source = ../../dotfiles/local/.local/share/applications;
+    recursive = true;
+  };
 }
