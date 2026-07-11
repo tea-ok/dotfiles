@@ -133,6 +133,10 @@ Work in visual and operator-pending mode — combine with any operator (`d`, `y`
 |-----|--------|
 | `Space ra` | Rust code actions / Clippy suggestions |
 
+## Haskell
+
+Haskell support uses `haskell-language-server-wrapper` when available. Formatting runs through `fourmolu`, with HLS formatting as the fallback.
+
 ## Completion
 
 | Key | Action |

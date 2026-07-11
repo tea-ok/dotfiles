@@ -89,5 +89,9 @@ return {
       })
       vim.lsp.enable("zls")
     end
+
+    if vim.fn.executable("haskell-language-server-wrapper") == 1 then
+      vim.lsp.enable("hls")
+    end
   end
 }

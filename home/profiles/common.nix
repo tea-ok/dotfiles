@@ -53,6 +53,10 @@
     zig-overlay.packages.${pkgs.stdenv.hostPlatform.system}.master
     zls.packages.${pkgs.stdenv.hostPlatform.system}.zls
     ffmpeg
+    ghc
+    cabal-install
+    haskell-language-server
+    fourmolu
   ];
 
   home.sessionPath =

@@ -33,6 +33,8 @@ return {
       -- Zig/ZON: use ZLS formatting, which matches zig fmt
       zig      = { lsp_format = "first" },
       zon      = { lsp_format = "first" },
+      -- Haskell: use fourmolu if available, otherwise HLS formatting
+      haskell  = { "fourmolu", lsp_format = "fallback" },
       -- Markdown: markdownlint-cli2 fixes style violations on save
       markdown   = { "markdownlint-cli2" },
       nix        = { "nixfmt" },

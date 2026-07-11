@@ -28,6 +28,8 @@ return {
         "bash",
         "nix",
         "zig",
+        "haskell",
+        "cabal",
       },
 
       sync_install = false,
