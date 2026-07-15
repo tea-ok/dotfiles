@@ -38,6 +38,21 @@
     protonmail-desktop
   ];
 
+  launchd.user.agents.jankyborders = {
+    serviceConfig = {
+      ProgramArguments = [
+        "${pkgs.jankyborders}/bin/borders"
+        "active_color=glow(0xffd0bcff)"
+        "inactive_color=0xff494d64"
+        "width=5.0"
+      ];
+      RunAtLoad = true;
+      KeepAlive = true;
+      StandardOutPath = "/tmp/jankyborders.out.log";
+      StandardErrorPath = "/tmp/jankyborders.err.log";
+    };
+  };
+
   nix-homebrew = {
     enable = true;
     enableRosetta = true;
