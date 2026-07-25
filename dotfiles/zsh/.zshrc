@@ -104,7 +104,6 @@ alias cat="bat"
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 # brew
 if [[ -x /opt/homebrew/bin/brew ]]; then
@@ -127,3 +126,7 @@ export PATH="$HOME/go/bin:$PATH"
 
 # machine-local config (not tracked in version control)
 [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
+
+# zoxide must init last so its precmd/chpwd hook stays after p10k (avoids the
+# zoxide doctor "initialized at the end" warning).
+eval "$(zoxide init --cmd cd zsh)"

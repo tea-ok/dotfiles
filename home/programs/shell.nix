@@ -115,6 +115,13 @@
         # machine-local config (not tracked in version control)
         [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
       '')
+      (lib.mkOrder 1500 ''
+        # zoxide must init last so its precmd/chpwd hook stays after p10k and
+        # vi-mode; otherwise zoxide's doctor prints the "initialized at the end"
+        # warning on every command. (Integration is disabled below so this is
+        # the only init.)
+        eval "$(zoxide init --cmd cd zsh)"
+      '')
     ];
   };
 
@@ -140,6 +147,10 @@
 
   programs.zoxide = {
     enable = true;
+    # Init manually at the very end of .zshrc (initContent mkOrder 1500). The
+    # module's default integration runs before p10k/vi-mode load, which trips
+    # zoxide's "not initialized at the end" doctor warning.
+    enableZshIntegration = false;
     options = [ "--cmd cd" ];
   };
 

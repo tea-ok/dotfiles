@@ -127,7 +127,6 @@ export PATH="$HOME/go/bin:$PATH"
 
 # Shell integrations
 command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
-command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 if (( $+widgets[fzf-history-widget] )); then
   bindkey -M emacs '^R' fzf-history-widget
@@ -140,3 +139,7 @@ fi
 
 # machine-local config (not tracked in version control)
 [[ -f ~/.config/zsh/local.zsh ]] && source ~/.config/zsh/local.zsh
+
+# zoxide must init last so its precmd/chpwd hook stays after p10k (avoids the
+# zoxide doctor "initialized at the end" warning).
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
