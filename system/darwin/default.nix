@@ -36,6 +36,7 @@
     jankyborders
     kitty
     protonmail-desktop
+    brave
   ];
 
   launchd.user.agents.jankyborders = {
