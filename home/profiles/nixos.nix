@@ -27,6 +27,24 @@ let
       "screen"
     ];
   };
+
+  # DaVinci Resolve bundles its own Qt5, which ships only the `xcb` platform
+  # plugin. Under a Wayland session (Hyprland exports QT_QPA_PLATFORM=wayland)
+  # its Qt aborts in createPlatformIntegration() at startup (SIGABRT, 0s uptime).
+  # Force the bundled apps onto XCB (via XWayland). symlinkJoin keeps the
+  # package's own .desktop launchers and icons; wrapping every bin covers
+  # Resolve plus the bundled BlackmagicRAW / control-panel utilities, which
+  # share the same Qt and would crash the same way.
+  davinci-resolve-xcb = pkgs.symlinkJoin {
+    name = "davinci-resolve-xcb";
+    paths = [ pkgs.davinci-resolve ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      for bin in "$out"/bin/*; do
+        wrapProgram "$bin" --set QT_QPA_PLATFORM xcb
+      done
+    '';
+  };
 in
 {
   imports = [
@@ -62,7 +80,7 @@ in
     playerctl
     libnotify
     screenshotSnipDesktop
-    davinci-resolve
+    davinci-resolve-xcb
     kitty
     protonmail-desktop
     prismlauncher
