@@ -13,6 +13,22 @@ return {
 			end,
 			desc = "Neogit",
 		},
+		{
+			"<leader>gd",
+			function()
+				if next(require("diffview.lib").views) ~= nil then
+					vim.cmd("DiffviewClose")
+				else
+					vim.cmd("DiffviewOpen")
+				end
+			end,
+			desc = "Diffview toggle",
+		},
+		{
+			"<leader>gh",
+			"<cmd>DiffviewFileHistory %<cr>",
+			desc = "Diffview file history",
+		},
 	},
 	config = true,
 }
