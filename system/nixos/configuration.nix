@@ -48,7 +48,7 @@
   users.users.taavi = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     packages = with pkgs; [
       tree
     ];
