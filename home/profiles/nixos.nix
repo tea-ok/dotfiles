@@ -85,6 +85,7 @@ in
     protonmail-desktop
     prismlauncher
     brave
+    vlc
   ];
 
   xdg.mimeApps = {
