@@ -86,6 +86,7 @@ in
     prismlauncher
     brave
     vlc
+    obs-studio
   ];
 
   xdg.mimeApps = {
