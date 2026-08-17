@@ -28,7 +28,3 @@ nic() {
   tmux select-pane -t "$session_name":1.1
   tmux attach-session -t "$session_name"
 }
-
-open() {
-  xdg-open "$@"
-}
