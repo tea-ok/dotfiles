@@ -37,6 +37,7 @@ in
 
     modules = [
       ../system/darwin
+      ../system/common/nix.nix
       nix-homebrew.darwinModules.nix-homebrew
       home-manager.darwinModules.home-manager
       {
@@ -66,6 +67,7 @@ in
     system = repo.hosts.nixos.system;
     modules = [
       ../system/nixos
+      ../system/common/nix.nix
       home-manager.nixosModules.home-manager
       {
         home-manager = {

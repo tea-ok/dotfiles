@@ -28,21 +28,17 @@ nix build .#nixosConfigurations.nix.config.system.build.toplevel --no-link
 
 ## Updating Apps
 
-Most apps are pinned by `flake.lock`. To update Nix-packaged apps, including
-`codex` and `claude-code`, bump `nixpkgs`:
+Most apps are pinned by `flake.lock`. Update every input together:
 
 ```sh
-nix flake update nixpkgs
+nix flake update
 ```
 
-For macOS Homebrew-managed apps and taps, update the Homebrew inputs:
+Prefer this over bumping inputs individually. However, you can still:
 
 ```sh
 nix flake update homebrew-core homebrew-cask
 ```
-
-Then preview or apply the config with the commands above. Commit the resulting
-`flake.lock` change after checking that the updated configuration evaluates.
 
 ## Flake Outputs
 
@@ -59,7 +55,7 @@ The macOS flake symlink should point at the root flake:
 ## Layout
 
 | Path | Purpose |
-|---|---|
+| --- | --- |
 | `flake.nix` | Root flake inputs and delegation to `outputs/` |
 | `outputs/` | Public flake outputs for nix-darwin and Home Manager |
 | `templates/` | Reusable flake templates for new projects |
