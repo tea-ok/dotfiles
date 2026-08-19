@@ -38,6 +38,19 @@
     ];
   };
 
+  # Hibernation. The installer's 4G swap partition can't hold a 32G memory
+  # image, so hibernate to a swapfile on / instead. resume_offset is the first
+  # physical block of /swapfile and has to be updated if the file is recreated:
+  #   sudo filefrag -v /swapfile | awk '$1 == "0:" { print $4 }'
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 32 * 1024;
+    }
+  ];
+  boot.resumeDevice = "/dev/disk/by-uuid/cc78e529-41a4-4a57-b304-302163f6c556";
+  boot.kernelParams = [ "resume_offset=400351232" ];
+
   # Useful programs.
   programs.zsh.enable = true;
   programs.firefox.enable = true;
