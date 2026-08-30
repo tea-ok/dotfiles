@@ -19,8 +19,12 @@
   };
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
   };
+  # blueman-applet registers the BlueZ pairing agent. Without an agent bluetoothd
+  # rejects passkey confirmation ("No agent available for request type 2") and
+  # pairing silently fails.
+  services.blueman.enable = true;
   services.hardware.openrgb.enable = true;
   services.keyd = {
     enable = true;
@@ -61,7 +65,10 @@
   users.users.taavi = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
     packages = with pkgs; [
       tree
     ];

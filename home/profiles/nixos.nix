@@ -108,6 +108,11 @@ in
     cli.enable = true;
   };
 
+  # Runs blueman-applet as a user service. Hyprland doesn't process XDG autostart
+  # entries, so the system-level services.blueman.enable alone would never start
+  # the applet, and without it nothing registers a BlueZ pairing agent.
+  services.blueman-applet.enable = true;
+
   home.pointerCursor = {
     enable = true;
     package = pkgs.bibata-cursors;
