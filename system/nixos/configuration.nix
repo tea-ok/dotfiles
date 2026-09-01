@@ -25,6 +25,14 @@
   # rejects passkey confirmation ("No agent available for request type 2") and
   # pairing silently fails.
   services.blueman.enable = true;
+  # The onboard Bluetooth radio is the Intel AX210 combo card (USB 8087:0032),
+  # which shares its antennas with WiFi and has been unreliable here for years,
+  # across devices and operating systems. Deauthorize it at the USB level so the
+  # kernel never binds btusb to it and only the external dongle registers an
+  # adapter. Remove this block to go back to the onboard radio.
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="8087", ATTR{idProduct}=="0032", ATTR{authorized}="0"
+  '';
   services.hardware.openrgb.enable = true;
   services.keyd = {
     enable = true;
@@ -33,7 +41,31 @@
   services.pipewire = {
     enable = true;
     pulse.enable = true;
-    wireplumber.enable = true;
+    wireplumber = {
+      enable = true;
+      # Headsets that advertise both A2DP roles (the Bose QC does) can be connected
+      # in either direction, and BlueZ kept picking the one where the headset is the
+      # sender. That makes this machine a speaker for the headphones, so they showed
+      # up only under Input with no output node at all. Keep just the roles where
+      # this machine is the sender.
+      #
+      # Note these role names are from *this machine's* point of view, while the
+      # resulting profile names are from the remote device's: role a2dp_source is
+      # what produces the a2dp-sink profile. Dropping a2dp_sink is what removes the
+      # unwanted direction.
+      #
+      # Trade-off: this PC can no longer be used as a Bluetooth speaker for a phone.
+      extraConfig."51-bluez-output-only" = {
+        "monitor.bluez.properties" = {
+          "bluez5.roles" = [
+            "a2dp_source"
+            "bap_source"
+            "hsp_ag"
+            "hfp_ag"
+          ];
+        };
+      };
+    };
   };
   xdg.portal = {
     enable = true;
