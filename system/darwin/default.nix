@@ -24,7 +24,6 @@
     karabiner-elements
     ghostty-bin
     neovide
-    zed-editor
     proton-vpn
     _1password-gui
     obsidian
@@ -68,6 +67,9 @@
   homebrew = {
     enable = true;
     taps = builtins.attrNames config.nix-homebrew.taps;
+    casks = [
+      "zed"
+    ];
     masApps = {
       "WhatsApp" = 310633997;
       "1password Safari extension" = 1569813296;
