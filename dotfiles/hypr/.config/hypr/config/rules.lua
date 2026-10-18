@@ -2,7 +2,7 @@ return function(_)
 	for i = 1, 9 do
 		hl.workspace_rule({
 			workspace = tostring(i),
-			monitor = i == 4 and "DP-5" or "DP-4",
+			monitor = i == 4 and "desc:ASUSTek COMPUTER INC ASUS VG249 0x00000948" or "desc:ASUSTek COMPUTER INC VG27A M2LMQS057496",
 			persistent = true,
 		})
 	end

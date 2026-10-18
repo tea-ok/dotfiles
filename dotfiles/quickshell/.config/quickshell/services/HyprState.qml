@@ -8,7 +8,7 @@ Item {
 
     property string activeWindow: "Window"
     property string currentLayout: "Tiled"
-    property string primaryMonitorName: "DP-4"
+    property string primaryMonitorModel: "VG27A"
     property bool magicVisible: false
 
     function barScreens() {
@@ -19,7 +19,7 @@ Item {
             if (i === 0) {
                 fallback.push(screen)
             }
-            if (screen.name === primaryMonitorName) {
+            if (screen.model === primaryMonitorModel) {
                 return [screen]
             }
         }

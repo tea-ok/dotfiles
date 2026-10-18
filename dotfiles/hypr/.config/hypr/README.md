@@ -12,10 +12,10 @@ This is my Hyprland config. Home Manager links `~/.config/hypr` here with an out
 
 ## Monitors
 
-- `DP-5` is the left `1920x1080` monitor
-- `DP-4` is the main `2560x1440` monitor
+- `ASUS VG249` is the left `1920x1080` monitor
+- `VG27A` is the main `2560x1440` monitor
 - workspaces `1..9` are persistent
-- workspace `4` is on `DP-5`; the other persistent workspaces are on `DP-4`
+- workspace `4` is on the VG249; the other persistent workspaces are on the VG27A
 
 ## Startup
 
