@@ -72,7 +72,6 @@
     ];
     masApps = {
       "WhatsApp" = 310633997;
-      "1password Safari extension" = 1569813296;
     };
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
