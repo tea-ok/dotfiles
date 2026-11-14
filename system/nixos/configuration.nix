@@ -20,6 +20,15 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    # Multipoint headphones (Bose QC) re-pair with Just Works pairing when they
+    # roam back here from another host, rather than reusing the old link key.
+    # BlueZ defaults JustWorksRepairing to "never", so it silently sends a
+    # negative confirmation reply and the headset ends up with no key this
+    # adapter accepts. Every later connect then dies ~2s in with
+    # br-connection-key-missing (HCI 0x06) until the bond is purged on both
+    # sides and re-paired by hand. Windows and macOS accept the re-key, which is
+    # why only this partition needs the dance. Accept it here too.
+    settings.General.JustWorksRepairing = "always";
   };
   # blueman-applet registers the BlueZ pairing agent. Without an agent bluetoothd
   # rejects passkey confirmation ("No agent available for request type 2") and
