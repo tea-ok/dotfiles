@@ -49,5 +49,15 @@
     },
     "services": {
         "useFahrenheit": false
+    },
+    "session": {
+        "commands": {
+            "hibernate": [
+                "suspend"
+            ]
+        },
+        "icons": {
+            "hibernate": "bedtime"
+        }
     }
 }
