@@ -37,7 +37,7 @@ return function(ctx)
 				passes = 1,
 				vibrancy = 0.1696,
 				ignore_opacity = false,
-				xray = true,
+				xray = false,
 			},
 		},
 		dwindle = {
