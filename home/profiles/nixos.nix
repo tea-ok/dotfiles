@@ -28,13 +28,8 @@ let
     ];
   };
 
-  # DaVinci Resolve bundles its own Qt5, which ships only the `xcb` platform
-  # plugin. Under a Wayland session (Hyprland exports QT_QPA_PLATFORM=wayland)
-  # its Qt aborts in createPlatformIntegration() at startup (SIGABRT, 0s uptime).
-  # Force the bundled apps onto XCB (via XWayland). symlinkJoin keeps the
-  # package's own .desktop launchers and icons; wrapping every bin covers
-  # Resolve plus the bundled BlackmagicRAW / control-panel utilities, which
-  # share the same Qt and would crash the same way.
+  # Resolve's bundled Qt5 only has the xcb plugin and aborts under Wayland;
+  # force it and its bundled utilities onto XWayland.
   davinci-resolve-xcb = pkgs.symlinkJoin {
     name = "davinci-resolve-xcb";
     paths = [ pkgs.davinci-resolve ];
@@ -108,9 +103,7 @@ in
     cli.enable = true;
   };
 
-  # Runs blueman-applet as a user service. Hyprland doesn't process XDG autostart
-  # entries, so the system-level services.blueman.enable alone would never start
-  # the applet, and without it nothing registers a BlueZ pairing agent.
+  # Hyprland ignores XDG autostart, so start the pairing-agent applet here.
   services.blueman-applet.enable = true;
 
   home.pointerCursor = {
