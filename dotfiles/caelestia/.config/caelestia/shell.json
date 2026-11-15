@@ -37,7 +37,7 @@
                 },
                 {
                     "idleAction": [
-                        "suspendThenHibernate"
+                        "suspend"
                     ],
                     "timeout": 1800
                 }
